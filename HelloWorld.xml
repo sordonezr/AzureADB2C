@@ -1,0 +1,879 @@
+<TrustFrameworkPolicy xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06" PolicySchemaVersion="0.3.0.0"
+    TenantId="heimdaldevs.onmicrosoft.com" PolicyId="B2C_1A_HolaPolicy"
+    PublicPolicyUri="http://heimdaldevs.onmicrosoft.com/B2C_1A_HolaPolicy"
+    TenantObjectId="31f25a5f-b6ca-4d4c-9160-ab3ffc90ca29">
+    <BuildingBlocks>
+        <ClaimsSchema>
+            <ClaimType Id="objectId">
+                <DisplayName>unique object Id for subject of the claims being returned</DisplayName>
+                <DataType>string</DataType>
+            </ClaimType>
+            <ClaimType Id="message">
+                <DisplayName>Will hold Hello World message</DisplayName>
+                <DataType>string</DataType>
+            </ClaimType>
+            <ClaimType Id="documentType">
+                <DisplayName>Document Type</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>Select your document type.</UserHelpText>
+                <UserInputType>DropdownSingleSelect</UserInputType>
+                <Restriction>
+                    <Enumeration Text="CC" Value="CC" />
+                    <Enumeration Text="RC" Value="RC" />
+                    <Enumeration Text="PE" Value="PE" />
+                    <Enumeration Text="PP" Value="PP" />
+                </Restriction>
+            </ClaimType>
+            <ClaimType Id="documentNumber">
+                <DisplayName>Document Number</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>Enter your document number.</UserHelpText>
+                <UserInputType>TextBox</UserInputType>
+            </ClaimType>
+            <ClaimType Id="phoneNumber">
+                <DisplayName>Phone Number</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>Enter your phone number.</UserHelpText>
+                <UserInputType>TextBox</UserInputType>
+                <Restriction>
+                    <Pattern RegularExpression="^\+?(?:[-()\s]*\d[-()\s]*){4,16}$"
+                        HelpText="The value entered needs to be a phone number." />
+                </Restriction>
+            </ClaimType>
+
+            <!-- App Insights logging claims -->
+            <ClaimType Id="EventType">
+                <DisplayName>Event type</DisplayName>
+                <DataType>string</DataType>
+            </ClaimType>
+            <ClaimType Id="EventTimestamp">
+                <DisplayName>Event timestamp</DisplayName>
+                <DataType>string</DataType>
+            </ClaimType>
+            <ClaimType Id="PolicyId">
+                <DisplayName>Policy Id</DisplayName>
+                <DataType>string</DataType>
+            </ClaimType>
+            <ClaimType Id="Culture">
+                <DisplayName>Culture ID</DisplayName>
+                <DataType>string</DataType>
+            </ClaimType>
+            <ClaimType Id="CorrelationId">
+                <DisplayName>Correlation Id</DisplayName>
+                <DataType>string</DataType>
+            </ClaimType>
+            <ClaimType Id="nationalNumber">
+                <DisplayName>Phone Number</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>Enter National Phone Number</UserHelpText>
+                <UserInputType>TextBox</UserInputType>
+                <!-- <PredicateValidationReference Id="nationalNumber" /> -->
+            </ClaimType>
+            <ClaimType Id="countryCode">
+                <DisplayName>Country</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>Enter Country</UserHelpText>
+                <UserInputType>DropdownSingleSelect</UserInputType>
+                <Restriction>
+                    <Enumeration Text="Albania(+355)" Value="AL" />
+                    <Enumeration Text="Algeria(+213)" Value="DZ" />
+                    <Enumeration Text="American Samoa(+1684)" Value="AS" />
+                    <Enumeration Text="Andorra(+376)" Value="AD" />
+                    <Enumeration Text="Angola(+244)" Value="AO" />
+                    <Enumeration Text="Anguilla(+1264)" Value="AI" />
+                    <Enumeration Text="Antarctica(+672)" Value="AQ" />
+                    <Enumeration Text="Antigua and Barbuda(+1268)" Value="AG" />
+                    <Enumeration Text="Argentina(+54)" Value="AR" />
+                    <Enumeration Text="Armenia(+374)" Value="AM" />
+                    <Enumeration Text="Aruba(+297)" Value="AW" />
+                    <Enumeration Text="Australia(+61)" Value="AU" />
+                    <Enumeration Text="Austria(+43)" Value="AT" />
+                    <Enumeration Text="Azerbaijan(+994)" Value="AZ" />
+                    <Enumeration Text="Bahamas(+1242)" Value="BS" />
+                    <Enumeration Text="Bahrain(+973)" Value="BH" />
+                    <Enumeration Text="Bangladesh(+880)" Value="BD" />
+                    <Enumeration Text="Barbados(+1246)" Value="BB" />
+                    <Enumeration Text="Belarus(+375)" Value="BY" />
+                    <Enumeration Text="Belgium(+32)" Value="BE" />
+                    <Enumeration Text="Belize(+501)" Value="BZ" />
+                    <Enumeration Text="Benin(+229)" Value="BJ" />
+                    <Enumeration Text="Bermuda(+1441)" Value="BM" />
+                    <Enumeration Text="Bhutan(+975)" Value="BT" />
+                    <Enumeration Text="Bolivia(+591)" Value="BO" />
+                    <Enumeration Text="Bonaire, Sint Eustatius and Saba(+599)" Value="BQ" />
+                    <Enumeration Text="Bosnia and Herzegovina(+387)" Value="BA" />
+                    <Enumeration Text="Botswana(+267)" Value="BW" />
+                    <Enumeration Text="Brazil(+55)" Value="BR" />
+                    <Enumeration Text="British Virgin Islands (+1284)" Value="VG" />
+                    <Enumeration Text="Brunei Darussalam(+673)" Value="BN" />
+                    <Enumeration Text="Bulgaria(+359)" Value="BG" />
+                    <Enumeration Text="Burkina Faso(+226)" Value="BF" />
+                    <Enumeration Text="Burundi(+257)" Value="BI" />
+                    <Enumeration Text="Cambodia(+855)" Value="KH" />
+                    <Enumeration Text="Cameroon(+237)" Value="CM" />
+                    <Enumeration Text="Canada(+1)" Value="CA" />
+                    <Enumeration Text="Cape Verde(+238)" Value="CV" />
+                    <Enumeration Text="Cayman Islands(+1345)" Value="KY" />
+                    <Enumeration Text="Central African Republic(+236)" Value="CF" />
+                    <Enumeration Text="Chad(+235)" Value="TD" />
+                    <Enumeration Text="Chile(+56)" Value="CL" />
+                    <Enumeration Text="China(+86)" Value="CN" />
+                    <Enumeration Text="Colombia(+57)" Value="CO" />
+                    <Enumeration Text="Comoros(+269)" Value="KM" />
+                    <Enumeration Text="Congo(+242)" Value="CG" />
+                    <Enumeration Text="Cook Islands(+682)" Value="CK" />
+                    <Enumeration Text="Costa Rica(+506)" Value="CR" />
+                    <Enumeration Text="Côte d'Ivoire(+225)" Value="CI" />
+                    <Enumeration Text="Croatia(+385)" Value="HR" />
+                    <Enumeration Text="Cuba(+53)" Value="CU" />
+                    <Enumeration Text="Curaçao(+599)" Value="CZ" />
+                    <Enumeration Text="Cyprus(+357)" Value="CW" />
+                    <Enumeration Text="Czech Republic(+420)" Value="CZ" />
+                    <Enumeration Text="Congo (+243)" Value="CD" />
+                    <Enumeration Text="Denmark(+45)" Value="DK" />
+                    <Enumeration Text="Djibouti(+253)" Value="DJ" />
+                    <Enumeration Text="Dominica(+1767)" Value="DM" />
+                    <Enumeration Text="Dominican Republic(+1)" Value="DO" />
+                    <Enumeration Text="Timor-Leste(+670)" Value="TL" />
+                    <Enumeration Text="Ecuador(+593)" Value="EC" />
+                    <Enumeration Text="Egypt(+20)" Value="EG" />
+                    <Enumeration Text="El Salvador(+503)" Value="SV" />
+                    <Enumeration Text="Equatorial Guinea(+240)" Value="GQ" />
+                    <Enumeration Text="Eritrea(+291)" Value="ER" />
+                    <Enumeration Text="Estonia(+372)" Value="EE" />
+                    <Enumeration Text="Ethiopia(+251)" Value="ET" />
+                    <Enumeration Text="Falkland Islands (Malvinas)(+500)" Value="FK" />
+                    <Enumeration Text="Faroe Islands(+298)" Value="FO" />
+                    <Enumeration Text="Fiji(+679)" Value="FJ" />
+                    <Enumeration Text="Finland(+358)" Value="FI" />
+                    <Enumeration Text="France(+33)" Value="FR" />
+                    <Enumeration Text="French Guiana(+594)" Value="GF" />
+                    <Enumeration Text="French Polynesia(+689)" Value="PF" />
+                    <Enumeration Text="Gabon(+241)" Value="GA" />
+                    <Enumeration Text="Gambia(+220)" Value="GM" />
+                    <Enumeration Text="Georgia(+995)" Value="GE" />
+                    <Enumeration Text="Germany(+49)" Value="DE" />
+                    <Enumeration Text="Ghana(+233)" Value="GH" />
+                    <Enumeration Text="Gibraltar(+350)" Value="GI" />
+                    <Enumeration Text="Greece(+30)" Value="GR" />
+                    <Enumeration Text="Greenland(+299)" Value="GL" />
+                    <Enumeration Text="Grenada(+1473)" Value="GD" />
+                    <Enumeration Text="Guadeloupe(+590)" Value="GP" />
+                    <Enumeration Text="Guam(+1671)" Value="GU" />
+                    <Enumeration Text="Guatemala(+502)" Value="GT" />
+                    <Enumeration Text="Guinea(+224)" Value="GN" />
+                    <Enumeration Text="Guinea-Bissau(+245)" Value="GW" />
+                    <Enumeration Text="Guyana(+592)" Value="GY" />
+                    <Enumeration Text="Haiti(+509)" Value="HT" />
+                    <Enumeration Text="Honduras(+504)" Value="HN" />
+                    <Enumeration Text="Hong Kong(+852)" Value="HK" />
+                    <Enumeration Text="Hungary(+36)" Value="HU" />
+                    <Enumeration Text="Iceland(+354)" Value="IS" />
+                    <Enumeration Text="India(+91)" Value="IN" />
+                    <Enumeration Text="Indonesia(+62)" Value="ID" />
+                    <Enumeration Text="Iran(+98)" Value="IR" />
+                    <Enumeration Text="Iraq(+964)" Value="IQ" />
+                    <Enumeration Text="Ireland(+353)" Value="IE" />
+                    <Enumeration Text="Israel(+972)" Value="IL" />
+                    <Enumeration Text="Italy(+39)" Value="IT" />
+                    <Enumeration Text="Jamaica(+1)" Value="JM" />
+                    <Enumeration Text="Japan(+81)" Value="JP" />
+                    <Enumeration Text="Jordan(+962)" Value="JO" />
+                    <Enumeration Text="Kazakhstan(+7)" Value="KZ" />
+                    <Enumeration Text="Kenya(+254)" Value="KE" />
+                    <Enumeration Text="Kiribati(+686)" Value="KI" />
+                    <Enumeration Text="Kuwait(+965)" Value="KW" />
+                    <Enumeration Text="Kyrgyzstan(+996)" Value="KG" />
+                    <Enumeration Text="Lao People's Democratic Republic(+856)" Value="LA" />
+                    <Enumeration Text="Latvia(+371)" Value="LV" />
+                    <Enumeration Text="Lebanon(+961)" Value="LB" />
+                    <Enumeration Text="Lesotho(+266)" Value="LS" />
+                    <Enumeration Text="Liberia(+231)" Value="LR" />
+                    <Enumeration Text="Libya(+218)" Value="LY" />
+                    <Enumeration Text="Liechtenstein(+423)" Value="LI" />
+                    <Enumeration Text="Lithuania(+370)" Value="LT" />
+                    <Enumeration Text="Luxembourg(+352)" Value="LU" />
+                    <Enumeration Text="Macao(+853)" Value="MO" />
+                    <Enumeration Text="North Macedonia, Republic of (+389)" Value="MK" />
+                    <Enumeration Text="Madagascar(+261)" Value="MG" />
+                    <Enumeration Text="Malawi(+265)" Value="MW" />
+                    <Enumeration Text="Malaysia(+60)" Value="MY" />
+                    <Enumeration Text="Maldives(+960)" Value="MV" />
+                    <Enumeration Text="Mali(+223)" Value="ML" />
+                    <Enumeration Text="Malta(+356)" Value="MT" />
+                    <Enumeration Text="Marshall Islands(+692)" Value="MH" />
+                    <Enumeration Text="Martinique(+596)" Value="MQ" />
+                    <Enumeration Text="Mauritania(+222)" Value="MR" />
+                    <Enumeration Text="Mauritius(+230)" Value="MU" />
+                    <Enumeration Text="Mexico(+52)" Value="MX" />
+                    <Enumeration Text="Micronesia(+691)" Value="FM" />
+                    <Enumeration Text="Moldova, Republic of(+373)" Value="MD" />
+                    <Enumeration Text="Monaco(+377)" Value="MC" />
+                    <Enumeration Text="Mongolia(+976)" Value="MN" />
+                    <Enumeration Text="Montenegro(+382)" Value="ME" />
+                    <Enumeration Text="Montserrat(+1664)" Value="MS" />
+                    <Enumeration Text="Morocco(+212)" Value="MA" />
+                    <Enumeration Text="Mozambique(+258)" Value="MZ" />
+                    <Enumeration Text="Myanmar(+95)" Value="MM" />
+                    <Enumeration Text="Namibia(+264)" Value="NA" />
+                    <Enumeration Text="Nauru(+674)" Value="NR" />
+                    <Enumeration Text="Nepal(+977)" Value="NP" />
+                    <Enumeration Text="Netherlands(+31)" Value="NL" />
+                    <Enumeration Text="New Caledonia(+687)" Value="NC" />
+                    <Enumeration Text="New Zealand(+64)" Value="NZ" />
+                    <Enumeration Text="Nicaragua(+505)" Value="NI" />
+                    <Enumeration Text="Niger(+227)" Value="NE" />
+                    <Enumeration Text="Nigeria(+234)" Value="NG" />
+                    <Enumeration Text="Niue(+683)" Value="NU" />
+                    <Enumeration Text="Korea, Democratic People's Republic of (North Korea)(+850)"
+                        Value="KP" />
+                    <Enumeration Text="Norway(+47)" Value="NO" />
+                    <Enumeration Text="Oman(+968)" Value="OM" />
+                    <Enumeration Text="Pakistan(+92)" Value="PK" />
+                    <Enumeration Text="Palau(+680)" Value="PW" />
+                    <Enumeration Text="Palestine, State of(+970)" Value="PS" />
+                    <Enumeration Text="Panama(+507)" Value="PA" />
+                    <Enumeration Text="Papua New Guinea(+675)" Value="PG" />
+                    <Enumeration Text="Paraguay(+595)" Value="PY" />
+                    <Enumeration Text="Peru(+51)" Value="PE" />
+                    <Enumeration Text="Philippines(+63)" Value="PH" />
+                    <Enumeration Text="Poland(+48)" Value="PL" />
+                    <Enumeration Text="Portugal(+351)" Value="PT" />
+                    <Enumeration Text="Puerto Rico(+1)" Value="PR" />
+                    <Enumeration Text="Qatar(+974)" Value="QA" />
+                    <Enumeration Text="Réunion(+262)" Value="RE" />
+                    <Enumeration Text="Romania(+40)" Value="RO" />
+                    <Enumeration Text="Russian Federation(+7)" Value="RU" />
+                    <Enumeration Text="Rwanda(+250)" Value="RW" />
+                    <Enumeration Text="Saint Helena, Ascension and Tristan da Cunha(+290)"
+                        Value="SH" />
+                    <Enumeration Text="Saint Kitts and Nevis(+1869)" Value="KN" />
+                    <Enumeration Text="Saint Lucia(+1758)" Value="LC" />
+                    <Enumeration Text="Saint Pierre and Miquelon(+508)" Value="PM" />
+                    <Enumeration Text="Saint Vincent and the Grenadines(+1784)" Value="VC" />
+                    <Enumeration Text="Northern Mariana Islands(CNMI)(+1670)" Value="MP" />
+                    <Enumeration Text="Samoa(+685)" Value="WS" />
+                    <Enumeration Text="San Marino(+378)" Value="SM" />
+                    <Enumeration Text="Sao Tome and Principe(+239)" Value="ST" />
+                    <Enumeration Text="Saudi Arabia(+966)" Value="SA" />
+                    <Enumeration Text="Senegal(+221)" Value="SN" />
+                    <Enumeration Text="Serbia(+381)" Value="RS" />
+                    <Enumeration Text="Seychelles(+248)" Value="SC" />
+                    <Enumeration Text="Sierra Leone(+232)" Value="SL" />
+                    <Enumeration Text="Singapore(+65)" Value="SG" />
+                    <Enumeration Text="Slovakia(+421)" Value="SK" />
+                    <Enumeration Text="Slovenia(+386)" Value="SI" />
+                    <Enumeration Text="Solomon Islands(+677)" Value="SB" />
+                    <Enumeration Text="Somalia(+252)" Value="SO" />
+                    <Enumeration Text="South Africa(+27)" Value="ZA" />
+                    <Enumeration Text="Korea, Republic of(+82)" Value="KR" />
+                    <Enumeration Text="South Sudan(+211)" Value="SS" />
+                    <Enumeration Text="Spain(+34)" Value="ES" />
+                    <Enumeration Text="Sri Lanka(+94)" Value="LK" />
+                    <Enumeration Text="Sudan(+249)" Value="SD" />
+                    <Enumeration Text="Suriname(+597)" Value="SR" />
+                    <Enumeration Text="Swaziland(+268)" Value="SZ" />
+                    <Enumeration Text="Sweden(+46)" Value="SE" />
+                    <Enumeration Text="Switzerland(+41)" Value="CH" />
+                    <Enumeration Text="Syrian Arab Republic(+963)" Value="SY" />
+                    <Enumeration Text="Taiwan, Province of China(+886)" Value="TW" />
+                    <Enumeration Text="Tajikistan(+992)" Value="TJ" />
+                    <Enumeration Text="Tanzania, United Republic of(+255)" Value="TZ" />
+                    <Enumeration Text="Thailand(+66)" Value="TH" />
+                    <Enumeration Text="Togo(+228)" Value="TG" />
+                    <Enumeration Text="Tokelau(+690)" Value="TK" />
+                    <Enumeration Text="Tonga(+676)" Value="TO" />
+                    <Enumeration Text="Trinidad and Tobago(+1868)" Value="TT" />
+                    <Enumeration Text="Tunisia(+216)" Value="TN" />
+                    <Enumeration Text="Turkey(+90)" Value="TR" />
+                    <Enumeration Text="Turkmenistan(+993)" Value="TM" />
+                    <Enumeration Text="Turks and Caicos Islands(+1649)" Value="TC" />
+                    <Enumeration Text="Tuvalu(+688)" Value="TV" />
+                    <Enumeration Text="Uganda(+256)" Value="UG" />
+                    <Enumeration Text="Ukraine(+380)" Value="UA" />
+                    <Enumeration Text="United Arab Emirates(+971)" Value="UA" />
+                    <Enumeration Text="United Kingdom(+44)" Value="GB" />
+                    <Enumeration Text="United States(+1)" Value="US" />
+                    <Enumeration Text="Virgin Islands, U.S.(+1340)" Value="VI" />
+                    <Enumeration Text="Uruguay(+598)" Value="UY" />
+                    <Enumeration Text="Uzbekistan(+998)" Value="UZ" />
+                    <Enumeration Text="Vanuatu(+678)" Value="VU" />
+                    <Enumeration Text="Holy See (Vatican City State)(+379)" Value="VA" />
+                    <Enumeration Text="Venezuela, Bolivarian Republic of(+58)" Value="VE" />
+                    <Enumeration Text="Viet Nam(+84)" Value="VN" />
+                    <Enumeration Text="Wallis and Futuna(+681)" Value="WF" />
+                    <Enumeration Text="Yemen(+967)" Value="YE" />
+                    <Enumeration Text="Zambia(+260)" Value="ZM" />
+                    <Enumeration Text="Zimbabwe(+263)" Value="ZW" />
+                </Restriction>
+            </ClaimType>
+            <ClaimType Id="verificationCode">
+                <DisplayName>Verification Code</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>Enter your verification code</UserHelpText>
+                <UserInputType>TextBox</UserInputType>
+            </ClaimType>
+
+            <ClaimType Id="userPrincipalName">
+                <DisplayName>UserPrincipalName</DisplayName>
+                <DataType>string</DataType>
+                <DefaultPartnerClaimTypes>
+                    <Protocol Name="OAuth2" PartnerClaimType="upn" />
+                    <Protocol Name="OpenIdConnect" PartnerClaimType="upn" />
+                    <Protocol Name="SAML2"
+                        PartnerClaimType="http://schemas.microsoft.com/identity/claims/userprincipalname" />
+                </DefaultPartnerClaimTypes>
+                <AdminHelpText>The user name as stored in the Azure Active Directory.</AdminHelpText>
+                <UserHelpText>Your user name as stored in the Azure Active Directory.</UserHelpText>
+            </ClaimType>
+
+            <ClaimType Id="signInNames.phoneNumber">
+                <DataType>phoneNumber</DataType>
+            </ClaimType>
+
+            <ClaimType Id="upnUserName">
+                <DisplayName>UPN User Name</DisplayName>
+                <DataType>string</DataType>
+                <AdminHelpText>The user name for creating user principal name.</AdminHelpText>
+                <UserHelpText>The user name for creating user principal name.</UserHelpText>
+            </ClaimType>
+
+            <ClaimType Id="isLocalAccountSignIn">
+                <DataType>boolean</DataType>
+              </ClaimType>
+        </ClaimsSchema>
+
+        <ClaimsTransformations>
+
+            <ClaimsTransformation Id="CreateRandomUPNUserName"
+                TransformationMethod="CreateRandomString">
+                <InputParameters>
+                    <InputParameter Id="randomGeneratorType" DataType="string" Value="GUID" />
+                </InputParameters>
+                <OutputClaims>
+                    <OutputClaim ClaimTypeReferenceId="upnUserName"
+                        TransformationClaimType="outputClaim" />
+                </OutputClaims>
+            </ClaimsTransformation>
+
+
+            <ClaimsTransformation Id="CreateUserPrincipalName"
+                TransformationMethod="FormatStringClaim">
+                <InputClaims>
+                    <InputClaim ClaimTypeReferenceId="upnUserName"
+                        TransformationClaimType="inputClaim" />
+                </InputClaims>
+                <InputParameters>
+                    <InputParameter Id="stringFormat" DataType="string"
+                        Value="cpim_{0}@{RelyingPartyTenantId}" />
+                </InputParameters>
+                <OutputClaims>
+                    <OutputClaim ClaimTypeReferenceId="userPrincipalName"
+                        TransformationClaimType="outputClaim" />
+                </OutputClaims>
+            </ClaimsTransformation>
+
+            <ClaimsTransformation Id="ConvertStringToPhoneNumber"
+                TransformationMethod="ConvertStringToPhoneNumberClaim">
+                <InputClaims>
+                    <InputClaim ClaimTypeReferenceId="countryCode" TransformationClaimType="country" />
+                    <InputClaim ClaimTypeReferenceId="nationalNumber"
+                        TransformationClaimType="phoneNumberString" />
+                </InputClaims>
+                <OutputClaims>
+                    <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber"
+                        TransformationClaimType="outputClaim" />
+                </OutputClaims>
+            </ClaimsTransformation>
+
+
+            <ClaimsTransformation Id="GetNationalNumberAndCountryCodeIfInternationalFormat"
+                TransformationMethod="GetNationalNumberAndCountryCodeFromPhoneNumberString">
+                <InputClaims>
+                    <InputClaim ClaimTypeReferenceId="phoneNumber"
+                        TransformationClaimType="phoneNumber" />
+                </InputClaims>
+                <InputParameters>
+                    <InputParameter Id="throwExceptionOnFailure" DataType="boolean" Value="false" />
+                    <InputParameter Id="countryCodeType" DataType="string" Value="ISO3166" />
+                </InputParameters>
+                <OutputClaims>
+                    <OutputClaim ClaimTypeReferenceId="phoneNumber"
+                        TransformationClaimType="nationalNumber" />
+                    <OutputClaim ClaimTypeReferenceId="countryCode"
+                        TransformationClaimType="countryCode" />
+                </OutputClaims>
+            </ClaimsTransformation>
+
+            <ClaimsTransformation Id="PhoneNumberToNationalNumber" TransformationMethod="CopyClaim">
+                <InputClaims>
+                    <InputClaim ClaimTypeReferenceId="phoneNumber"
+                        TransformationClaimType="inputClaim" />
+                </InputClaims>
+                <OutputClaims>
+                    <OutputClaim ClaimTypeReferenceId="nationalNumber"
+                        TransformationClaimType="outputClaim" />
+                </OutputClaims>
+            </ClaimsTransformation>
+        </ClaimsTransformations>
+
+        <ContentDefinitions>
+            <ContentDefinition Id="phoneSignIn">
+                <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+                <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+                <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
+                <Metadata>
+                    <Item Key="DisplayName">Verify phone to sign in</Item>
+                </Metadata>
+            </ContentDefinition>
+            <ContentDefinition Id="signuporsignin-phone">
+                <LoadUri>https://raw.githubusercontent.com/sordonezr/AzureADB2C/main/unified.html</LoadUri>
+                <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+                <DataUri>urn:com:microsoft:aad:b2c:elements:contract:unifiedssp:2.1.7</DataUri>
+                <!-- <Metadata>
+                  <Item Key="DisplayName">Signin and Signup using phone ...</Item>
+                  <Item Key="setting.bottomUnderFormClaimsProviderSelections">ChangePhoneNumber</Item>
+                </Metadata> -->
+              </ContentDefinition>
+            <ContentDefinition Id="SelfAssertedContentDefinition">
+                <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+                <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+                <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
+            </ContentDefinition>
+        </ContentDefinitions>
+    </BuildingBlocks>
+    <ClaimsProviders>
+    <!-- obligatorio -->
+    <ClaimsProvider>
+        <DisplayName>Token Issuer</DisplayName>
+        <TechnicalProfiles>
+            <TechnicalProfile Id="JwtIssuer">
+                <DisplayName>JWT Issuer</DisplayName>
+                    <Protocol Name="None" />
+                <OutputTokenFormat>JWT</OutputTokenFormat>
+                <Metadata>
+                    <Item Key="client_id">{service:te}</Item>
+                    <Item Key="issuer_refresh_token_user_identity_claim_type">objectId</Item>
+                    <Item Key="SendTokenResponseBodyWithJsonNumbers">true</Item>
+                </Metadata>
+                <CryptographicKeys>
+                        <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+                        <Key Id="issuer_refresh_token_key"
+                            StorageReferenceId="B2C_1A_TokenEncryptionKeyContainer" />
+                </CryptographicKeys>
+            </TechnicalProfile>
+        </TechnicalProfiles>
+    </ClaimsProvider>
+    <!-- obligatorio -->
+    <ClaimsProvider>
+        <DisplayName>Trustframework Policy Engine TechnicalProfiles</DisplayName>
+        <TechnicalProfiles>
+            <TechnicalProfile Id="TpEngine_c3bd4fe2-1775-4013-b91d-35f16d377d13">
+                <DisplayName>Trustframework Policy Engine Default Technical Profile</DisplayName>
+                    <Protocol Name="None" />
+                <Metadata>
+                    <Item Key="url">{service:te}</Item>
+                </Metadata>
+            </TechnicalProfile>
+        </TechnicalProfiles>
+    </ClaimsProvider>
+    <!-- formulario de entrada de datos -->
+    <ClaimsProvider>
+        <DisplayName>Technical Profiles to collect user's details </DisplayName>
+        <TechnicalProfiles>
+            <TechnicalProfile Id="UserInformationCollector">
+                <DisplayName>Collect User Input Technical Profile</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                <Metadata>
+                    <Item Key="ContentDefinitionReferenceId">phoneSignIn</Item>
+                </Metadata>
+                <DisplayClaims>
+                        <DisplayClaim ClaimTypeReferenceId="documentType" Required="true" />
+                        <DisplayClaim ClaimTypeReferenceId="documentNumber" Required="true" />
+                </DisplayClaims>
+                <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="documentType" />
+                        <OutputClaim ClaimTypeReferenceId="documentNumber" />
+                </OutputClaims>
+                <ValidationTechnicalProfiles>
+                        <ValidationTechnicalProfile ReferenceId="ValidateAccessCodeViaHttp" />
+                </ValidationTechnicalProfiles>
+                <!-- <EnabledForUserJourneys>OnClaimsExistence</EnabledForUserJourneys> -->
+            </TechnicalProfile>
+        </TechnicalProfiles>
+    </ClaimsProvider>
+    <!-- call api rest -->
+    <ClaimsProvider>
+        <DisplayName>HTTP Request Technical Profiles</DisplayName>
+        <TechnicalProfiles>
+            <TechnicalProfile Id="ValidateAccessCodeViaHttp">
+                <DisplayName>Check that the user has entered a valid access code by using Claims
+                    Transformations</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.RestfulProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                <Metadata>
+                    <Item Key="DebugMode">true</Item>
+                    <!-- <Item
+                          Key="ServiceUrl">https://5611-130-250-229-39.ngrok-free.app/api/users</Item>  -->
+                    <Item Key="ServiceUrl">
+                        https://as-aeu-devs-prd-validate.azurewebsites.net/api/users</Item>
+                    <Item Key="SendClaimsIn">Body</Item>
+                    <Item Key="AuthenticationType">None</Item>
+                    <Item Key="AllowInsecureAuthInProduction">true</Item>
+                </Metadata>
+                <InputClaims>
+                        <InputClaim ClaimTypeReferenceId="documentType"
+                            PartnerClaimType="documentType" />
+                        <InputClaim ClaimTypeReferenceId="documentNumber"
+                            PartnerClaimType="documentNumber" />
+                </InputClaims>
+            </TechnicalProfile>
+        </TechnicalProfiles>
+    </ClaimsProvider>
+    <ClaimsProvider>
+        <DisplayName>Application Insights</DisplayName>
+        <TechnicalProfiles>
+            <!-- Common App Insight -->
+            <TechnicalProfile Id="AppInsights-Common">
+                <DisplayName>Application Insights</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.Insights.AzureApplicationInsightsProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                <Metadata>
+                    <!-- The ApplicationInsights instrumentation key which will be used for
+                          logging the events -->
+                    <Item Key="InstrumentationKey">d53d596a-71ad-4128-a0aa-1695d7a8495e</Item>
+                    <Item Key="DeveloperMode">false</Item>
+                    <Item Key="DisableTelemetry ">false</Item>
+                    <Item Key="IncludeClaimResolvingInClaimsHandling">true</Item>
+                </Metadata>
+                <InputClaims>
+                    <!-- Properties of an event are added through the syntax {property:NAME},
+                          where NAME is property being added to the event. DefaultValue can be either
+                          a static value or a value that's resolved by one of the supported
+                          DefaultClaimResolvers. -->
+                        <InputClaim ClaimTypeReferenceId="EventTimestamp"
+                            PartnerClaimType="{property:EventTimestamp}"
+                            DefaultValue="{Context:DateTimeInUtc}" />
+                        <InputClaim ClaimTypeReferenceId="PolicyId"
+                            PartnerClaimType="{property:Policy}" DefaultValue="{Policy:PolicyId}" />
+                        <InputClaim ClaimTypeReferenceId="CorrelationId"
+                            PartnerClaimType="{property:CorrelationId}"
+                            DefaultValue="{Context:CorrelationId}" />
+                        <InputClaim ClaimTypeReferenceId="Culture"
+                            PartnerClaimType="{property:Culture}" DefaultValue="{Culture:RFC5646}" />
+                </InputClaims>
+            </TechnicalProfile>
+            <TechnicalProfile Id="AppInsights-SignInRequest">
+                <InputClaims>
+                    <!-- An input claim with a PartnerClaimType="eventName" is required. This is
+                          used by the AzureApplicationInsightsProvider to create an event with the
+                          specified value. -->
+                        <InputClaim ClaimTypeReferenceId="EventType" PartnerClaimType="eventName"
+                            DefaultValue="SignInRequest" />
+                </InputClaims>
+                    <IncludeTechnicalProfile ReferenceId="AppInsights-Common" />
+            </TechnicalProfile>
+            <TechnicalProfile Id="AppInsights-EndRequest">
+                <InputClaims>
+                    <!-- An input claim with a PartnerClaimType="eventName" is required. This is
+                          used by the AzureApplicationInsightsProvider to create an event with the
+                          specified value. -->
+                        <InputClaim ClaimTypeReferenceId="EventType" PartnerClaimType="eventName"
+                            DefaultValue="EndRequest" />
+                </InputClaims>
+                    <IncludeTechnicalProfile ReferenceId="AppInsights-Common" />
+            </TechnicalProfile>
+        </TechnicalProfiles>
+    </ClaimsProvider>
+
+
+    <ClaimsProvider>
+        <DisplayName>Claims Transformation</DisplayName>
+
+
+        <!-- <TechnicalProfile Id="ValidateUsernameType">
+            <DisplayName>Validate UserName Type</DisplayName>
+            <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.ClaimsTransformationProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+            <InputClaimsTransformations>
+              <InputClaimsTransformation ReferenceId="SetPhoneNumberIfPredicateMatch" />
+              <InputClaimsTransformation ReferenceId="SetEmailIfPredicateMatch" />
+            </InputClaimsTransformations>
+            <OutputClaims>
+              <OutputClaim ClaimTypeReferenceId="phoneNumber" />
+              <OutputClaim ClaimTypeReferenceId="email" />
+              <OutputClaim ClaimTypeReferenceId="isLocalAccountSignIn" DefaultValue="true" />
+            </OutputClaims>
+          </TechnicalProfile> -->
+
+        <TechnicalProfiles>
+            <TechnicalProfile Id="CombineCountryCodeAndNationalNumber">
+                <DisplayName>Combine country code and national number</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.ClaimsTransformationProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                <InputClaimsTransformations>
+                        <InputClaimsTransformation ReferenceId="ConvertStringToPhoneNumber" />
+                </InputClaimsTransformations>
+                <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" />
+                </OutputClaims>
+                    <UseTechnicalProfileForSessionManagement ReferenceId="SM-Noop" />
+            </TechnicalProfile>
+        </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <ClaimsProvider>
+        <DisplayName>Session Management</DisplayName>
+        <TechnicalProfiles>
+            <TechnicalProfile Id="SM-Noop">
+                <DisplayName>Noop Session Management Provider</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.SSO.NoopSSOSessionProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+            </TechnicalProfile>
+            <TechnicalProfile Id="SM-AAD">
+                <DisplayName>Session Mananagement Provider</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.SSO.DefaultSSOSessionProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                <PersistedClaims>
+                        <PersistedClaim ClaimTypeReferenceId="objectId" />
+                </PersistedClaims>
+                <OutputClaims></OutputClaims>
+            </TechnicalProfile>
+            <!-- Session management technical profile for OIDC based tokens -->
+            <TechnicalProfile Id="SM-jwt-issuer">
+                <DisplayName>Session Management Provider</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.SSO.OAuthSSOSessionProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+            </TechnicalProfile>
+        </TechnicalProfiles>
+    </ClaimsProvider>
+
+    <!-- AzureMfa-SendSms -->
+    <ClaimsProvider>
+        <DisplayName>Azure MFA</DisplayName>
+        <TechnicalProfiles>
+            <TechnicalProfile Id="AzureMfa-SendSms">
+                <DisplayName>Send Sms</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.AzureMfaProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                <Metadata>
+                    <Item Key="Operation">OneWaySMS</Item>
+                </Metadata>
+                <InputClaims>
+                        <InputClaim ClaimTypeReferenceId="userPrincipalName" />
+                        <InputClaim ClaimTypeReferenceId="signInNames.phoneNumber"
+                            PartnerClaimType="phoneNumber" />
+                </InputClaims>
+            </TechnicalProfile>
+            <TechnicalProfile Id="AzureMfa-VerifySms">
+                <DisplayName>Verify Sms</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.AzureMfaProtocolProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                <Metadata>
+                    <Item Key="Operation">Verify</Item>
+                </Metadata>
+                <InputClaims>
+                        <InputClaim ClaimTypeReferenceId="verificationCode" />
+                        <InputClaim ClaimTypeReferenceId="signInNames.phoneNumber"
+                            PartnerClaimType="phoneNumber" />
+                </InputClaims>
+            </TechnicalProfile>
+        </TechnicalProfiles>
+    </ClaimsProvider>
+
+        <ClaimsProvider>
+            <DisplayName>Local Account Sign In With Phone</DisplayName>
+            <TechnicalProfiles>
+                
+                <TechnicalProfile Id="SelfAsserted-LocalAccountSignin-Phone-Only">
+                    <DisplayName>Local Account Signin Using Phone Only</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="setting.operatingMode">Username</Item>
+                    </Metadata>
+                    <InputClaims>
+                        <InputClaim ClaimTypeReferenceId="phoneNumber" />
+                    </InputClaims>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="phoneNumber" Required="true" />
+                        <OutputClaim ClaimTypeReferenceId="isLocalAccountSignIn" DefaultValue="true" />
+                    </OutputClaims>
+                    <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+                </TechnicalProfile>
+
+
+                <TechnicalProfile Id="PhoneVerificationPage1">
+                    <DisplayName>Phone</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="DebugMode">true</Item>
+                        <Item Key="ContentDefinitionReferenceId">phoneSignIn</Item>
+                    </Metadata>
+                    <InputClaimsTransformations>
+                        <InputClaimsTransformation
+                            ReferenceId="GetNationalNumberAndCountryCodeIfInternationalFormat" />
+                        <InputClaimsTransformation ReferenceId="PhoneNumberToNationalNumber" />
+                        <InputClaimsTransformation ReferenceId="CreateRandomUPNUserName" />
+                        <InputClaimsTransformation ReferenceId="CreateUserPrincipalName" />
+                    </InputClaimsTransformations>
+                    <InputClaims>
+                        <InputClaim ClaimTypeReferenceId="countryCode" />
+                        <InputClaim ClaimTypeReferenceId="nationalNumber" />
+                    </InputClaims>
+                    <DisplayClaims>
+                        <DisplayClaim ClaimTypeReferenceId="countryCode" Required="true" />
+                        <DisplayClaim ClaimTypeReferenceId="nationalNumber" Required="true" />
+                    </DisplayClaims>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="objectId" />
+                        <OutputClaim ClaimTypeReferenceId="signInNames.phoneNumber" Required="true" />
+                    </OutputClaims>
+                    <ValidationTechnicalProfiles>
+                        <ValidationTechnicalProfile
+                            ReferenceId="CombineCountryCodeAndNationalNumber" />
+                        <ValidationTechnicalProfile ReferenceId="AzureMfa-SendSms" />
+                    </ValidationTechnicalProfiles>
+                    <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+                </TechnicalProfile>
+
+
+                <TechnicalProfile Id="PhoneVerificationPage2">
+                    <DisplayName>Phone</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="ContentDefinitionReferenceId">phoneSignIn</Item>
+                    </Metadata>
+                    <CryptographicKeys>
+                        <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+                    </CryptographicKeys>
+                    <DisplayClaims>
+                        <DisplayClaim ClaimTypeReferenceId="verificationCode" Required="true" />
+                    </DisplayClaims>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="verificationCode" />
+                    </OutputClaims>
+                    <ValidationTechnicalProfiles>
+                        <ValidationTechnicalProfile ReferenceId="AzureMfa-VerifySms" />
+                    </ValidationTechnicalProfiles>
+                    <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
+                </TechnicalProfile>
+
+
+
+            </TechnicalProfiles>
+        </ClaimsProvider>
+    </ClaimsProviders>
+
+
+    <UserJourneys>
+        <UserJourney Id="HelloWorldJourney">
+            <OrchestrationSteps>
+                <!--Record
+                Initial Log of the flow-->
+                <OrchestrationStep Order="1" Type="ClaimsExchange">
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="TrackSignInRequest"
+                            TechnicalProfileReferenceId="AppInsights-SignInRequest" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+                <OrchestrationStep Order="2" Type="ClaimsExchange">
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="GetUserInformationClaimsExchange"
+                            TechnicalProfileReferenceId="UserInformationCollector" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+
+                <!-- <OrchestrationStep Order="3" Type="ClaimsExchange">
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="GetPhoneClaimsExchange"
+                            TechnicalProfileReferenceId="PhoneVerificationPage1" />
+                    </ClaimsExchanges>
+                </OrchestrationStep> -->
+
+
+                <OrchestrationStep Order="3" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="signuporsignin-phone">
+                    <ClaimsProviderSelections>
+                        <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninPhoneExchange" />
+                    </ClaimsProviderSelections>
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="LocalAccountSigninPhoneExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Phone-Only" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+                
+                
+                <OrchestrationStep Order="4" Type="ClaimsExchange">
+                    <Preconditions>
+                      <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
+                        <Value>isLocalAccountSignIn</Value>
+                        <Action>SkipThisOrchestrationStep</Action>
+                      </Precondition>
+                    </Preconditions>
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="LocalAccountPhoneSignInExchange" TechnicalProfileReferenceId="SelfAsserted-LocalAccountSignin-Phone-Only" />
+                    </ClaimsExchanges>
+                  </OrchestrationStep>
+
+
+
+                  <OrchestrationStep Order="5" Type="InvokeSubJourney">
+                    <JourneyList>
+                        <Candidate SubJourneyReferenceId="SignInWithPhone" />
+                    </JourneyList>
+                  </OrchestrationStep>
+
+
+                <!-- Track the end of the flow  -->
+                <OrchestrationStep Order="6" Type="ClaimsExchange">
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="TrackEndRequest"
+                            TechnicalProfileReferenceId="AppInsights-EndRequest" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+                <OrchestrationStep Order="7" Type="SendClaims"
+                    CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+            </OrchestrationSteps>
+        </UserJourney>
+    </UserJourneys>
+
+    <SubJourneys>
+        <SubJourney Id="SignInWithPhone" Type="Call">
+            <OrchestrationSteps>
+                <OrchestrationStep Order="1" Type="ClaimsExchange">
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="PhoneVerificationExchangePart1"
+                            TechnicalProfileReferenceId="PhoneVerificationPage1" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+                <OrchestrationStep Order="2" Type="ClaimsExchange">
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="PhoneVerificationExchangePart2"
+                            TechnicalProfileReferenceId="PhoneVerificationPage2" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+            </OrchestrationSteps>
+        </SubJourney>
+    </SubJourneys>
+
+    <RelyingParty>
+        <DefaultUserJourney ReferenceId="HelloWorldJourney" />
+        <TechnicalProfile Id="HelloWorldPolicyProfile">
+            <DisplayName>Hello World Policy Profile</DisplayName>
+            <Protocol Name="OpenIdConnect" />
+            <OutputClaims>
+                <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="sub"
+                    DefaultValue="abcd-1234-efgh-5678-ijkl-etc." />
+                <OutputClaim ClaimTypeReferenceId="message" DefaultValue="Hello World!" />
+                <!-- entrega la propiedades en el token -->
+                <OutputClaim ClaimTypeReferenceId="documentType" />
+                <OutputClaim ClaimTypeReferenceId="documentNumber" />
+                <!-- <OutputClaim ClaimTypeReferenceId="phoneNumber" /> -->
+            </OutputClaims>
+            <SubjectNamingInfo ClaimType="sub" />
+        </TechnicalProfile>
+    </RelyingParty>
+</TrustFrameworkPolicy>
