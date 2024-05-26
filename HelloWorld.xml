@@ -343,6 +343,31 @@
             <ClaimType Id="isLocalAccountSignIn">
                 <DataType>boolean</DataType>
               </ClaimType>
+
+            <ClaimType Id="accountType">
+                <DisplayName>Account Type</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>The type of account used by the user</UserHelpText>
+                <UserInputType>RadioSingleSelect</UserInputType>
+                <Restriction>
+                    <Enumeration Text="Email" Value="email" SelectByDefault="true" />
+                    <Enumeration Text="Phone Number" Value="phone" SelectByDefault="false" />
+                </Restriction>
+            </ClaimType>
+            <ClaimType Id="email">
+                <DisplayName>Email Address</DisplayName>
+                <DataType>string</DataType>
+                <DefaultPartnerClaimTypes>
+                    <Protocol Name="OpenIdConnect" PartnerClaimType="email" />
+                </DefaultPartnerClaimTypes>
+                <UserHelpText>Your email address. </UserHelpText>
+                <UserInputType>TextBox</UserInputType>
+                <Restriction>
+                    <Pattern
+                        RegularExpression="^[a-zA-Z0-9.!#$%&amp;&apos;^_`{}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                        HelpText="Please enter a valid email address something like maurice@contoso.com" />
+                </Restriction>
+            </ClaimType>
         </ClaimsSchema>
 
         <ClaimsTransformations>
@@ -693,6 +718,8 @@
                         Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
                     <Metadata>
                         <Item Key="setting.operatingMode">Username</Item>
+                        <Item Key="ClaimTypeOnWhichToEnable">accountType</Item>
+                        <Item Key="ClaimValueOnWhichToEnable">phone</Item>
                     </Metadata>
                     <InputClaims>
                         <InputClaim ClaimTypeReferenceId="phoneNumber" />
@@ -762,11 +789,65 @@
                     </ValidationTechnicalProfiles>
                     <UseTechnicalProfileForSessionManagement ReferenceId="SM-AAD" />
                 </TechnicalProfile>
-
-
-
             </TechnicalProfiles>
         </ClaimsProvider>
+
+
+        <ClaimsProvider>
+            <DisplayName>Technical Profile to collect user's accountType</DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="AccountTypeInputCollector">
+                    <DisplayName>Collect User Input Technical Profile</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="ContentDefinitionReferenceId">SelfAssertedContentDefinition</Item>
+                    </Metadata>
+                    <DisplayClaims>
+                        <DisplayClaim ClaimTypeReferenceId="accountType" Required="true" />
+                    </DisplayClaims>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="accountType" />
+                    </OutputClaims>
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+
+
+        <ClaimsProvider>
+            <DisplayName>Technical Profiles to collect user's details</DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="EmailCollector">
+                    <DisplayName>Collect User Input Technical Profile</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="ContentDefinitionReferenceId">SelfAssertedContentDefinition</Item>
+                        <Item Key="LookupNotFound">The provided email address isn't a valid Contoso Employee email.</Item>
+                        <!-- <Item Key="ClaimTypeOnWhichToEnable">accountType</Item>
+                            <Item Key="ClaimValueOnWhichToEnable">email</Item> -->
+                    </Metadata>
+                    <DisplayClaims>
+                        <DisplayClaim ClaimTypeReferenceId="email" Required="true" />
+                    </DisplayClaims>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="email" />
+                    </OutputClaims>
+                    <!-- <Preconditions>
+                        <Precondition Type="ClaimEquals" ExecuteActionsIf="false">
+                            <Value>accountType</Value>
+                            <Value>email</Value>
+                            <Action>SkipThisValidationTechnicalProfile</Action>
+                        </Precondition>
+                    </Preconditions> -->
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+        
+        
+
+
+
     </ClaimsProviders>
 
 
@@ -781,6 +862,7 @@
                             TechnicalProfileReferenceId="AppInsights-SignInRequest" />
                     </ClaimsExchanges>
                 </OrchestrationStep>
+
                 <OrchestrationStep Order="2" Type="ClaimsExchange">
                     <ClaimsExchanges>
                         <ClaimsExchange Id="GetUserInformationClaimsExchange"
@@ -788,15 +870,32 @@
                     </ClaimsExchanges>
                 </OrchestrationStep>
 
-                <!-- <OrchestrationStep Order="3" Type="ClaimsExchange">
+
+
+                <OrchestrationStep Order="3" Type="ClaimsExchange">
                     <ClaimsExchanges>
-                        <ClaimsExchange Id="GetPhoneClaimsExchange"
-                            TechnicalProfileReferenceId="PhoneVerificationPage1" />
+                        <ClaimsExchange Id="AccountTypeInputCollectorClaimsExchange"
+                            TechnicalProfileReferenceId="AccountTypeInputCollector" />
                     </ClaimsExchanges>
-                </OrchestrationStep> -->
+                </OrchestrationStep>
 
 
-                <OrchestrationStep Order="3" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="signuporsignin-phone">
+
+                <OrchestrationStep Order="4" Type="ClaimsExchange">
+                    <Preconditions>
+                        <Precondition Type="ClaimEquals" ExecuteActionsIf="false">
+                          <Value>accountType</Value>
+                          <Value>email</Value>
+                          <Action>SkipThisOrchestrationStep</Action>
+                        </Precondition>
+                      </Preconditions>
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="GetUserEmailClaimsExchange" TechnicalProfileReferenceId="EmailCollector" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+
+
+                <OrchestrationStep Order="5" Type="CombinedSignInAndSignUp" ContentDefinitionReferenceId="signuporsignin-phone">
                     <ClaimsProviderSelections>
                         <ClaimsProviderSelection ValidationClaimsExchangeId="LocalAccountSigninPhoneExchange" />
                     </ClaimsProviderSelections>
@@ -806,7 +905,9 @@
                 </OrchestrationStep>
                 
                 
-                <OrchestrationStep Order="4" Type="ClaimsExchange">
+
+
+                <OrchestrationStep Order="6" Type="ClaimsExchange">
                     <Preconditions>
                       <Precondition Type="ClaimsExist" ExecuteActionsIf="true">
                         <Value>isLocalAccountSignIn</Value>
@@ -820,21 +921,22 @@
 
 
 
-                  <OrchestrationStep Order="5" Type="InvokeSubJourney">
+                  <OrchestrationStep Order="7" Type="InvokeSubJourney">
                     <JourneyList>
                         <Candidate SubJourneyReferenceId="SignInWithPhone" />
                     </JourneyList>
                   </OrchestrationStep>
 
 
+
                 <!-- Track the end of the flow  -->
-                <OrchestrationStep Order="6" Type="ClaimsExchange">
+                <OrchestrationStep Order="8" Type="ClaimsExchange">
                     <ClaimsExchanges>
                         <ClaimsExchange Id="TrackEndRequest"
                             TechnicalProfileReferenceId="AppInsights-EndRequest" />
                     </ClaimsExchanges>
                 </OrchestrationStep>
-                <OrchestrationStep Order="7" Type="SendClaims"
+                <OrchestrationStep Order="9" Type="SendClaims"
                     CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
             </OrchestrationSteps>
         </UserJourney>
