@@ -1,33 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Unified Sign In</title>
-  <style>
-    .signup-container {
-      margin-top: 20px;
-      text-align: center;
-    }
-    .signup-container p {
-      font-size: 14px;
-      color: #333;
-    }
-    .signup-container a {
-      color: #0078d4;
-      text-decoration: none;
-    }
-    .signup-container a:hover {
-      text-decoration: underline;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>Unified Template</title>
+    <style>
+        .sign-up-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .sign-up-link {
+            color: #0078d4; /* Azure blue */
+            text-decoration: none;
+        }
+        .sign-up-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-  <!-- Other HTML content -->
+    <!-- Your existing HTML content -->
 
-  <div class="signup-container">
-    <p>Don't have an account? <a href="https://<your-tenant-name>.b2clogin.com/<your-tenant-name>.onmicrosoft.com/B2C_1A_signup/oauth2/v2.0/authorize?client_id=<your-client-id>&nonce=<random-nonce>&redirect_uri=<your-redirect-uri>&scope=openid&response_type=id_token&prompt=login">Sign up now</a></p>
-  </div>
+    <!-- Sign Up Section -->
+    <div class="sign-up-container">
+        <p>Don't have an account? <a href="your-signup-url" class="sign-up-link">Sign up now</a></p>
+    </div>
 
-  <!-- Other HTML content -->
+    <!-- Your existing HTML content -->
 </body>
 </html>
