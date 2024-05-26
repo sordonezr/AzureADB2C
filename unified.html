@@ -4,6 +4,45 @@
     <title>My Product Brand Name</title>
 </head>
 <body>
-    <div id="api"></div>
+    <div id="api" data-name="Unified">
+      <div class="heading">
+        <h1 role="heading">Sign in ...</h1>
+      </div>
+      <form id="localAccountForm" action="JavaScript:void(0);" class="localAccount" aria-label="Sign in with your phone number">
+        <div class="intro">
+          <h2 aria-level="1">
+            Sign in with your phone number ...
+          </h2>
+        </div>
+        <div class="error pageLevel" aria-hidden="true" role="alert" style="display: none;">
+          <p></p>
+        </div>
+        <div class="entry">
+          <div class="entry-item">
+            <label for="phoneNumber">
+              Phone Number
+            </label>
+            <div class="error itemLevel" aria-hidden="true" role="alert" style="display: none;">
+              <p></p>
+            </div>
+            <input type="text" id="phoneNumber" name="Phone Number" title="Please enter a valid Phone Number" pattern="^\+?(?:[-()\s]*\d[-()\s]*){4,16}$" autofocus="" placeholder="Phone Number" aria-label="Phone Number">
+          </div>
+          <div class="working"></div>
+
+
+          <div class="buttons">
+            <button id="next" type="submit" form="localAccountForm">Sign in</button>
+          </div>
+        </div>
+              <div class="divider">
+                <h2>OR</h2>
+              </div>
+              <div class="create">
+                <p>
+                  Don't have an account?<a id="createAccount" href="/heimdaldevs.onmicrosoft.com/B2C_1A_HolaPolicy/api/CombinedSigninAndSignup/unified?local=signup&amp;csrf_token=UHpHSEpBcTZIZlo1ajBkMmU0K3ByNW8rNWhMUS9iQWdIQkJyMEZPVE1Zd2Vvc2NMczNuQ2VneDFiSnN5SWNJNUhtNEVxNXdtZTYvTlhyaGc5aFBua0E9PTsyMDI0LTA1LTI2VDE1OjEwOjU2LjEyODU2OTZaO1E1dENYUzJudmV3OWhGZXZXOWYwNEE9PTt7Ik9yY2hlc3RyYXRpb25TdGVwIjozfQ==&amp;tx=StateProperties=eyJUSUQiOiI3ZDlhOTg2OS04ZDZjLTQyZmItYmJmNy04NDVkMzBmMWY3MzIifQ&amp;p=B2C_1A_HolaPolicy">Sign up now</a>
+                </p>
+              </div>
+      </form>
+  </div>
 </body>
 </html>
