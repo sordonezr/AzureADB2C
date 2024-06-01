@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- 
+1. Consulta de API REST.
+2. Transformación de claims.
+3. Enmascaramiento de correo electrónico.
+4. Envío de código de verificación por correo electrónico.
+5. Verificación de código por correo electrónico. 
+-->
+<TrustFrameworkPolicy
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06"
+    PolicySchemaVersion="0.3.0.0"
+    TenantId="heimdaldevs.onmicrosoft.com"
+    PolicyId="B2C_1A_MFA_Email"
+    PublicPolicyUri="http://heimdaldevs.onmicrosoft.com/B2C_1A_MFA_Email">
+    <BuildingBlocks>
+        <ClaimsSchema>
+            <ClaimType Id="objectId">
+                <DisplayName>unique object Id for subject of the claims being returned</DisplayName>
+                <DataType>string</DataType>
+            </ClaimType>
+            <ClaimType Id="documentType">
+                <DisplayName>Document Type</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>Select your document type.</UserHelpText>
+                <UserInputType>DropdownSingleSelect</UserInputType>
+                <Restriction>
+                    <Enumeration Text="CC" Value="CC" />
+                    <Enumeration Text="RC" Value="RC" />
+                    <Enumeration Text="PE" Value="PE" />
+                    <Enumeration Text="PP" Value="PP" />
+                </Restriction>
+            </ClaimType>
+            <ClaimType Id="documentNumber">
+                <DisplayName>Document Number</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>Enter your document number.</UserHelpText>
+                <UserInputType>TextBox</UserInputType>
+            </ClaimType>
+            <ClaimType Id="phone">
+                <DisplayName>phone</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>phone.</UserHelpText>
+                <UserInputType>TextBox</UserInputType>
+            </ClaimType>
+            <ClaimType Id="email">
+                <DisplayName>email</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>email</UserHelpText>
+                <UserInputType>TextBox</UserInputType>
+            </ClaimType>
+            <ClaimType Id="ToPhone">
+                <DisplayName>Phone Number</DisplayName>
+                <DataType>string</DataType>
+                <Mask Type="Simple">XXX-XXX-</Mask>
+                <UserHelpText>Enter National Phone Number</UserHelpText>
+                <UserInputType>Readonly</UserInputType>
+            </ClaimType>
+            <ClaimType Id="ToEmail">
+                <DisplayName>Please verify the secondary email linked to your account</DisplayName>
+                <DataType>string</DataType>
+                <Mask Type="Regex" Regex="(?&lt;=.).(?=.*@)">*</Mask>
+                <UserInputType>Readonly</UserInputType>
+
+            </ClaimType>
+            <ClaimType Id="accountType">
+                <DisplayName>Account Type</DisplayName>
+                <DataType>string</DataType>
+                <UserHelpText>The type of account used by the user</UserHelpText>
+                <UserInputType>RadioSingleSelect</UserInputType>
+                <Restriction>
+                    <Enumeration Text="Email" Value="email" SelectByDefault="true" />
+                    <Enumeration Text="Phone Number" Value="phone" SelectByDefault="false" />
+                </Restriction>
+            </ClaimType>
+        </ClaimsSchema>
+        <ClaimsTransformations>
+            <ClaimsTransformation Id="PhoneToPhone" TransformationMethod="CopyClaim">
+                <InputClaims>
+                    <InputClaim ClaimTypeReferenceId="phone" TransformationClaimType="inputClaim" />
+                </InputClaims>
+                <OutputClaims>
+                    <OutputClaim ClaimTypeReferenceId="ToPhone"
+                        TransformationClaimType="outputClaim" />
+                </OutputClaims>
+            </ClaimsTransformation>
+
+            <ClaimsTransformation Id="EmailToEmail" TransformationMethod="CopyClaim">
+                <InputClaims>
+                    <InputClaim ClaimTypeReferenceId="email" TransformationClaimType="inputClaim" />
+                </InputClaims>
+                <OutputClaims>
+                    <OutputClaim ClaimTypeReferenceId="ToEmail"
+                        TransformationClaimType="outputClaim" />
+                </OutputClaims>
+            </ClaimsTransformation>
+        </ClaimsTransformations>
+        <ContentDefinitions>
+            <ContentDefinition Id="SelfAssertedContentDefinition">
+                <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+                <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+                <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
+            </ContentDefinition>
+            <ContentDefinition Id="emailSignIn">
+                <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+                <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+                <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.1</DataUri>
+                <Metadata>
+                    <Item Key="DisplayName">Use email to sign in</Item>
+                </Metadata>
+            </ContentDefinition>
+            <ContentDefinition Id="api.localaccountpasswordreset">
+                <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+                <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+                <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
+                <Metadata>
+                    <Item Key="DisplayName">Local account change password page</Item>
+                </Metadata>
+            </ContentDefinition>
+            <ContentDefinition Id="api.localaccountsignin">
+                <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+                <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+                <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
+                <Metadata>
+                    <Item Key="DisplayName">Collect information from user page</Item>
+                </Metadata>
+            </ContentDefinition>
+            <ContentDefinition Id="phoneSignIn">
+                <LoadUri>~/tenant/templates/AzureBlue/selfAsserted.cshtml</LoadUri>
+                <RecoveryUri>~/common/default_page_error.html</RecoveryUri>
+                <DataUri>urn:com:microsoft:aad:b2c:elements:contract:selfasserted:2.1.7</DataUri>
+                <Metadata>
+                    <Item Key="DisplayName">Verify phone to sign in</Item>
+                </Metadata>
+            </ContentDefinition>
+        </ContentDefinitions>
+    </BuildingBlocks>
+    <ClaimsProviders>
+        <ClaimsProvider>
+            <DisplayName>Token Issuer</DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="JwtIssuer">
+                    <DisplayName>JWT Issuer</DisplayName>
+                    <Protocol Name="None" />
+                    <OutputTokenFormat>JWT</OutputTokenFormat>
+                    <Metadata>
+                        <Item Key="client_id">{service:te}</Item>
+                        <Item Key="issuer_refresh_token_user_identity_claim_type">objectId</Item>
+                        <Item Key="SendTokenResponseBodyWithJsonNumbers">true</Item>
+                    </Metadata>
+                    <CryptographicKeys>
+                        <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+                        <Key Id="issuer_refresh_token_key"
+                            StorageReferenceId="B2C_1A_TokenEncryptionKeyContainer" />
+                    </CryptographicKeys>
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+        <ClaimsProvider>
+            <DisplayName>Trustframework Policy Engine TechnicalProfiles</DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="TpEngine_c3bd4fe2-1775-4013-b91d-35f16d377d13">
+                    <DisplayName>Trustframework Policy Engine Default Technical Profile</DisplayName>
+                    <Protocol Name="None" />
+                    <Metadata>
+                        <Item Key="url">{service:te}</Item>
+                    </Metadata>
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+        <ClaimsProvider>
+            <DisplayName>Technical Profile to collect user's accountType</DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="AccountTypeInputCollector">
+                    <DisplayName>Collect User Input Technical Profile</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="ContentDefinitionReferenceId">SelfAssertedContentDefinition</Item>
+                    </Metadata>
+                    <DisplayClaims>
+                        <DisplayClaim ClaimTypeReferenceId="accountType" Required="true" />
+                    </DisplayClaims>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="accountType" />
+                    </OutputClaims>
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+        <ClaimsProvider>
+            <DisplayName>REST API</DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="REST-GetEmailAndPhone">
+                    <DisplayName>Get email and phone</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.RestfulProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="DebugMode">true</Item>
+                        <Item Key="ServiceUrl">
+                            https://as-aeu-devs-prd-validate.azurewebsites.net/api/users</Item>
+                        <Item Key="SendClaimsIn">Body</Item>
+                        <Item Key="AuthenticationType">None</Item>
+                        <Item Key="AllowInsecureAuthInProduction">true</Item>
+                    </Metadata>
+                    <InputClaims>
+                        <InputClaim ClaimTypeReferenceId="documentType" PartnerClaimType="documentType" />
+                        <InputClaim ClaimTypeReferenceId="documentNumber" PartnerClaimType="documentNumber" />
+                    </InputClaims>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="email" />
+                        <OutputClaim ClaimTypeReferenceId="phone" />
+                    </OutputClaims>
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+        <ClaimsProvider>
+            <DisplayName>Claim Generator Technical Profiles</DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="PhoneCollector">
+                    <DisplayName>Collect User Input Technical Profile</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="setting.operatingMode">Email</Item>
+                        <Item Key="ContentDefinitionReferenceId">SelfAssertedContentDefinition</Item>
+                    </Metadata>
+                    <InputClaimsTransformations>
+                        <InputClaimsTransformation ReferenceId="PhoneToPhone" />
+                    </InputClaimsTransformations>
+                    <InputClaims>
+                        <InputClaim ClaimTypeReferenceId="ToPhone" />
+                    </InputClaims>
+                    <DisplayClaims>
+                        <DisplayClaim ClaimTypeReferenceId="ToPhone" Required="true" />
+                    </DisplayClaims>
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+        <ClaimsProvider>
+            <DisplayName>Claim Generator Technical Profiles</DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="LocalAccountDiscoveryUsingEmailAddress">
+                    <DisplayName>Reset password using email address</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="IpAddressClaimReferenceId">IpAddress</Item>
+                        <Item Key="ContentDefinitionReferenceId">api.localaccountpasswordreset</Item>
+                    </Metadata>
+                    <CryptographicKeys>
+                        <Key Id="issuer_secret" StorageReferenceId="B2C_1A_TokenSigningKeyContainer" />
+                    </CryptographicKeys>
+                    <IncludeInSso>false</IncludeInSso>
+                    <InputClaimsTransformations>
+                        <InputClaimsTransformation ReferenceId="EmailToEmail" />
+                    </InputClaimsTransformations>
+                    <InputClaims>
+                        <InputClaim ClaimTypeReferenceId="ToEmail" />
+                    </InputClaims>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="ToEmail"
+                            PartnerClaimType="Verified.Email" Required="true" />
+                    </OutputClaims>
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+        <ClaimsProvider>
+            <DisplayName>Technical Profile to collect user's document type and document number </DisplayName>
+            <TechnicalProfiles>
+                <TechnicalProfile Id="DocumentTypeAndDocumentNumberCollector">
+                    <DisplayName>Collect User Input Technical Profile</DisplayName>
+                    <Protocol Name="Proprietary"
+                        Handler="Web.TPEngine.Providers.SelfAssertedAttributeProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
+                    <Metadata>
+                        <Item Key="ContentDefinitionReferenceId">api.localaccountpasswordreset</Item>
+                    </Metadata>
+                    <DisplayClaims>
+                        <DisplayClaim ClaimTypeReferenceId="documentType" Required="true" />
+                        <DisplayClaim ClaimTypeReferenceId="documentNumber" Required="true" />
+                    </DisplayClaims>
+                    <OutputClaims>
+                        <OutputClaim ClaimTypeReferenceId="documentType" />
+                        <OutputClaim ClaimTypeReferenceId="documentNumber" />
+                        <OutputClaim ClaimTypeReferenceId="email" />
+                        <OutputClaim ClaimTypeReferenceId="phone" />
+                    </OutputClaims>
+                    <ValidationTechnicalProfiles>
+                        <ValidationTechnicalProfile ReferenceId="REST-GetEmailAndPhone" />
+                    </ValidationTechnicalProfiles>
+                </TechnicalProfile>
+            </TechnicalProfiles>
+        </ClaimsProvider>
+    </ClaimsProviders>
+    <UserJourneys>
+        <UserJourney Id="GetEmailAndPhoneJourney">
+            <OrchestrationSteps>
+                <OrchestrationStep Order="1" Type="ClaimsExchange">
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="GetDocumentTypeAndDocumentNumberClaimsExchange" TechnicalProfileReferenceId="DocumentTypeAndDocumentNumberCollector" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+                <OrchestrationStep Order="2" Type="ClaimsExchange">
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="AccountTypeInputCollectorClaimsExchange" TechnicalProfileReferenceId="AccountTypeInputCollector" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+                <OrchestrationStep Order="3" Type="ClaimsExchange">
+                    <Preconditions>
+                        <Precondition Type="ClaimEquals" ExecuteActionsIf="false">
+                            <Value>accountType</Value>
+                            <Value>email</Value>
+                            <Action>SkipThisOrchestrationStep</Action>
+                        </Precondition>
+                    </Preconditions>
+                    <ClaimsExchanges>
+                        <ClaimsExchange Id="SignIn-WithEmail" TechnicalProfileReferenceId="LocalAccountDiscoveryUsingEmailAddress" />
+                    </ClaimsExchanges>
+                </OrchestrationStep>
+                <OrchestrationStep Order="4" Type="SendClaims"
+                    CpimIssuerTechnicalProfileReferenceId="JwtIssuer" />
+            </OrchestrationSteps>
+        </UserJourney>
+    </UserJourneys>
+    <RelyingParty>
+        <DefaultUserJourney ReferenceId="GetEmailAndPhoneJourney" />
+        <TechnicalProfile Id="GetEmailAndPhonePolicyProfile">
+            <DisplayName>MFA Policy Profile</DisplayName>
+            <Protocol Name="OpenIdConnect" />
+            <OutputClaims>
+                <OutputClaim ClaimTypeReferenceId="objectId" PartnerClaimType="sub"
+                    DefaultValue="abcd-1234-efgh-5678-ijkl-etc." />
+                <!-- <OutputClaim ClaimTypeReferenceId="email" />
+                <OutputClaim ClaimTypeReferenceId="phone" /> -->
+            </OutputClaims>
+            <SubjectNamingInfo ClaimType="sub" />
+        </TechnicalProfile>
+    </RelyingParty>
+</TrustFrameworkPolicy>
