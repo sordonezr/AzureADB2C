@@ -4,6 +4,33 @@
     <title>My Product Brand Name</title>
 </head>
 <body>
-    <div id="api"></div>
+    <div id="api" data-name="SelfAsserted" role="main">
+    <div class="buttons">
+          <button id="cancel" aria-label="Cancel" formnovalidate="">Cancel</button>
+    </div>
+    <div class="intro">
+      <p>Please provide the following details.</p>
+    </div>
+    <form id="attributeVerification" action="JavaScript:void(0);">
+        <div id="passwordEntryMismatch" class="error pageLevel" style="display: none;" aria-hidden="true">The password entry fields do not match. Please enter the same password in both fields and try again.</div>
+        <div id="requiredFieldMissing" class="error pageLevel" style="display: none;" aria-hidden="true">A required field is missing. Please fill out all required fields and try again.</div>
+        <div id="fieldIncorrect" class="error pageLevel" style="display: none;" aria-hidden="true">One or more fields are filled out incorrectly. Please check your entries and try again.</div>
+        <div id="claimVerificationServerError" class="error pageLevel" style="display: none;" aria-hidden="true"></div>
+        <div id="attributeList" class="attr">
+            <ul>
+                <li class="TextBox"><div class="attrEntry"><div class="error itemLevel" role="alert"></div><input id="givenName" class="textInput" type="text" placeholder="Given Name" aria-label="Given Name" title="Your given name (also known as first name)." aria-required="true" autofocus="autofocus" spellcheck="false" data-ms-editor="true"><a class="helpLink tiny" href="javascript:void(0)" data-help="Your given name (also known as first name).">What is this?</a></div></li>
+                <li class="TextBox"><div class="attrEntry"><div class="error itemLevel" role="alert"></div><input id="surname" class="textInput" type="text" placeholder="Surname" aria-label="Surname" title="Your surname (also known as family name or last name)." aria-required="true" spellcheck="false" data-ms-editor="true"><a class="helpLink tiny" href="javascript:void(0)" data-help="Your surname (also known as family name or last name).">What is this?</a></div></li>
+            </ul>
+        </div>
+        <div class="buttons">
+            <button id="continue" type="submit" form="attributeVerification" aria-disabled="false" aria-label="Continue">Continue</button>
+        </div>
+
+        <div class="verifying-modal">
+            <div id="verifying_blurb"></div>
+        </div>
+    </form>
+    
+  </div>
 </body>
 </html>
