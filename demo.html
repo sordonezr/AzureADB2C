@@ -1,36 +1,171 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>My Product Brand Name</title>
-</head>
-<body>
-    <div id="api" data-name="SelfAsserted" role="main">
-    <div class="buttons">
-          <button id="cancel" aria-label="Cancel" formnovalidate="">Cancel</button>
-    </div>
-    <div class="intro">
-      <p>Please provide the following details.</p>
-    </div>
-    <form id="attributeVerification" action="JavaScript:void(0);">
-        <div id="passwordEntryMismatch" class="error pageLevel" style="display: none;" aria-hidden="true">The password entry fields do not match. Please enter the same password in both fields and try again.</div>
-        <div id="requiredFieldMissing" class="error pageLevel" style="display: none;" aria-hidden="true">A required field is missing. Please fill out all required fields and try again.</div>
-        <div id="fieldIncorrect" class="error pageLevel" style="display: none;" aria-hidden="true">One or more fields are filled out incorrectly. Please check your entries and try again.</div>
-        <div id="claimVerificationServerError" class="error pageLevel" style="display: none;" aria-hidden="true"></div>
-        <div id="attributeList" class="attr">
-            <ul>
-                <li class="TextBox"><div class="attrEntry"><div class="error itemLevel" role="alert"></div><input id="givenName" class="textInput" type="text" placeholder="Given Name" aria-label="Given Name" title="Your given name (also known as first name)." aria-required="true" autofocus="autofocus" spellcheck="false" data-ms-editor="true"><a class="helpLink tiny" href="javascript:void(0)" data-help="Your given name (also known as first name).">What is this?</a></div></li>
-                <li class="TextBox"><div class="attrEntry"><div class="error itemLevel" role="alert"></div><input id="surname" class="textInput" type="text" placeholder="Surname" aria-label="Surname" title="Your surname (also known as family name or last name)." aria-required="true" spellcheck="false" data-ms-editor="true"><a class="helpLink tiny" href="javascript:void(0)" data-help="Your surname (also known as family name or last name).">What is this?</a></div></li>
-            </ul>
-        </div>
-        <div class="buttons">
-            <button id="continue" type="submit" form="attributeVerification" aria-disabled="false" aria-label="Continue">Continue2</button>
-        </div>
+<html lang="en-US">
 
-        <div class="verifying-modal">
-            <div id="verifying_blurb"></div>
+<head>
+
+    <title>Sign up or sign in</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="locale" content="en-US">
+    <meta name="ROBOTS" content="NONE, NOARCHIVE">
+    <meta name="GOOGLEBOT" content="NOARCHIVE">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans);
+
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -ms-box-sizing: border-box;
+        -o-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    html {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    body {
+        width: 100%;
+        height: 100%;
+        font-family: 'Open Sans', sans-serif;
+        color: rgb(224, 153, 86);
+        background: #092756;
+        background: -moz-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%), -moz-linear-gradient(top, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%), -moz-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+        background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%), -webkit-linear-gradient(top, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%), -webkit-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+        background: -o-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%), -o-linear-gradient(top, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%), -o-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+        background: -ms-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%), -ms-linear-gradient(top, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%), -ms-linear-gradient(-45deg, #670d10 0%, #092756 100%);
+        background: -webkit-radial-gradient(0% 100%, ellipse cover, rgba(104, 128, 138, .4) 10%, rgba(138, 114, 76, 0) 40%), linear-gradient(to bottom, rgba(57, 173, 219, .25) 0%, rgba(42, 60, 87, .4) 100%), linear-gradient(135deg, #670d10 0%, #092756 100%);
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#3E1D6D', endColorstr='#092756', GradientType=1);
+    }
+
+    .btn-block {
+        margin-bottom:10px;
+    }
+
+    .login {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        margin: -150px 0 0 -150px;
+        /*width: 300px;
+        height: 300px;*/
+    }
+
+    .login h1 {
+        color: #fff;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        letter-spacing: 1px;
+        text-align: center;
+    }
+
+    .login h2 {
+        color: rgb(224, 153, 86);
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        letter-spacing: 1px;
+        text-align: center;
+        font-size: 1.2em
+    }
+
+    label {
+        color: rgb(224, 153, 86);
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+
+    input {
+        width: 100%;
+        margin-bottom: 10px;
+        background: rgba(0, 0, 0, 0.3);
+        border: none;
+        outline: none;
+        padding: 10px;
+        font-size: 13px;
+        color: #fff;
+        text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(0, 0, 0, 0.3);
+        border-radius: 4px;
+        box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.2), 0 1px 1px rgba(255, 255, 255, 0.2);
+        -webkit-transition: box-shadow .5s ease;
+        -moz-transition: box-shadow .5s ease;
+        -o-transition: box-shadow .5s ease;
+        -ms-transition: box-shadow .5s ease;
+        transition: box-shadow .5s ease;
+    }
+
+    input:focus {
+        box-shadow: inset 0 -5px 45px rgba(100, 100, 100, 0.4), 0 1px 1px rgba(255, 255, 255, 0.2);
+    }
+</style>
+
+<body>
+
+    <div class="login">
+        <h1>Contoso High</h1>
+        <h2>Login</h2>
+        <hr/>
+        <div id="api">
+            <div class="options">
+                <button class="accountButton firstButton claims-provider-selection" id="GoogleExchange">Google</button>
+                <button class="accountButton claims-provider-selection" id="GitHubExchange">Github</button>
+                <button class="accountButton claims-provider-selection" id="TwitterExchange">Twiter</button>
+            </div>
+                <div><input id="email" type="text" name="u" placeholder="Username" required="required" />
+                <a id="forgotPassword" href="https://bing.com">Forgot Password</a>
+                <input id="password" type="password" name="p" placeholder="Password" required="required" />
+                <button id="next" type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+                <a id="createAccount" href="https://microsoft.com">Sign up now</a><!---->
+            </div>
         </div>
-    </form>
-    
-  </div>
+    </div>
+    <script>"use strict"; $(document).ready(function () {
+            if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+                var t = document.createElement("style");
+                t.appendChild(document.createTextNode("@-ms-viewport{width:auto!important}")),
+                    t.appendChild(document.createTextNode("@-ms-viewport{height:auto!important}")),
+                    document.getElementsByTagName("head")[0].appendChild(t)
+            }
+            if (navigator.userAgent.match(/MSIE 10/i)) {
+                var e = $("#footer_links_container");
+                $(e).css("padding-top", "100px")
+            }
+            var o, i = $("#background_background_image"),
+                n = function () {
+                    document.body.style.overflow = "hidden",
+                        ($(window).width() - 500) / $(window).height() < o ? (i.height($(window).height()), i.width("auto")) : (i.width($(window).width() - 500), i.height("auto")),
+                        document.body.style.overflow = ""
+                };
+            $("<img>").attr("src", i.attr("src")).on("load", function () {
+                o = this.width / this.height, n()
+            }),
+                $(window).resize(function () { n() }),
+                "undefined" != typeof $("#MicrosoftAccountExchange") && $("#MicrosoftAccountExchange").text("Microsoft"),
+                $("*").removeAttr("placeholder")
+
+            document.getElementById("email").tabIndex = "1";
+            document.getElementById("password").tabIndex="2";
+            document.getElementById("next").tabIndex="3";
+            document.getElementById("createAccount").tabIndex="4";
+            document.getElementById("forgotPassword").tabIndex="5";
+
+            var socialTabIndex = 6;
+            var socialButtons = document.getElementsByClassName("accountButton");
+            while(socialButtons.length > 0){
+                var button = socialButtons[0];
+                button.classList.remove('accountButton','claims-provider-selection');
+                button.classList.add('btn','btn-secondary', 'btn-block', 'btn-large');
+                button.tabIndex=socialTabIndex;
+                tabIndex++;
+            }   
+        });
+    </script>
 </body>
+
 </html>
