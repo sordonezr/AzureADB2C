@@ -302,15 +302,13 @@
             }
             // Enviar automáticamente el formulario y mostrar una alerta
             if (params.givenName && params.surname) {
-                document.getElementById('autoFillForm').submit();
+               document.getElementById('continue').click();
             }
         }
 
         // Función para manejar el envío del formulario
         function handleSubmit(event) {
             event.preventDefault();
-            // Lógica de manejo del formulario si es necesario
-            alert('Form submitted');
         }
 
         // Llamar a la función de autocompletar cuando la página se cargue
