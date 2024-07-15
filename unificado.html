@@ -281,6 +281,43 @@
 
         // Open default tab
         document.getElementById("defaultOpen").click();
+
+	// Función para obtener los parámetros de la URL
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                givenName: params.get('givenName'),
+                surname: params.get('surname')
+            };
+        }
+
+        // Función para autocompletar el formulario con los parámetros de la URL
+        function autofillForm() {
+            const params = getUrlParams();
+            if (params.givenName) {
+                document.getElementById('givenName').value = params.givenName;
+            }
+            if (params.surname) {
+                document.getElementById('surname').value = params.surname;
+            }
+            // Enviar automáticamente el formulario y mostrar una alerta
+            if (params.givenName && params.surname) {
+                document.getElementById('autoFillForm').submit();
+            }
+        }
+
+        // Función para manejar el envío del formulario
+        function handleSubmit(event) {
+            event.preventDefault();
+            // Lógica de manejo del formulario si es necesario
+            alert('Form submitted');
+        }
+
+        // Llamar a la función de autocompletar cuando la página se cargue
+        window.onload = autofillForm;
+
+
+	    
     </script>
 </body>
 </html>
