@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Actualizado</title>
+    <title>Actualizado 2</title>
 </head>
 <body>
     <div id="api"></div>
@@ -14,7 +14,7 @@
         // Función para obtener los parámetros de la URL
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
-            console.log(params.get('email'));
+            console.log('Email parameter from URL:', params.get('email'));
             return {
                 mail: params.get('email'),
             };
@@ -25,20 +25,19 @@
             const params = getUrlParams();
             if (params.mail) {
                 document.getElementById('email').value = params.mail;
-            }
-            // Enviar automáticamente el formulario y mostrar una alerta
-            if (params.mail) {
+                // Enviar automáticamente el formulario y mostrar una alerta
                 document.getElementById('email_ver_but_send').click();
             }
         }
 
-        // Función para manejar el envío del formulario
-        function handleSubmit(event) {
-            event.preventDefault();
-        }
-
         // Llamar a la función de autocompletar cuando la página se cargue
         window.onload = autofillForm;
+
+        // Función para manejar el envío del formulario
+        document.getElementById('email_ver_but_send').addEventListener('click', function(event) {
+            event.preventDefault();
+            alert('Formulario enviado automáticamente');
+        });
     </script>
 </body>
 </html>
