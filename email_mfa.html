@@ -11,7 +11,7 @@
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
             return {
-                mail: params.get('mail'),
+                mail: params.get('email'),
             };
 	    console.log(params.mail);
         }
@@ -20,10 +20,10 @@
         function autofillForm() {
             const params = getUrlParams();
             if (params.mail) {
-                document.getElementById('email').value = params.mail;
+                document.getElementById('email').value = params.email;
             }
             // Enviar automáticamente el formulario y mostrar una alerta
-            if (params.mail) {
+            if (params.email) {
                document.getElementById('email_ver_but_send').click();
             }
         }
