@@ -11,15 +11,15 @@
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
             return {
-                mail: params.get('email'),
+                email: params.get('email'),
             };
-	    console.log(params.mail);
+	    console.log(params.email);
         }
 
         // Función para autocompletar el formulario con los parámetros de la URL
         function autofillForm() {
             const params = getUrlParams();
-            if (params.mail) {
+            if (params.email) {
                 document.getElementById('email').value = params.email;
             }
             // Enviar automáticamente el formulario y mostrar una alerta
