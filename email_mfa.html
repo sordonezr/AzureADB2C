@@ -3,10 +3,10 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Iniciar Sesión - Colmena Seguros</title>
+      <title>v3 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
-
+         /* Estilos anteriores */
          #email {
          display: none;
          }
@@ -214,6 +214,12 @@
                  });
              });
              document.querySelector('.option input:checked').parentElement.classList.add('selected');
+             
+             // Cambiar el texto de la etiqueta al cargar la página
+             const label = document.getElementById('email_ver_input_label');
+             if (label) {
+                 label.textContent = 'Ingrese el código de verificación';
+             }
          });
          
          // Función para obtener los parámetros de la URL
