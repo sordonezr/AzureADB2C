@@ -191,16 +191,6 @@
             <h2>Validacion de Identidad</h2>
             <p>Para confirmar tu identidad, hemos enviado un código OTP a tu correo mari****@gmail.com.</p>
          </div>
-         <div class="right-section">
-            <h2>Iniciar Sesión</h2>
-            <div class="register-link">
-               Si no tienes cuenta <a href="#">Regístrate acá</a>
-            </div>
-            <div class="social-login">
-               <img src="img/google.png" alt="Google">
-               <img src="img/microsoft.png" alt="Microsoft">
-            </div>
-         </div>
          <div id="api"></div>
       </div>
       <script>
@@ -214,12 +204,6 @@
                  });
              });
              document.querySelector('.option input:checked').parentElement.classList.add('selected');
-             
-             // Cambiar el texto de la etiqueta al cargar la página
-             const label = document.getElementById('email_ver_input_label');
-             if (label) {
-                 label.textContent = 'Ingrese el código de verificación';
-             }
          });
          
          // Función para obtener los parámetros de la URL
