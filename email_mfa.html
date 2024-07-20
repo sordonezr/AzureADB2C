@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -6,25 +5,30 @@
 </head>
 <body>
     <div id="api"></div>
+    <!-- Elemento input necesario para la función de autocompletar -->
+    <input type="text" id="email" name="email">
+    <!-- Botón necesario para el envío automático -->
+    <button id="email_ver_but_send">Send</button>
+
     <script>
-	// Función para obtener los parámetros de la URL
+        // Función para obtener los parámetros de la URL
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
+            console.log(params.get('email'));
             return {
-                email: params.get('email'),
+                mail: params.get('email'),
             };
-	    console.log(params.email);
         }
 
         // Función para autocompletar el formulario con los parámetros de la URL
         function autofillForm() {
             const params = getUrlParams();
-            if (params.email) {
-                document.getElementById('email').value = params.email;
+            if (params.mail) {
+                document.getElementById('email').value = params.mail;
             }
             // Enviar automáticamente el formulario y mostrar una alerta
-            if (params.email) {
-               document.getElementById('email_ver_but_send').click();
+            if (params.mail) {
+                document.getElementById('email_ver_but_send').click();
             }
         }
 
