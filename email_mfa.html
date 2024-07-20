@@ -1,43 +1,318 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-    <title>Actualizado 2</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión - Colmena Seguros</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+	button {
+	    width: 100%;
+	    padding: 12px;
+	    background-color: #0097AE;
+	    border: none;
+	    color: #ffffff;
+	    font-weight: 500;
+	    border-radius: 5px;
+	    cursor: pointer;
+	    font-size: 16px;
+	}
+        .options {
+            display: flex;
+            gap: 10px;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            border-radius: 5px;
+            padding: 8px;
+            cursor: pointer;
+        }
+        .option input {
+            margin-right: 10px;
+        }
+        .option.selected {
+            background-color: rgb(223, 240, 240);
+            border: 1px solid #00bcd4;
+            border-radius: 6px;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f7fb;
+        }
+        .container {
+            display: flex;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 900px;
+            width: 100%;
+        }
+        .left-section {
+            padding: 40px;
+            background-color: #f4f7fb;
+            flex: 1;
+        }
+        .left-section h2 {
+            color: #0097AE;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+        .left-section p {
+            color: #333333;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+        .left-section img {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+        .right-section {
+            padding: 40px;
+            flex: 1.2;
+        }
+        .right-section h2 {
+            color: #333333;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            color: #555555;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        .form-group input[type="radio"] {
+            width: auto;
+            margin-right: 10px;
+        }
+        .form-group .radio-group {
+            display: flex;
+            align-items: center;
+        }
+        .form-group .radio-group label {
+            margin: 0 20px 0 5px;
+            font-weight: 400;
+            color: #555555;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #0097AE;
+            border: none;
+            color: #ffffff;
+            font-weight: 500;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .social-login {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .social-login img {
+            width: 40px;
+            margin: 0 10px;
+        }
+        .logo {
+            text-align: center;
+            margin: auto;
+            display: block;
+            margin: 50px;
+        }
+        .tab {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .tab button {
+            background-color: #f4f7fb;
+            border: none;
+            outline: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #0097AE;
+        }
+        .tab button.active {
+            background-color: #ffffff;
+            border-bottom: 2px solid #0097AE;
+            color: #333333;
+        }
+        .tabcontent {
+            display: none;
+        }
+        .tabcontent.active {
+            display: block;
+        }
+        .register-link {
+            margin-top: -15px;
+            margin-bottom: 30px;
+            text-align: left;
+            color: #555555;
+            font-size: 14px;
+        }
+        .register-link a {
+            color: #0097AE;
+            text-decoration: none;
+        }
+        .forgot-password {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .forgot-password a {
+            color: #0097AE;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <div id="api"></div>
-    <!-- Elemento input necesario para la función de autocompletar -->
-    <input type="text" id="email" name="email">
-    <!-- Botón necesario para el envío automático -->
-    <button id="email_ver_but_send">Send</button>
-
+    <div class="container">
+        <div class="left-section">
+            <img src="img/logo-colmena.png" alt="Colmena Seguros Logo">
+            <h2>Bienvenido/a a Oficina Virtual</h2>
+            <p>Accede a una plataforma segura y confiable para realizar tus trámites de ARL de manera ágil y eficiente, desde cualquier lugar y en cualquier momento.</p>
+        </div>
+        <div class="right-section">
+            <h2>Iniciar Sesión</h2>
+            <div class="register-link">
+                Si no tienes cuenta <a href="#">Regístrate acá</a>
+            </div>
+            <div class="tab">
+                <button class="tablinks" onclick="openTab(event, 'documentTab')" id="defaultOpen">Ingresar con documento</button>
+                <button class="tablinks" onclick="openTab(event, 'userTab')">Ingresar con usuario</button>
+            </div>
+            <div id="documentTab" class="tabcontent">
+                <form>
+                    <div class="form-group">
+                        <label for="document-type">Tipo de documento</label>
+                        <select id="document-type">
+                            <option value="">Selecciona una opción</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="document-number">Número de documento</label>
+                        <input type="text" id="document-number" placeholder="Digita tu número de documento">
+                    </div>
+                    <div class="form-group">
+                        <label>Elige el medio por el cual deseas recibir el código para validar tu identidad:</label>
+                        <div class="options">
+                            <label class="option">
+                                <input type="radio" name="validationMethod" value="email" checked>
+                                <span>Correo electrónico</span>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="validationMethod" value="phone">
+                                <span>Número de teléfono</span>
+                            </label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">Ingresar</button>
+                </form>
+            </div>
+            <div id="userTab" class="tabcontent">
+			<div id="api">
+			</div>
+                <!-- <form> -->
+                    <!-- <div class="form-group"> -->
+                        <!-- <label for="username">Nombre de usuario</label> -->
+                        <!-- <input type="text" id="username" placeholder="Escribe tu usuario"> -->
+                    <!-- </div> -->
+                    <!-- <div class="form-group"> -->
+                        <!-- <label for="password">Contraseña</label> -->
+                        <!-- <input type="password" id="password" placeholder="Introduce tu contraseña"> -->
+                    <!-- </div> -->
+                    <!-- <button type="submit" class="btn-submit">Ingresar</button> -->
+                <!-- </form> -->
+                <!-- <div class="forgot-password"> -->
+                    <!-- <a href="#">Olvide mi contraseña</a> -->
+                <!-- </div> -->
+            </div>
+            <div class="social-login">
+                <img src="img/google.png" alt="Google">
+                <img src="img/microsoft.png" alt="Microsoft">
+            </div>
+        </div>
+    </div>
     <script>
-        // Función para obtener los parámetros de la URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const options = document.querySelectorAll('.option');
+            options.forEach(option => {
+                option.addEventListener('click', function() {
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    option.querySelector('input').checked = true;
+                });
+            });
+            document.querySelector('.option input:checked').parentElement.classList.add('selected');
+        });
+
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // Open default tab
+        document.getElementById("defaultOpen").click();
+
+	// Función para obtener los parámetros de la URL
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
-            console.log('Email parameter from URL:', params.get('email'));
             return {
-                mail: params.get('email'),
+                email: params.get('email')
             };
         }
 
         // Función para autocompletar el formulario con los parámetros de la URL
         function autofillForm() {
             const params = getUrlParams();
-            if (params.mail) {
-                document.getElementById('email').value = params.mail;
-                // Enviar automáticamente el formulario y mostrar una alerta
-                document.getElementById('email_ver_but_send').click();
+            if (params.email) {
+                document.getElementById('email').value = params.email;
             }
+           
+            // Enviar automáticamente el formulario y mostrar una alerta
+            if (params.email) {
+               document.getElementById('email_ver_but_send').click();
+            }
+        }
+
+        // Función para manejar el envío del formulario
+        function handleSubmit(event) {
+            event.preventDefault();
         }
 
         // Llamar a la función de autocompletar cuando la página se cargue
         window.onload = autofillForm;
 
-        // Función para manejar el envío del formulario
-        document.getElementById('email_ver_but_send').addEventListener('click', function(event) {
-            event.preventDefault();
-            alert('Formulario enviado automáticamente');
-        });
+
+	    
     </script>
 </body>
 </html>
