@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v16 Iniciar Sesión - Colmena Seguros</title>
+    <title>v18 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>        
         #email {
-        display: none;
+            display: none;
         }
 
         .helpLink.tiny {
@@ -207,7 +207,7 @@
             });
             document.querySelector('.option input:checked').parentElement.classList.add('selected');
         });
-        
+
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
             return {
@@ -242,6 +242,9 @@
                 console.log("Elemento no encontrado");
             }
         });
+
+        // Aplica el estilo display: none al botón de reenvío de verificación de email
+        document.getElementById("email_ver_but_resend").style.display = "none";
     </script>
 </body>
 </html>
