@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v11 Iniciar Sesión - Colmena Seguros</title>
+    <title>v12 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>     
         .helpLink.tiny {
@@ -181,13 +181,17 @@
         <div class="left-section">
             <img src="https://raw.githubusercontent.com/sordonezr/AzureADB2C/main/img/logo-colmena.png" alt="Colmena Seguros Logo">
             <h2>Validacion de Identidad</h2>
-    <label id="emailLabel">Email: </label>
-
-
+            <label id="emailLabel">Email: </label>
         </div>
         <div id="api"></div>
     </div>
     <script>
+        function maskEmail(email) {
+            const [user, domain] = email.split('@');
+            const maskedUser = user.slice(0, 2) + '****' + user.slice(-1);
+            return maskedUser + '@' + domain;
+        }
+
         document.addEventListener('DOMContentLoaded', function() {
             const options = document.querySelectorAll('.option');
             options.forEach(option => {
@@ -200,34 +204,30 @@
             document.querySelector('.option input:checked').parentElement.classList.add('selected');
         });
         
-        // Función para obtener los parámetros de la URL
         function getUrlParams() {
             const params = new URLSearchParams(window.location.search);
             return {
                 email: params.get('email')
             };
         }
-        
-        // Función para autocompletar el formulario con los parámetros de la URL
+
         function autofillForm() {
             const params = getUrlParams();
             if (params.email) {
+                const maskedEmail = maskEmail(params.email);
                 document.getElementById('email').value = params.email;
-                document.getElementById('emailLabel').textContent = `Para confirmar tu identidad, hemos enviado un codigo OTP a tu ${params.email.toString()}`;
+                document.getElementById('emailLabel').textContent = `Para confirmar tu identidad, hemos enviado un codigo OTP a tu correo ${maskedEmail}`;
             }
            
-            // Enviar automáticamente el formulario y mostrar una alerta
             if (params.email) {
                document.getElementById('email_ver_but_send').click();
             }
         }
         
-        // Función para manejar el envío del formulario
         function handleSubmit(event) {
             event.preventDefault();
         }
         
-        // Llamar a la función de autocompletar cuando la página se cargue
         window.onload = autofillForm;
         
         document.addEventListener('DOMContentLoaded', function() {
