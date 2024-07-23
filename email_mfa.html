@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v29 Iniciar Sesión - Colmena Seguros</title>
+    <title>v30 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         
@@ -218,7 +218,7 @@
             color: #0097AE;
             text-decoration: none;
         }
-        .TextBox {
+        .hidden {
             display: none;
         }
     </style>
@@ -278,7 +278,11 @@
         window.onload = function() {
             autofillForm();
             changeButtonText();
-            document.querySelector('.TextBox').style.display = 'none';
+            document.querySelector(".TextBox").classList.add("hidden");
+             // Extraer el contenido de la clase attrEntry
+            var attrEntry = document.querySelector("#attrEntry").innerHTML;
+             // Insertar el contenido extraído dentro del elemento con la clase intro
+            document.querySelector(".intro").insertAdjacentHTML('beforeend', attrEntry);
         };
         
         document.addEventListener('DOMContentLoaded', function() {
