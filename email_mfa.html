@@ -3,29 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v26 Iniciar Sesión - Colmena Seguros</title>
+    <title>v25 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        .verifyInput {
-            width: 40px;
-            height: 40px;
-            margin: 5px;
-            text-align: center;
-            font-size: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            transition: border-color 0.3s;
-        }
-        .verifyInput:focus {
-            border-color: #0078d4;
-            outline: none;
-        }
-        .inputContainer {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
+        
         .verifyButton {
             display: inline;
             background-color: #FFCA28; /* The yellow background color */
@@ -234,17 +215,7 @@
             <h2>Validacion de Identidad</h2>
             <label id="emailLabel">Email: </label>
         </div>
-        <div id="api">
-            <div class="inputContainer">
-                <input class="verifyInput" id="input1" type="text" maxlength="1">
-                <input class="verifyInput" id="input2" type="text" maxlength="1">
-                <input class="verifyInput" id="input3" type="text" maxlength="1">
-                <input class="verifyInput" id="input4" type="text" maxlength="1">
-                <input class="verifyInput" id="input5" type="text" maxlength="1">
-                <input class="verifyInput" id="input6" type="text" maxlength="1">
-            </div>
-            <button id="email_ver_but_verify" class="verifyButton">Validar código</button>
-        </div>
+        <div id="api"></div>
     </div>
     <script>
         function maskEmail(email) {
@@ -308,22 +279,6 @@
             button.innerHTML = 'Validar código';
         }
 
-        // Add functionality for the verification inputs
-        const inputs = document.querySelectorAll('.verifyInput');
-
-        inputs.forEach((input, index) => {
-            input.addEventListener('input', () => {
-                if (input.value.length === 1 && index < inputs.length - 1) {
-                    inputs[index + 1].focus();
-                }
-            });
-
-            input.addEventListener('keydown', (event) => {
-                if (event.key === 'Backspace' && input.value.length === 0 && index > 0) {
-                    inputs[index - 1].focus();
-                }
-            });
-        });
     </script>
 </body>
 </html>
