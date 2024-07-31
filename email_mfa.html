@@ -3,25 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v31 Iniciar Sesión - Colmena Seguros</title>
+    <title>v32 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-
-        .verifyInput {
-          width: 40px;
-          height: 40px;
-          border: 2px solid #00A9E0;
-          border-radius: 5px;
-          text-align: center;
-          font-size: 20px;
-          margin: 0 5px;
-        }
-    
-        .verifyInput:focus {
-          outline: none;
-          border-color: #00A9E0;
-          box-shadow: 0 0 5px rgba(0, 169, 224, 0.5);
-        }
         
         .verifyButton {
             display: inline;
@@ -293,8 +277,8 @@
         
         window.onload = function() {
             autofillForm();
+			changeContent();
             changeButtonText();
-            changeContent();
            
              // Extraer el contenido de la clase attrEntry
             var attrEntry = document.querySelector(".attrEntry").innerHTML;
@@ -312,20 +296,17 @@
             }
         });
 
-
-         function changeContent() {
+        function changeContent() {
             // Obtiene el primer elemento <p> dentro del div con la clase "intro"
             const introParagraph = document.querySelector('.intro p');
             // Cambia el contenido de texto del elemento <p>
-            introParagraph.textContent = 'enviar codigo';
+            introParagraph.textContent = 'Ingresa el código de verificación';
         }
-        
+
         function changeButtonText() {
             var button = document.getElementById('email_ver_but_verify');
             button.innerHTML = 'Validar código';
         }
-
-        
 
     </script>
 </body>
