@@ -294,6 +294,7 @@
         window.onload = function() {
             autofillForm();
             changeButtonText();
+            changeContent();
            
              // Extraer el contenido de la clase attrEntry
             var attrEntry = document.querySelector(".attrEntry").innerHTML;
@@ -311,10 +312,20 @@
             }
         });
 
+
+         function changeContent() {
+            // Obtiene el primer elemento <p> dentro del div con la clase "intro"
+            const introParagraph = document.querySelector('.intro p');
+            // Cambia el contenido de texto del elemento <p>
+            introParagraph.textContent = 'enviar codigo';
+        }
+        
         function changeButtonText() {
             var button = document.getElementById('email_ver_but_verify');
             button.innerHTML = 'Validar código';
         }
+
+        
 
     </script>
 </body>
