@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v36 Iniciar Sesión - Colmena Seguros</title>
+    <title>v37 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         
@@ -306,7 +306,7 @@
         }
 
 
-	 function enhanceInputBox() {
+  	function enhanceInputBox() {
             var inputBox = document.getElementById('email_ver_input');
             inputBox.style.fontSize = '1.2em';
             inputBox.style.letterSpacing = '0.3em';
@@ -315,12 +315,7 @@
             inputBox.style.borderRadius = '5px';
             inputBox.style.width = '100%';
             inputBox.style.boxSizing = 'border-box';
-
-            inputBox.addEventListener('input', function (e) {
-                var value = e.target.value.replace(/-/g, '');
-                var formattedValue = value.match(/.{1,6}/g) ? value.match(/.{1,6}/g).join('-') : value;
-                e.target.value = formattedValue;
-            });
+        }
 	    
 	    
         function changeButtonText() {
