@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v34 Iniciar Sesión - Colmena Seguros</title>
+    <title>v35 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         
@@ -302,6 +302,7 @@
             const introParagraph = document.querySelector('.intro p');
             // Cambia el contenido de texto del elemento <p>
             introParagraph.textContent = 'Ingresa el código de verificación';
+	    introParagraph.style.textAlign = 'center';
         }
 
 
@@ -318,9 +319,12 @@
 	    
         function changeButtonText() {
             var button = document.getElementById('email_ver_but_verify');
-            button.innerHTML = 'Validar código';
-	    button.style.margin = '10px'; // Añadir margen
-            button.style.padding = '10px'; // Añadir relleno
+             button.innerHTML = 'Validar código';
+             button.style.margin = '10px'; // Añadir margen
+             button.style.padding = '10px'; // Añadir relleno
+             button.style.display = 'block'; // Cambiar la visualización a bloque
+             button.style.marginLeft = 'auto'; // Alinear automáticamente a la izquierda
+             button.style.marginRight = 'auto'; // Alinear automáticamente a la derecha
         }
 
     </script>
