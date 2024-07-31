@@ -277,7 +277,8 @@
         
         window.onload = function() {
             autofillForm();
-			changeContent();
+	    changeContent();
+	    enhanceInputBox();
             changeButtonText();
            
              // Extraer el contenido de la clase attrEntry
@@ -303,6 +304,18 @@
             introParagraph.textContent = 'Ingresa el código de verificación';
         }
 
+
+	  function enhanceInputBox() {
+            var inputBox = document.getElementById('email_ver_input');
+            inputBox.style.fontSize = '1.2em';
+            inputBox.style.letterSpacing = '0.3em';
+            inputBox.style.padding = '10px';
+            inputBox.style.border = '2px solid #ccc';
+            inputBox.style.borderRadius = '5px';
+            inputBox.style.width = '100%';
+            inputBox.style.boxSizing = 'border-box';
+        }
+	    
         function changeButtonText() {
             var button = document.getElementById('email_ver_but_verify');
             button.innerHTML = 'Validar código';
