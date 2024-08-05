@@ -18,17 +18,32 @@
                 phone: params.get('phone')
             };
         }
+
         function autofillForm() {
             const params = getUrlParams();
+            console.log("Parámetros de la URL:", params);
+
             const phoneInput = document.getElementById('nationalNumber');
             const continueButton = document.getElementById('continue');
-            if (phoneInput && params.phone) {
-                phoneInput.value = params.phone; 
+
+            if (phoneInput) {
+                console.log("Elemento de input encontrado:", phoneInput);
+                if (params.phone) {
+                    phoneInput.value = params.phone; 
+                    console.log("Valor establecido en el input:", phoneInput.value);
+                } else {
+                    console.log("El parámetro 'phone' no se encontró en la URL.");
+                }
+            } else {
+                console.log("El elemento de input con ID 'nationalNumber' no se encontró.");
             }
+
             if (continueButton && params.phone) {
+                console.log("Botón 'continue' encontrado, haciendo click...");
                 continueButton.click();
             }
         }
+
         window.onload = autofillForm;
     </script>
 </body>
