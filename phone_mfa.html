@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Página de inicio de sesión de Colmena Seguros">
-    <title>Iniciar Sesión - Colmena Seguros</title>
+    <title>1 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -21,35 +21,7 @@
 
         function autofillForm() {
             const params = getUrlParams();
-            console.log("Parámetros de la URL:", params);
-
-            const phoneInput = document.getElementById('nationalNumber');
-            const continueButton = document.getElementById('continue');
-
-            if (phoneInput) {
-                console.log("Elemento de input encontrado:", phoneInput);
-                if (params.phone) {
-                    phoneInput.value = params.phone; 
-                    console.log("Valor establecido en el input:", phoneInput.value);
-                    checkInputAndContinue(phoneInput, continueButton);
-                } else {
-                    console.log("El parámetro 'phone' no se encontró en la URL.");
-                }
-
-                // Agregar evento de input para verificar cada vez que cambie el valor
-                phoneInput.addEventListener('input', function() {
-                    checkInputAndContinue(phoneInput, continueButton);
-                });
-            } else {
-                console.log("El elemento de input con ID 'nationalNumber' no se encontró.");
-            }
-        }
-
-        function checkInputAndContinue(input, button) {
-            if (input.value.trim() !== '' && button) {
-                console.log("Campo de texto lleno. Haciendo click en el botón 'continue'...");
-                button.click();
-            }
+            alert(`El valor de phone es: ${params.phone}`);
         }
 
         window.onload = autofillForm;
