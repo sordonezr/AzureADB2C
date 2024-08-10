@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Sign up or sign in update</title>
+    <title>Sign up or sign in 2</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1228,8 +1228,8 @@
             </div>
         </div>
     </div>
-        <script>
-        function getAllUrlParams() {
+    <script>
+            function getAllUrlParams() {
             const params = new URLSearchParams(window.location.search);
             const paramObject = {};
             params.forEach((value, key) => {
@@ -1238,8 +1238,7 @@
             return paramObject;
         }
 
-        function autofillForm() {
-            console.log('Autofill function triggered');
+        function generateButton() {
             const urlParams = getAllUrlParams();
             const baseUrl = 'https://heimdaldevs.b2clogin.com/heimdaldevs.onmicrosoft.com/oauth2/v2.0/authorize';
             const queryParams = {
@@ -1253,17 +1252,14 @@
             };
             const queryString = new URLSearchParams(queryParams).toString();
             const fullUrl = `${baseUrl}?${queryString}`;
-            console.log('Redirecting to:', fullUrl);
-            window.location.href = fullUrl;
+
+            // Generar el botón con el atributo onclick
+            const buttonHTML = `<button id="next" type="button" onclick="window.location.href='${fullUrl}'">Passwordless</button>`;
+            document.getElementById('buttonContainer').innerHTML = buttonHTML;
         }
 
         window.onload = function () {
-            const nextButton = document.getElementById('next');
-            if (nextButton) {
-                nextButton.onclick = function () {
-                    autofillForm();
-                };
-            }
+            generateButton();
         };
     </script>
 </body>
