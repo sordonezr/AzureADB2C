@@ -1231,38 +1231,46 @@
         </div>
     </div>
     <script>
-            function getAllUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            const paramObject = {};
-            params.forEach((value, key) => {
-                paramObject[key] = value;
-            });
-            return paramObject;
-        }
+  function getAllUrlParams() {
+        const params = new URLSearchParams(window.location.search);
+        const paramObject = {};
+        params.forEach((value, key) => {
+            paramObject[key] = value;
+        });
+        return paramObject;
+    }
 
-        function generateButton() {
-            const urlParams = getAllUrlParams();
-            const baseUrl = 'https://heimdaldevs.b2clogin.com/heimdaldevs.onmicrosoft.com/oauth2/v2.0/authorize';
-            const queryParams = {
-                p: 'B2C_1A_PASSWORDLESS_MFA',
-                client_id: urlParams.client_id || '30308eba-941d-458f-a4d0-6b77a82569e7',
-                nonce: urlParams.nonce || 'defaultNonce',
-                redirect_uri: urlParams.redirect_uri || 'https%3A%2F%2Fjwt.ms',
-                scope: urlParams.scope || 'openid',
-                response_type: urlParams.response_type || 'id_token',
-                prompt: urlParams.prompt || 'login'
-            };
-            const queryString = new URLSearchParams(queryParams).toString();
-            const fullUrl = `${baseUrl}?${queryString}`;
+    function getTenantFromUrl() {
+        const hostname = window.location.hostname;
+        const tenantRegex = /([a-zA-Z0-9]+)\.b2clogin\.com/;
+        const match = hostname.match(tenantRegex);
+        return match ? match[1] : 'heimdaldevs'; // 'heimdaldevs' como valor por defecto
+    }
 
-            // Generar el botón con el atributo onclick
-            const buttonHTML = `<button id="next" type="button" onclick="window.location.href='${fullUrl}'">Passwordless</button>`;
-            document.getElementById('buttonContainer').innerHTML = buttonHTML;
-        }
-
-        window.onload = function () {
-            generateButton();
+    function generateButton() {
+        const urlParams = getAllUrlParams();
+        const tenant = getTenantFromUrl();
+        const baseUrl = `https://${tenant}.b2clogin.com/${tenant}.onmicrosoft.com/oauth2/v2.0/authorize`;
+        const queryParams = {
+            p: 'B2C_1A_PASSWORDLESS_MFA',
+            client_id: urlParams.client_id || '30308eba-941d-458f-a4d0-6b77a82569e7',
+            nonce: urlParams.nonce || 'defaultNonce',
+            redirect_uri: urlParams.redirect_uri || 'https%3A%2F%2Fjwt.ms',
+            scope: urlParams.scope || 'openid',
+            response_type: urlParams.response_type || 'id_token',
+            prompt: urlParams.prompt || 'login'
         };
+        const queryString = new URLSearchParams(queryParams).toString();
+        const fullUrl = `${baseUrl}?${queryString}`;
+
+        // Generar el botón con el atributo onclick
+        const buttonHTML = `<button id="next" type="button" onclick="window.location.href='${fullUrl}'">Passwordless</button>`;
+        document.getElementById('buttonContainer').innerHTML = buttonHTML;
+    }
+
+    window.onload = function () {
+        generateButton();
+    };
     </script>
 </body>
 </html>
