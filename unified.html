@@ -1228,7 +1228,7 @@
             </div>
         </div>
     </div>
-    <script>
+        <script>
         function getAllUrlParams() {
             const params = new URLSearchParams(window.location.search);
             const paramObject = {};
@@ -1237,26 +1237,33 @@
             });
             return paramObject;
         }
+
         function autofillForm() {
+            console.log('Autofill function triggered');
             const urlParams = getAllUrlParams();
-            document.getElementById('next').onclick = function () {
-                const baseUrl = 'https://heimdaldevs.b2clogin.com/heimdaldevs.onmicrosoft.com/oauth2/v2.0/authorize';
-                const queryParams = {
-                    p: urlParams.p || 'B2C_1A_PASSWORDLESS_MFA',
-                    client_id: urlParams.client_id || '30308eba-941d-458f-a4d0-6b77a82569e7',
-                    nonce: urlParams.nonce || 'defaultNonce',
-                    redirect_uri: urlParams.redirect_uri || 'https%3A%2F%2Fjwt.ms',
-                    scope: urlParams.scope || 'openid',
-                    response_type: urlParams.response_type || 'id_token',
-                    prompt: urlParams.prompt || 'login'
-                };
-                const queryString = new URLSearchParams(queryParams).toString();
-                const fullUrl = `${baseUrl}?${queryString}`;
-                window.location.href = fullUrl;
+            const baseUrl = 'https://heimdaldevs.b2clogin.com/heimdaldevs.onmicrosoft.com/oauth2/v2.0/authorize';
+            const queryParams = {
+                p: urlParams.p || 'B2C_1A_PASSWORDLESS_MFA',
+                client_id: urlParams.client_id || '30308eba-941d-458f-a4d0-6b77a82569e7',
+                nonce: urlParams.nonce || 'defaultNonce',
+                redirect_uri: urlParams.redirect_uri || 'https%3A%2F%2Fjwt.ms',
+                scope: urlParams.scope || 'openid',
+                response_type: urlParams.response_type || 'id_token',
+                prompt: urlParams.prompt || 'login'
             };
+            const queryString = new URLSearchParams(queryParams).toString();
+            const fullUrl = `${baseUrl}?${queryString}`;
+            console.log('Redirecting to:', fullUrl);
+            window.location.href = fullUrl;
         }
+
         window.onload = function () {
-            autofillForm();
+            const nextButton = document.getElementById('next');
+            if (nextButton) {
+                nextButton.onclick = function () {
+                    autofillForm();
+                };
+            }
         };
     </script>
 </body>
