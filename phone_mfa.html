@@ -5,42 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Página de inicio de sesión de Colmena Seguros">
-    <title>4 Iniciar Sesión - Colmena Seguros</title>
+    <title>5 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div id="api"></div>
-
     <script>
+        // Función para obtener el valor de un parámetro específico de la URL
+        function getParameterByName(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            const options = document.querySelectorAll('.option');
-            options.forEach(option => {
-                option.addEventListener('click', function() {
-                    options.forEach(opt => opt.classList.remove('selected'));
-                    option.classList.add('selected');
-                    option.querySelector('input').checked = true;
-                });
-            });
-            document.querySelector('.option input:checked').parentElement.classList.add('selected');
+        // Obtener el valor del parámetro "phone"
+        const phoneValue = getParameterByName('phone');
+
+        // Asegurarse de que el DOM esté completamente cargado antes de manipular elementos
+        document.addEventListener("DOMContentLoaded", function() {
+            // Buscar el input con el id "nationalNumber"
+            const phoneInput = document.getElementById('nationalNumber');
+            
+            // Si el input existe y el valor del parámetro "phone" no es nulo, asignarlo al input
+            if (phoneInput && phoneValue) {
+                phoneInput.value = phoneValue;
+            }
         });
-        
-        function getUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            return {
-                phone: params.get('phone')
-            };
-        }
-        function autofillForm() {
-            const params = getUrlParams();
-            document.getElementById('nationalNumber').value = params.phone;
-            document.getElementById('continue').click();
-        }
-        // Función para manejar el envío del formulario
-        function handleSubmit(event) {
-            event.preventDefault();
-        }
-        window.onload = autofillForm;
     </script>
 </body>
 </html>
