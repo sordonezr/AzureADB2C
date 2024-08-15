@@ -71,6 +71,24 @@
     hideElement('#email_ver_but_resend'); // Ocultar el botón "send new code"
     hideElement('#email.textInput'); // Ocultar el input con id "email" y clase "textInput"
 
+    // Ocultar el <ul> y mostrar el contenido de TextBox
+    function showTextBoxContent() {
+        // Ocultar el <ul>
+        const ulElement = document.querySelector('ul');
+        if (ulElement) {
+            ulElement.style.visibility = 'hidden';
+        }
+
+        // Mostrar todo el contenido dentro de los elementos con la clase "TextBox"
+        const textBoxElements = document.querySelectorAll('.TextBox .attrEntry > div > div');
+        textBoxElements.forEach(element => {
+            element.style.display = 'block';
+            element.style.visibility = 'visible';
+        });
+    }
+
+    // Ejecutar la función para ocultar <ul> y mostrar el contenido de "TextBox"
+    showTextBoxContent();
 
     // Función para obtener el valor de un parámetro específico de la URL
     function getParameterByName(name) {
@@ -116,5 +134,6 @@
         }
     }, 100); // Verificar cada 100ms
 </script>
+
 </body>
 </html>
