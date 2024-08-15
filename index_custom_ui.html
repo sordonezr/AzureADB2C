@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar Sesión - Colmena Seguros</title>
+    <title>v1 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         .options {
@@ -481,7 +481,7 @@ async function verifyDocument() {
         const result = await response.json();
 
         // Configurar la URL de redirección para el proceso de autenticación en Azure AD B2C
-        let urlBase = "https://fundaciongruposocial1B2Cpoc.b2clogin.com/fundaciongruposocial1B2Cpoc.onmicrosoft.com/oauth2/v2.0/authorize";
+        let urlBase = "https://fundaciongruposocial1b2cpoc.b2clogin.com/fundaciongruposocial1b2cpoc.onmicrosoft.com/oauth2/v2.0/authorize";
         let clientId = "5fb30314-be1e-4132-a98b-b14aeef74aba";
         let nonce = "defaultNonce";
         let redirectUri = encodeURIComponent("https://jwt.ms");
