@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v1 Iniciar Sesión - Colmena Seguros</title>
+    <title>v2 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         .options {
@@ -481,28 +481,30 @@ async function verifyDocument() {
         const result = await response.json();
 
         // Configurar la URL de redirección para el proceso de autenticación en Azure AD B2C
-        let urlBase = "https://fundaciongruposocial1b2cpoc.b2clogin.com/fundaciongruposocial1b2cpoc.onmicrosoft.com/oauth2/v2.0/authorize";
-        let clientId = "5fb30314-be1e-4132-a98b-b14aeef74aba";
-        let nonce = "defaultNonce";
-        let redirectUri = encodeURIComponent("https://jwt.ms");
-        let scope = "openid";
-        let responseType = "id_token";
-        let prompt = "login";
-        let url;
+        // let urlBase = "https://fundaciongruposocial1b2cpoc.b2clogin.com/fundaciongruposocial1b2cpoc.onmicrosoft.com/oauth2/v2.0/authorize";
+        // let clientId = "5fb30314-be1e-4132-a98b-b14aeef74aba";
+        // let nonce = "defaultNonce";
+        // let redirectUri = encodeURIComponent("https://jwt.ms");
+        // let scope = "openid";
+        // let responseType = "id_token";
+        // let prompt = "login";
+        // let url;
 
-        // Configurar la URL según el método de verificación elegido
-        if (verificationMethod === 'email') {
-            url = `${urlBase}?p=B2C_1A_DEVS_UI_EMAIL_MFA&client_id=${clientId}&nonce=${nonce}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}&prompt=${prompt}&email=${encodeURIComponent(result.email)}`;
-        } else if (verificationMethod === 'phone') {
-            url = `${urlBase}?p=B2C_1A_DEVS_UI_PHONE_MFA&client_id=${clientId}&nonce=${nonce}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}&prompt=${prompt}&phone=${encodeURIComponent(result.phone)}`;
-        } else {
-            alert('Ningún método de verificación está disponible.');
-            hideLoadingModal(); // Ocultar la ventana modal si no hay un método válido
-            return;
-        }
+        // // Configurar la URL según el método de verificación elegido
+        // if (verificationMethod === 'email') {
+        //     url = `${urlBase}?p=B2C_1A_DEVS_UI_EMAIL_MFA&client_id=${clientId}&nonce=${nonce}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}&prompt=${prompt}&email=${encodeURIComponent(result.email)}`;
+        // } else if (verificationMethod === 'phone') {
+        //     url = `${urlBase}?p=B2C_1A_DEVS_UI_PHONE_MFA&client_id=${clientId}&nonce=${nonce}&redirect_uri=${redirectUri}&scope=${scope}&response_type=${responseType}&prompt=${prompt}&phone=${encodeURIComponent(result.phone)}`;
+        // } else {
+        //     alert('Ningún método de verificación está disponible.');
+        //     hideLoadingModal(); // Ocultar la ventana modal si no hay un método válido
+        //     return;
+        // }
 
         // Redirigir al usuario a la URL de autenticación
-        window.location.href = url;
+        // window.location.href = url;
+
+        window.location.href = "https://heimdaldevs.b2clogin.com/heimdaldevs.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1A_EMAIL_MFA&client_id=30308eba-941d-458f-a4d0-6b77a82569e7&nonce=defaultNonce&redirect_uri=https%3A%2F%2Fjwt.ms&scope=openid&response_type=id_token&prompt=login&email=sebastian.ordonez%40devs.com.co";
 
     } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
