@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v7 Iniciar Sesión - Colmena Seguros</title>
+    <title>v9 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         .options {
@@ -419,35 +419,35 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', function () {
-            // Seleccionar todas las opciones de verificación
-            const options = document.querySelectorAll('.option');
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     // Seleccionar todas las opciones de verificación
+        //     const options = document.querySelectorAll('.option');
 
-            // Agregar evento de selección a cada opción
-            options.forEach(option => {
-                option.addEventListener('click', function () {
-                    // Remover la clase 'selected' de todas las opciones
-                    options.forEach(opt => opt.classList.remove('selected'));
+        //     // Agregar evento de selección a cada opción
+        //     options.forEach(option => {
+        //         option.addEventListener('click', function () {
+        //             // Remover la clase 'selected' de todas las opciones
+        //             options.forEach(opt => opt.classList.remove('selected'));
 
-                    // Agregar la clase 'selected' a la opción seleccionada
-                    option.classList.add('selected');
+        //             // Agregar la clase 'selected' a la opción seleccionada
+        //             option.classList.add('selected');
 
-                    // Marcar el radio button correspondiente como seleccionado
-                    option.querySelector('input').checked = true;
-                });
-            });
+        //             // Marcar el radio button correspondiente como seleccionado
+        //             option.querySelector('input').checked = true;
+        //         });
+        //     });
 
-            // Asegurarse de que la opción seleccionada inicialmente tenga la clase 'selected'
-            document.querySelector('.option input:checked').parentElement.classList.add('selected');
+        //     // Asegurarse de que la opción seleccionada inicialmente tenga la clase 'selected'
+        //     document.querySelector('.option input:checked').parentElement.classList.add('selected');
 
-            // Añadir un evento de submit al formulario de documento
-            const documentForm = document.getElementById('document-form');
-            documentForm.addEventListener('submit', function (event) {
-                event.preventDefault(); // Prevenir el envío del formulario estándar
-                showLoadingModal(); // Mostrar la ventana modal de carga
-                verifyDocument(); // Llamar a la función de verificación del documento
-            });
-        });
+        //     // Añadir un evento de submit al formulario de documento
+        //     const documentForm = document.getElementById('document-form');
+        //     documentForm.addEventListener('submit', function (event) {
+        //         event.preventDefault(); // Prevenir el envío del formulario estándar
+        //         showLoadingModal(); // Mostrar la ventana modal de carga
+        //         verifyDocument(); // Llamar a la función de verificación del documento
+        //     });
+        // });
 
         /**
          * Función para abrir una pestaña (tab) y mostrar su contenido correspondiente.
