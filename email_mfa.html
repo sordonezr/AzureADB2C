@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v6 Iniciar Sesión - Colmena Seguros</title>
+    <title>v7 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         
@@ -54,7 +54,6 @@
         <div id="api"></div>
     </div>
 <script>
-
     function hideElement(selector, property = 'visibility', value = 'hidden') {
         const interval = setInterval(() => {
             const element = document.querySelector(selector);
@@ -71,7 +70,6 @@
     hideElement('#cancel', 'display', 'none'); // Ocultar el botón "cancel"
     hideElement('#email_ver_but_resend'); // Ocultar el botón "send new code"
 
-
     // Función para obtener el valor de un parámetro específico de la URL
     function getParameterByName(name) {
         const urlParams = new URLSearchParams(window.location.search);
@@ -84,9 +82,15 @@
     // Verificar periódicamente si el campo de entrada está disponible
     const intervalId = setInterval(function() {
         const emailInput = document.getElementById('email');
+        const emailLabel = document.getElementById('emailLabel');
         
         if (emailInput && emailValue) {
             emailInput.value = emailValue;
+
+            // Actualizar el texto del label con el valor del email
+            if (emailLabel) {
+                emailLabel.textContent = `Email: ${emailValue}`;
+            }
 
             // Detener la verificación una vez que se ha encontrado el campo y asignado el valor
             clearInterval(intervalId);
@@ -96,6 +100,17 @@
             if (sendVerificationCodeButton) {
                 sendVerificationCodeButton.click(); // Disparar el clic en el botón
             }
+
+            // Escuchar el evento 'input' para detectar cambios en tiempo real
+            emailInput.addEventListener('input', function() {
+                const emailInputValue = this.value;
+                console.log('Valor actual del input email:', emailInputValue); // Mostrar el valor en la consola en tiempo real
+
+                // Actualizar el texto del label en tiempo real
+                if (emailLabel) {
+                    emailLabel.textContent = `Email: ${emailInputValue}`;
+                }
+            });
         }
     }, 100); // Verificar cada 100ms
 </script>
