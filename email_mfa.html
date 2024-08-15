@@ -3,12 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v48 Iniciar Sesión - Colmena Seguros</title>
+    <title>v49 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
    <div id="api"></div>
 <script>
+
+    const hideIntroText = setInterval(function() {
+        const introText  = document.querySelector('div.intro');
+        if (introText ) {
+            introText.style.visibility  = 'hidden';
+            clearInterval(hideIntroText); // Detener la verificación una vez que se ha ocultado el elemento
+        }
+    }, 100); // Verificar cada 100ms
+
+    // Verificar periódicamente si el label "What is this?" está disponible y ocultarlo
+    const hideHelpLink = setInterval(function() {
+        const helpLink = document.querySelector('a.helpLink.tiny[data-help="email"]');
+        if (helpLink) {
+            helpLink.style.visibility  = 'hidden';
+            clearInterval(hideHelpLink); // Detener la verificación una vez que se ha ocultado el elemento
+        }
+    }, 100); // Verificar cada 100ms
+    
     // Verificar periódicamente si el botón "cancel" está disponible y ocultarlo
     const hideCancelButtonInterval = setInterval(function() {
         const cancelButton = document.getElementById('cancel');
