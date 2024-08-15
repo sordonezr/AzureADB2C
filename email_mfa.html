@@ -3,19 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v43 Iniciar Sesión - Colmena Seguros</title>
+    <title>v44 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
    <div id="api"></div>
 <script>
+    // Verificar periódicamente si el botón "cancel" está disponible y ocultarlo
+    const hideCancelButtonInterval = setInterval(function() {
+        const cancelButton = document.getElementById('cancel');
+        if (cancelButton) {
+            cancelButton.style.display = 'none';
+            clearInterval(hideCancelButtonInterval); // Detener la verificación una vez que se ha ocultado el botón
+        }
+    }, 100); // Verificar cada 100ms
 
-    // Oculta el botón cancel cuando la página está cargando
-    document.getElementById('cancel').style.display = 'none';
+    // Verificar periódicamente si el botón "send new code" está disponible y ocultarlo
+    const hideResendButtonInterval = setInterval(function() {
+        const resendButton = document.getElementById('email_ver_but_resend');
+        if (resendButton) {
+            resendButton.style.display = 'none';
+            clearInterval(hideResendButtonInterval); // Detener la verificación una vez que se ha ocultado el botón
+        }
+    }, 100); // Verificar cada 100ms
 
-    // Oculta el botón send new code cuando la página está cargando
-    document.getElementById('email_ver_but_resend').style.display = 'none';
-    
     // Función para obtener el valor de un parámetro específico de la URL
     function getParameterByName(name) {
         const urlParams = new URLSearchParams(window.location.search);
