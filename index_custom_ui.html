@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v20 Iniciar Sesión - Colmena Seguros</title>
+    <title>v21 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -390,36 +390,7 @@
             return null;
         }
 
-        /**
-         * Establece una cookie con un nombre, valor y tiempo de expiración.
-         * @param {string} name - El nombre de la cookie.
-         * @param {string} value - El valor de la cookie.
-         * @param {number} days - La cantidad de días hasta que expire la cookie.
-         */
-        function setCookie(name, value, days) {
-            const date = new Date();
-            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            const expires = "expires=" + date.toUTCString();
-            document.cookie = name + "=" + encodeURIComponent(value) + ";" + expires + ";path=/";
-        }
-
-        /**
-         * Obtiene el valor de una cookie por su nombre.
-         * @param {string} name - El nombre de la cookie.
-         * @returns {string|null} El valor de la cookie o null si no se encuentra.
-         */
-        function getCookie(name) {
-            const nameEQ = name + "=";
-            const ca = document.cookie.split(';');
-            for (let i = 0; i < ca.length; i++) {
-                let c = ca[i];
-                while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-                if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
-            }
-            return null;
-        }
-
-        // Llama a las funciones al cargar la página y almacena los parámetros en cookies
+        // Llama a las funciones al cargar la página y obtiene los parámetros directamente
         const queryParams = getQueryParams();
         const tenantInfo = getTenantFromUrl();
 
@@ -435,23 +406,19 @@
             prompt: queryParams.prompt || 'login'
         };
 
-        // Almacena los parámetros en cookies con una duración de 7 días
-        for (const key in selectedParams) {
-            if (selectedParams.hasOwnProperty(key)) {
-                setCookie(key, selectedParams[key], 7);
-            }
-        }
-
         // Muestra los parámetros seleccionados en la consola para su uso posterior
-        console.log("Parámetros almacenados en cookies:", selectedParams);
+        console.log("Parámetros obtenidos de la URL:", selectedParams);
 
         // Abre la pestaña predeterminada al cargar la página
         document.getElementById("defaultOpen").click();
+
+        // Puedes usar los parámetros en otras funciones o elementos de la página directamente
+        // Por ejemplo, podrías usarlos para configurar dinámicamente el contenido de la página
     }
 
     /**
      * Redirige al usuario a una URL basada en el resultado de la verificación del documento.
-     * La URL se construye dinámicamente usando los parámetros almacenados en cookies.
+     * La URL se construye dinámicamente usando los parámetros obtenidos directamente de la URL.
      */
     async function redirectToMethod() {
         showLoadingModal();
@@ -462,16 +429,16 @@
         if (result) {
             var url;
 
-            // Recupera los parámetros almacenados en cookies
-            const tenant = getCookie('tenant') || 'defaultTenant';
-            const tenantId = getCookie('tenantId') || 'defaultTenantId';
-            const p = getCookie('p') || 'defaultPolicy';
-            const client_id = getCookie('client_id') || 'defaultClientId';
-            const nonce = getCookie('nonce') || 'defaultNonce';
-            const redirect_uri = getCookie('redirect_uri') || 'https://defaultRedirectUri.com';
-            const scope = getCookie('scope') || 'openid';
-            const response_type = getCookie('response_type') || 'id_token';
-            const prompt = getCookie('prompt') || 'login';
+            // Recupera los parámetros directamente de las variables globales
+            const tenant = selectedParams.tenant;
+            const tenantId = selectedParams.tenantId;
+            const p = selectedParams.p;
+            const client_id = selectedParams.client_id;
+            const nonce = selectedParams.nonce;
+            const redirect_uri = selectedParams.redirect_uri;
+            const scope = selectedParams.scope;
+            const response_type = selectedParams.response_type;
+            const prompt = selectedParams.prompt;
 
             // Construye la URL de redirección de manera dinámica con los parámetros obtenidos
             if (result.email || result.phone) {
@@ -597,6 +564,7 @@
         input.value = input.value.replace(/\D/g, '').slice(0, 10); // Remueve caracteres no numéricos y limita a 10 dígitos
     }
 </script>
+
 
 
 </body>
