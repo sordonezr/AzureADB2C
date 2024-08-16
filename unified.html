@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Sign up or sign in 6</title>
+    <title>Sign up or sign in 7</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1230,56 +1230,55 @@
             </div>
         </div>
     </div>
-<script>
-    function getAllUrlParams() {
-        const params = new URLSearchParams(window.location.search);
-        const paramObject = {};
-        params.forEach((value, key) => {
-            paramObject[key] = value;
-        });
-        return paramObject;
-    }
+    <script>
+        function getAllUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const paramObject = {};
+            params.forEach((value, key) => {
+                paramObject[key] = value;
+            });
+            return paramObject;
+        }
 
-    function getTenantFromUrl() {
-        const hostname = window.location.hostname;
-        const tenantRegex = /([a-zA-Z0-9]+)\.b2clogin\.com/;
-        const match = hostname.match(tenantRegex);
-        return match ? match[1] : 'heimdaldevs'; // 'heimdaldevs' como valor por defecto
-    }
+        function getTenantFromUrl() {
+            const hostname = window.location.hostname;
+            const tenantRegex = /([a-zA-Z0-9]+)\.b2clogin\.com/;
+            const match = hostname.match(tenantRegex);
+            return match ? match[1] : 'heimdaldevs'; // 'heimdaldevs' como valor por defecto
+        }
 
-    function generateButton() {
-        const urlParams = getAllUrlParams();
-        const tenant = getTenantFromUrl();
-        const baseUrl = `https://${tenant}.b2clogin.com/${tenant}.onmicrosoft.com/oauth2/v2.0/authorize`;
-        const queryParams = {
-            p: 'B2C_1A_PASSWORDLESS_MFA',
-            client_id: urlParams.client_id || '30308eba-941d-458f-a4d0-6b77a82569e7',
-            nonce: urlParams.nonce || 'defaultNonce',
-            redirect_uri: urlParams.redirect_uri || 'https%3A%2F%2Fjwt.ms',
-            scope: urlParams.scope || 'openid',
-            response_type: urlParams.response_type || 'id_token',
-            prompt: urlParams.prompt || 'login'
-        };
-        const queryString = new URLSearchParams(queryParams).toString();
-        const fullUrl = `${baseUrl}?${queryString}`;
+        function generateButton() {
+            const urlParams = getAllUrlParams();
+            const tenant = getTenantFromUrl();
+            const baseUrl = `https://${tenant}.b2clogin.com/${tenant}.onmicrosoft.com/oauth2/v2.0/authorize`;
+            const queryParams = {
+                p: 'B2C_1A_PASSWORDLESS_MFA',
+                client_id: urlParams.client_id || '30308eba-941d-458f-a4d0-6b77a82569e7',
+                nonce: urlParams.nonce || 'defaultNonce',
+                redirect_uri: urlParams.redirect_uri || 'https%3A%2F%2Fjwt.ms',
+                scope: urlParams.scope || 'openid',
+                response_type: urlParams.response_type || 'id_token',
+                prompt: urlParams.prompt || 'login'
+            };
+            const queryString = new URLSearchParams(queryParams).toString();
+            const fullUrl = `${baseUrl}?${queryString}`;
 
-        // Forzar la generación del botón después de un pequeño retraso
-        setTimeout(function () {
+            // Intentar generar el botón inmediatamente
             const buttonContainer = document.getElementById('buttonContainer');
             if (buttonContainer) {
-                const buttonHTML = `<button id="next" type="button" onclick="window.location.href='${fullUrl}'">Passwordless</button>`;
+                const buttonHTML = `<button id="next" type="button" style="padding: 10px 20px; font-size: 16px; cursor: pointer;" onclick="window.location.href='${fullUrl}'">Passwordless</button>`;
                 buttonContainer.innerHTML = buttonHTML;
-                console.log("Botón generado exitosamente.");
             } else {
                 console.error("No se encontró el elemento con ID 'buttonContainer'.");
             }
-        }, 1000); // 1 segundo de retraso
-    }
+        }
 
-    window.onload = function () {
+        // Generar el botón tan pronto como el script se ejecute
         generateButton();
-    };
-</script>
+
+        // Reintentar la generación del botón después de que el contenido del cuerpo esté cargado
+        document.addEventListener("DOMContentLoaded", generateButton);
+    </script>
 
 
 </body>
