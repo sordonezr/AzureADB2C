@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v33 Iniciar Sesión - Colmena Seguros</title>
+    <title>v34 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
         /* (El código de estilo se mantiene sin cambios) */
-        .options {
+	.options {
             display: flex;
             gap: 10px;
         }
@@ -325,11 +325,11 @@
                         <label>Elige el medio por el cual deseas recibir el código para validar tu identidad:</label>
                         <div class="options">
                             <label class="option">
-                                <input type="radio" name="verificationMethod" id="radio-email" value="email" checked>
+                                <input type="radio" name="verificationMethod" value="email" checked>
                                 <span>Correo electrónico</span>
                             </label>
                             <label class="option">
-                                <input type="radio" name="verificationMethod" id="radio-phone" value="phone">
+                                <input type="radio" name="verificationMethod" value="phone">
                                 <span>Número de teléfono</span>
                             </label>
                         </div>
@@ -356,21 +356,21 @@
     </div>
  
 <script>
-    // Selecciona la política (p) adecuada basado en el radio button seleccionado
-    function getSelectedPolicy() {
-        const emailRadio = document.getElementById('radio-email');
-        const phoneRadio = document.getElementById('radio-phone');
-
-        if (emailRadio && emailRadio.checked) {
-            return 'B2C_1A_DEVS_UI_EMAIL_MFA';
-        } else if (phoneRadio && phoneRadio.checked) {
-            return 'B2C_1A_DEVS_UI_PHONE_MFA';
-        } else {
-            return 'B2C_1A_DEVS_UI_EMAIL_MFA';
-        }
-    }
-
     window.onload = function() {
+        // Selecciona la política (p) adecuada basado en el radio button seleccionado
+        function getSelectedPolicy() {
+            const emailRadio = document.getElementById('radio-email');
+            const phoneRadio = document.getElementById('radio-phone');
+
+            if (emailRadio && emailRadio.checked) {
+                return 'B2C_1A_DEVS_UI_EMAIL_MFA';
+            } else if (phoneRadio && phoneRadio.checked) {
+                return 'B2C_1A_DEVS_UI_PHONE_MFA';
+            } else {
+                return 'B2C_1A_DEVS_UI_EMAIL_MFA';
+            }
+        }
+
         // Abre la pestaña predeterminada al cargar la página
         document.getElementById("defaultOpen").click();
     }
@@ -399,7 +399,7 @@
 
             // Construye la URL de redirección de manera dinámica con los parámetros obtenidos
             if (result.email || result.phone) {
-                url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenant}/oauth2/v2.0/authorize?p=${encodeURIComponent(selectedParams.p)}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
+                url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenant}.onmicrosoft.com/oauth2/v2.0/authorize?p=${encodeURIComponent(selectedParams.p)}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
                 
                 // Agrega el parámetro de email o phone según corresponda
                 if (result.email) {
