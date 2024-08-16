@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v36 Iniciar Sesión - Colmena Seguros</title>
+    <title>v37 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -370,11 +370,6 @@
         }
     }
 
-    // window.onload = function() {
-    //     // Abre la pestaña predeterminada al cargar la página
-    //     document.getElementById("defaultOpen").click();
-    // }
-
     // Redirige al usuario a una URL basada en el resultado de la verificación del documento.
     async function redirectToMethod() {
         showLoadingModal();
@@ -397,16 +392,17 @@
                 prompt: 'login'
             };
 
+            // Obtén el valor seleccionado en el radio button
+            const selectedMethod = document.querySelector('input[name="verificationMethod"]:checked').value;
+
             // Construye la URL de redirección de manera dinámica con los parámetros obtenidos
-            if (result.email || result.phone) {
-                url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenant}.onmicrosoft.com/oauth2/v2.0/authorize?p=${encodeURIComponent(selectedParams.p)}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
-                
-                // Agrega el parámetro de email o phone según corresponda
-                if (result.email) {
-                    url += `&email=${encodeURIComponent(result.email)}`;
-                } else if (result.phone) {
-                    url += `&phone=${encodeURIComponent(result.phone)}`;
-                }
+            url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenant}.onmicrosoft.com/oauth2/v2.0/authorize?p=${encodeURIComponent(selectedParams.p)}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
+
+            // Agrega el parámetro correspondiente según el radio button seleccionado
+            if (selectedMethod === 'email' && result.email) {
+                url += `&email=${encodeURIComponent(result.email)}`;
+            } else if (selectedMethod === 'phone' && result.phone) {
+                url += `&phone=${encodeURIComponent(result.phone)}`;
             }
 
             // Redirige al usuario o muestra un error si no se pudo construir la URL
