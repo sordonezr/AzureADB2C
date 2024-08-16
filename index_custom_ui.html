@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v35 Iniciar Sesión - Colmena Seguros</title>
+    <title>v36 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -370,10 +370,10 @@
         }
     }
 
-    window.onload = function() {
-        // Abre la pestaña predeterminada al cargar la página
-        document.getElementById("defaultOpen").click();
-    }
+    // window.onload = function() {
+    //     // Abre la pestaña predeterminada al cargar la página
+    //     document.getElementById("defaultOpen").click();
+    // }
 
     // Redirige al usuario a una URL basada en el resultado de la verificación del documento.
     async function redirectToMethod() {
@@ -489,6 +489,9 @@
         document.getElementById(tabName).style.display = "block";
         evt.currentTarget.className += " active";
     }
+
+    // Abrir la pestaña predeterminada al cargar la página
+    document.getElementById("defaultOpen").click();
 
     // Muestra una ventana modal de carga.
     function showLoadingModal() {
