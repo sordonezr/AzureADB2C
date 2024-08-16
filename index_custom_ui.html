@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v31 Iniciar Sesión - Colmena Seguros</title>
+    <title>v32 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -357,34 +357,6 @@
  
 <script>
     window.onload = function() {
-        // Obtiene los parámetros de la URL actual y los convierte en un objeto clave-valor.
-        function getQueryParams() {
-            const params = {};
-            const queryString = window.location.search.substring(1);
-            const regex = /([^&=]+)=([^&]*)/g;
-            let match;
-
-            while (match = regex.exec(queryString)) {
-                params[decodeURIComponent(match[1])] = decodeURIComponent(match[2]);
-            }
-            return params;
-        }
-
-        // Obtiene el nombre y el ID del tenant desde la URL actual.
-        function getTenantFromUrl() {
-            const url = window.location.href;
-            const tenantRegex = /https:\/\/([^.]+)\.b2clogin\.com\/([^.]+)/;
-            const match = url.match(tenantRegex);
-
-            if (match && match[1]) {
-                return {
-                    tenantName: match[1] || 'defaultTenant',
-                    tenantId: match[1] || 'defaultTenantId' // Asumiendo que el tenantId es igual al tenantName. Ajusta esto si es necesario.
-                };
-            }
-            return null;
-        }
-
         // Selecciona la política (p) adecuada basado en el radio button seleccionado
         function getSelectedPolicy() {
             const emailRadio = document.getElementById('radio-email');
@@ -395,13 +367,9 @@
             } else if (phoneRadio && phoneRadio.checked) {
                 return 'B2C_1A_DEVS_UI_PHONE_MFA';
             } else {
-                return queryParams.p || 'defaultPolicy';
+                return 'B2C_1A_DEVS_UI_EMAIL_MFA';
             }
         }
-
-        // Obtén los parámetros y el tenant de la URL
-        const queryParams = getQueryParams();
-        const tenantInfo = getTenantFromUrl();
 
         // Abre la pestaña predeterminada al cargar la página
         document.getElementById("defaultOpen").click();
@@ -417,27 +385,21 @@
         // Si la verificación es exitosa, proceder con la redirección
         if (result) {
             var url;
-
-            // Recupera los parámetros necesarios
-            const queryParams = getQueryParams(); // Asegúrate de tener esta función definida
-            const tenantInfo = getTenantFromUrl(); // Asegúrate de tener esta función definida
-
             // Define los parámetros seleccionados
             const selectedParams = {
-                tenant: tenantInfo ? tenantInfo.tenantName : 'defaultTenant',
-                tenantId: tenantInfo ? tenantInfo.tenantId : 'defaultTenantId',
+                tenant: 'fundaciongruposocial1b2cpoc',
                 p: getSelectedPolicy(),  // Usa la política seleccionada
-                client_id: queryParams.client_id || 'defaultClientId',
-                nonce: queryParams.nonce || 'defaultNonce',
-                redirect_uri: queryParams.redirect_uri || 'https://defaultRedirectUri.com',
-                scope: queryParams.scope || 'openid',
-                response_type: queryParams.response_type || 'id_token',
-                prompt: queryParams.prompt || 'login'
+                client_id: '5fb30314-be1e-4132-a98b-b14aeef74aba',
+                nonce: 'defaultNonce',
+                redirect_uri: 'https://jwt.ms',
+                scope: 'openid',
+                response_type: 'id_token',
+                prompt: 'login'
             };
 
             // Construye la URL de redirección de manera dinámica con los parámetros obtenidos
             if (result.email || result.phone) {
-                url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenantId}/oauth2/v2.0/authorize?p=${encodeURIComponent(selectedParams.p)}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
+                url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenant}/oauth2/v2.0/authorize?p=${encodeURIComponent(selectedParams.p)}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
                 
                 // Agrega el parámetro de email o phone según corresponda
                 if (result.email) {
@@ -545,9 +507,6 @@
         input.value = input.value.replace(/\D/g, '').slice(0, 10); // Remueve caracteres no numéricos y limita a 10 dígitos
     }
 </script>
-
-
-
 
 </body>
 
