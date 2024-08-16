@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v16 Iniciar Sesión - Colmena Seguros</title>
+    <title>v17 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -357,8 +357,6 @@
     
 <script>
 
-    let selectedParams = {}; // Definir selectedParams en un alcance global
-
     document.addEventListener("DOMContentLoaded", function() {
         /**
          * Obtiene los parámetros de la URL actual y los convierte en un objeto clave-valor.
@@ -385,38 +383,45 @@
             const tenantRegex = /https:\/\/([^.]+)\.b2clogin\.com\/([^.]+)/;
             const match = url.match(tenantRegex);
 
-            if (match && match[1] && match[2]) {
+            if (match && match[1]) {
                 return {
                     tenantName: match[1],
-                    tenantId: match[2]
+                    tenantId: match[1] // Asumiendo que el tenantId es igual al tenantName. Ajusta esto si es necesario.
                 };
             }
             return null;
         }
 
-        // Llama a las funciones al cargar la página y almacena los parámetros globalmente
+        // Llama a las funciones al cargar la página y almacena los parámetros en localStorage
         const queryParams = getQueryParams();
         const tenantInfo = getTenantFromUrl();
 
-        // Selecciona solo los parámetros requeridos de la URL
-        selectedParams = {
-            tenant: tenantInfo ? tenantInfo.tenantName : null,
-            p: queryParams.p,
-            client_id: queryParams.client_id,
-            nonce: queryParams.nonce,
-            redirect_uri: queryParams.redirect_uri,
-            scope: queryParams.scope,
-            response_type: queryParams.response_type,
-            prompt: queryParams.prompt
+        const selectedParams = {
+            tenant: tenantInfo ? tenantInfo.tenantName : 'defaultTenant',
+            tenantId: tenantInfo ? tenantInfo.tenantId : 'defaultTenantId',
+            p: queryParams.p || 'defaultPolicy',
+            client_id: queryParams.client_id || 'defaultClientId',
+            nonce: queryParams.nonce || 'defaultNonce',
+            redirect_uri: queryParams.redirect_uri || 'https://defaultRedirectUri.com',
+            scope: queryParams.scope || 'openid',
+            response_type: queryParams.response_type || 'id_token',
+            prompt: queryParams.prompt || 'login'
         };
 
+        // Almacena los parámetros en localStorage
+        for (const key in selectedParams) {
+            if (selectedParams.hasOwnProperty(key)) {
+                localStorage.setItem(key, selectedParams[key]);
+            }
+        }
+
         // Muestra los parámetros seleccionados en la consola para su uso posterior
-        console.log("Parámetros seleccionados:", selectedParams);
+        console.log("Parámetros almacenados en localStorage:", selectedParams);
     });
 
     /**
      * Redirige al usuario a una URL basada en el resultado de la verificación del documento.
-     * La URL se construye dinámicamente usando los parámetros obtenidos de la URL original.
+     * La URL se construye dinámicamente usando los parámetros almacenados en localStorage.
      */
     async function redirectToMethod() {
         showLoadingModal();
@@ -427,9 +432,20 @@
         if (result) {
             var url;
 
+            // Recupera los parámetros almacenados en localStorage
+            const tenant = localStorage.getItem('tenant');
+            const tenantId = localStorage.getItem('tenantId');
+            const p = localStorage.getItem('p');
+            const client_id = localStorage.getItem('client_id');
+            const nonce = localStorage.getItem('nonce');
+            const redirect_uri = localStorage.getItem('redirect_uri');
+            const scope = localStorage.getItem('scope');
+            const response_type = localStorage.getItem('response_type');
+            const prompt = localStorage.getItem('prompt');
+
             // Construye la URL de redirección de manera dinámica con los parámetros obtenidos
             if (result.email || result.phone) {
-                url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenantId}/oauth2/v2.0/authorize?p=${encodeURIComponent(selectedParams.p)}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
+                url = `https://${tenant}.b2clogin.com/${tenantId}/oauth2/v2.0/authorize?p=${encodeURIComponent(p)}&client_id=${encodeURIComponent(client_id)}&nonce=${encodeURIComponent(nonce)}&redirect_uri=${encodeURIComponent(redirect_uri)}&scope=${encodeURIComponent(scope)}&response_type=${encodeURIComponent(response_type)}&prompt=${encodeURIComponent(prompt)}`;
                 
                 // Agrega el parámetro de email o phone según corresponda
                 if (result.email) {
@@ -555,6 +571,7 @@
     }
 
 </script>
+
 
 
 </body>
