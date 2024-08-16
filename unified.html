@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Sign up or sign in 4</title>
+    <title>Sign up or sign in 5</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1230,8 +1230,8 @@
             </div>
         </div>
     </div>
-    <script>
-  function getAllUrlParams() {
+<script>
+    function getAllUrlParams() {
         const params = new URLSearchParams(window.location.search);
         const paramObject = {};
         params.forEach((value, key) => {
@@ -1263,14 +1263,19 @@
         const queryString = new URLSearchParams(queryParams).toString();
         const fullUrl = `${baseUrl}?${queryString}`;
 
-        // Generar el botón con el atributo onclick
-        const buttonHTML = `<button id="next" type="button" onclick="window.location.href='${fullUrl}'">Passwordless</button>`;
-        document.getElementById('buttonContainer').innerHTML = buttonHTML;
+        const buttonContainer = document.getElementById('buttonContainer');
+        if (buttonContainer) {
+            const buttonHTML = `<button id="next" type="button" onclick="window.location.href='${fullUrl}'">Passwordless</button>`;
+            buttonContainer.innerHTML = buttonHTML;
+        } else {
+            console.error("No se encontró el elemento con ID 'buttonContainer'.");
+        }
     }
 
     window.onload = function () {
         generateButton();
     };
-    </script>
+</script>
+
 </body>
 </html>
