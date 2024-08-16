@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v19 Iniciar Sesión - Colmena Seguros</title>
+    <title>v20 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -355,8 +355,7 @@
         </div>
     </div>
     <script>
-
-    document.addEventListener("DOMContentLoaded", function() {
+    window.onload = function() {
         /**
          * Obtiene los parámetros de la URL actual y los convierte en un objeto clave-valor.
          * @returns {Object} Un objeto que contiene los parámetros de la URL como pares clave-valor.
@@ -445,7 +444,10 @@
 
         // Muestra los parámetros seleccionados en la consola para su uso posterior
         console.log("Parámetros almacenados en cookies:", selectedParams);
-    });
+
+        // Abre la pestaña predeterminada al cargar la página
+        document.getElementById("defaultOpen").click();
+    }
 
     /**
      * Redirige al usuario a una URL basada en el resultado de la verificación del documento.
@@ -571,9 +573,6 @@
         evt.currentTarget.className += " active";
     }
 
-    // Abre la pestaña predeterminada al cargar la página
-    document.getElementById("defaultOpen").click();
-
     /**
      * Muestra una ventana modal de carga.
      */
@@ -597,7 +596,6 @@
     function validateNumberInput(input) {
         input.value = input.value.replace(/\D/g, '').slice(0, 10); // Remueve caracteres no numéricos y limita a 10 dígitos
     }
-
 </script>
 
 
