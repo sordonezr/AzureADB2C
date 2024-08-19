@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v89 Iniciar Sesión - Colmena Seguros</title>
+      <title>v90 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -445,6 +445,18 @@
          </div>
       </div>
 <script>
+
+   document.addEventListener('DOMContentLoaded', function() {
+    var socialDiv = document.querySelector('.claims-provider-list-buttons.social');
+    var createDiv = document.querySelector('.create');
+
+    if (socialDiv && createDiv) {
+        socialDiv.outerHTML = ''; // Elimina el elemento del DOM
+        createDiv.insertAdjacentHTML('afterend', socialDiv.outerHTML); // Lo añade en el nuevo lugar
+    }
+});
+
+   
     /**
      * Realiza operaciones sobre elementos HTML seleccionados.
      * @param {Array} actions - Lista de acciones a realizar sobre los elementos.
@@ -489,20 +501,6 @@
     { type: 'replace', selector: 'label[for="password"]', oldText: 'Password', newText: 'Contraseña' }
 ]);
 
-
-document.addEventListener('DOMContentLoaded', function() {
-    var socialDiv = document.querySelector('.claims-provider-list-buttons.social');
-    var createDiv = document.querySelector('.create');
-
-    if (socialDiv && createDiv) {
-        socialDiv.parentNode.removeChild(socialDiv); // Remueve el elemento del DOM
-        createDiv.parentNode.replaceChild(socialDiv, createDiv.nextSibling); // Lo coloca justo después de createDiv
-    }
-});
-
-
-   
-   
    
     // (Restante código sin cambios)
     // Selecciona la política (p) adecuada basado en el radio button seleccionado
