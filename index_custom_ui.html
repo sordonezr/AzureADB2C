@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v81 Iniciar Sesión - Colmena Seguros</title>
+      <title>v82 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -464,7 +464,7 @@
             // Itera sobre cada elemento seleccionado
             elements.forEach(function(element) {
                 // Verifica si la acción es de tipo 'remove' y si el texto coincide exactamente
-                if (action.type === 'remove' && element.textContent.trim() === action.text) {
+                if (action.type === 'remove') {
                     // Elimina el elemento del DOM
                     element.remove();
                 } 
@@ -485,7 +485,7 @@
         { type: 'remove', selector: '#forgotPassword', text: 'Forgot your password?' },
         { type: 'replace', selector: '.create p', oldText: "Don't have an account?", newText: "Si no tienes cuenta " },
         { type: 'replace', selector: '#createAccount', oldText: "Sign up now", newText: " Regístrate acá" },
-        { type: 'remove', selector: '.options', text: '' } 
+        { type: 'remove', selector: '.options' } 
     ]);
 
     // (Restante código sin cambios)
