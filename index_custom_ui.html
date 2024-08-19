@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v92 Iniciar Sesión - Colmena Seguros</title>
+      <title>v93 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -446,7 +446,7 @@
       </div>
 <script>
 
-function moveElement() {
+/**function moveElement() {
     var socialDiv = document.querySelector('.claims-provider-list-buttons.social');
     var createDiv = document.querySelector('.create');
 
@@ -466,7 +466,31 @@ var intervalId = setInterval(function() {
         moveElement();
         clearInterval(intervalId); // Detener el intervalo una vez que se haya movido
     }
-}, 100);
+}, 100);**/
+
+   function moveElement() {
+    var socialDiv = document.querySelector('.claims-provider-list-buttons.social');
+    var createDiv = document.querySelector('.create');
+
+    if (socialDiv && createDiv) {
+        var clonedSocialDiv = socialDiv.cloneNode(true); // Clona el elemento
+        createDiv.insertAdjacentElement('afterend', clonedSocialDiv); // Inserta el clon en el nuevo lugar
+        socialDiv.parentNode.removeChild(socialDiv); // Elimina el original
+    }
+}
+
+// Observador de mutaciones para detectar cambios en el DOM
+var observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+        moveElement(); // Intenta mover el elemento cada vez que el DOM cambia
+    });
+});
+
+observer.observe(document.body, { childList: true, subtree: true });
+
+// Intenta moverlo al cargar
+document.addEventListener('DOMContentLoaded', moveElement);
+
 
 
    
