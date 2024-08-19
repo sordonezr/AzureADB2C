@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v55 Iniciar Sesión - Colmena Seguros</title>
+    <title>v56 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -361,18 +361,9 @@ var newContainer = document.querySelector('.social-login');
 
 // Verifica que ambos contenedores existan
 if (socialButtons && newContainer) {
-    // Remueve el elemento <div class="intro">
-    var intro = socialButtons.querySelector('.intro');
-    if (intro) {
-        intro.parentNode.removeChild(intro);
-    }
 
-    // Clona los botones y mueve cada uno al nuevo contenedor
-    var buttons = socialButtons.querySelectorAll('.accountButton');
-    buttons.forEach(function(button) {
-        var clonedButton = button.cloneNode(true); // Clona el botón
-        newContainer.appendChild(clonedButton); // Lo añade al nuevo contenedor
-    });
+    // Inserta el HTML del contenedor original en el nuevo contenedor
+    newContainer.innerHTML = socialButtons.innerHTML;
 
     // Elimina el contenedor original
     socialButtons.parentNode.removeChild(socialButtons);
