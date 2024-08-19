@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v50 Iniciar Sesión - Colmena Seguros</title>
+    <title>v51 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -341,8 +341,6 @@
                 <div id="api"></div>
             </div>
             <div class="social-login">
-                <img src="img/google.png" alt="Google">
-                <img src="img/microsoft.png" alt="Microsoft">
             </div>
         </div>
     </div>
@@ -357,12 +355,19 @@
  
 <script>
 
-    const microsoftButton = document.getElementById('MicrosoftAccountExchange');
-    const googleButton = document.getElementById('GoogleExchange');
-
-    if (microsoftButton && googleButton) {
-        document.querySelector('.options').style.display = 'none';
-    }
+	// Selecciona el elemento que quieres mover
+	var socialButtons = document.querySelector('.claims-provider-list-buttons.social');
+	
+	// Selecciona el nuevo contenedor
+	var newContainer = document.querySelector('.social-login');
+	
+	// Mueve el contenido al nuevo contenedor
+	if (socialButtons && newContainer) {
+	    newContainer.appendChild(socialButtons);
+	}
+	
+	// Oculta el elemento después de moverlo
+	socialButtons.style.display = 'none';
 
 
     // Selecciona la política (p) adecuada basado en el radio button seleccionado
