@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v86 Iniciar Sesión - Colmena Seguros</title>
+      <title>v87 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -492,15 +492,12 @@
 
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Selecciona el div que quieres mover
     var socialDiv = document.querySelector('.claims-provider-list-buttons.social');
-    
-    // Selecciona el div .create debajo del cual quieres mover el socialDiv
     var createDiv = document.querySelector('.create');
 
     if (socialDiv && createDiv) {
-        // Mueve el socialDiv debajo del createDiv
-        createDiv.insertAdjacentElement('afterend', socialDiv);
+        socialDiv.parentNode.removeChild(socialDiv); // Remueve el elemento del DOM
+        createDiv.parentNode.appendChild(socialDiv); // Lo añade como último hijo de createDiv
     }
 });
 
