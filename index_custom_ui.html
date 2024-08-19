@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v56 Iniciar Sesión - Colmena Seguros</title>
+    <title>v57 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -354,24 +354,6 @@
     </div>
  
 <script>
-
-// Selecciona el contenedor original y el nuevo contenedor
-var socialButtons = document.querySelector('.claims-provider-list-buttons.social');
-var newContainer = document.querySelector('.social-login');
-
-// Verifica que ambos contenedores existan
-if (socialButtons && newContainer) {
-
-    // Inserta el HTML del contenedor original en el nuevo contenedor
-    newContainer.innerHTML = socialButtons.innerHTML;
-
-    // Elimina el contenedor original
-    socialButtons.parentNode.removeChild(socialButtons);
-}
-
-
-
-
 
     // Selecciona la política (p) adecuada basado en el radio button seleccionado
     function getSelectedPolicy() {
