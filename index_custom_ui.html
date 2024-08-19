@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v60 Iniciar Sesión - Colmena Seguros</title>
+    <title>v61 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -355,19 +355,24 @@
  
 <script>
 
-	function removeElement(selector) {
-    // Selecciona el elemento basado en el selector proporcionado
-    var element = document.querySelector(selector);
-    
-    // Remueve el elemento si existe
-    if (element) {
-        element.parentNode.removeChild(element);
-    }
+function removeElementsByText(selectorsAndTexts) {
+    selectorsAndTexts.forEach(function(item) {
+        var elements = document.querySelectorAll(item.selector);
+        
+        elements.forEach(function(element) {
+            if (element.textContent.trim() === item.text) {
+                element.parentNode.removeChild(element);
+            }
+        });
+    });
 }
 
-// Ejemplo de uso
-removeElement('.intro');   // Remueve el elemento <div class="intro">
-removeElement('.divider'); // Remueve el elemento <div class="divider">
+// Llamada a la función para remover los 3 elementos
+removeElementsByText([
+    { selector: '.intro h2', text: 'Sign in with your username' },
+    { selector: '.intro', text: 'Sign in with your social account' },  // Ajusta según el texto real
+    { selector: '.divider h2', text: 'OR' }
+]);
 
 
 	
