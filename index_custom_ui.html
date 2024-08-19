@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v80 Iniciar Sesión - Colmena Seguros</title>
+      <title>v81 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -484,21 +484,9 @@
         { type: 'remove', selector: '.divider h2', text: 'OR' },
         { type: 'remove', selector: '#forgotPassword', text: 'Forgot your password?' },
         { type: 'replace', selector: '.create p', oldText: "Don't have an account?", newText: "Si no tienes cuenta " },
-        { type: 'replace', selector: '#createAccount', oldText: "Sign up now", newText: " Regístrate acá" }
+        { type: 'replace', selector: '#createAccount', oldText: "Sign up now", newText: " Regístrate acá" },
+        { type: 'remove', selector: '.options', text: '' } 
     ]);
-
-    // Mueve el elemento .options debajo del formulario localAccountForm
-    document.addEventListener("DOMContentLoaded", function() {
-        var localAccountForm = document.getElementById("localAccountForm");
-        var optionsElement = document.querySelector(".options");
-
-        if (localAccountForm && optionsElement) {
-            console.log('Moviendo el elemento .options debajo de localAccountForm'); // Mensaje para depuración
-            localAccountForm.insertAdjacentElement('afterend', optionsElement);
-        } else {
-            console.log('No se encontró localAccountForm o optionsElement'); // Mensaje para depuración
-        }
-    });
 
     // (Restante código sin cambios)
     // Selecciona la política (p) adecuada basado en el radio button seleccionado
