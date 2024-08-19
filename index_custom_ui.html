@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v39 Iniciar Sesión - Colmena Seguros</title>
+    <title>v40 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -341,8 +341,6 @@
                 <div id="api"></div>
             </div>
             <div class="social-login">
-                <img src="img/google.png" alt="Google">
-                <img src="img/microsoft.png" alt="Microsoft">
             </div>
         </div>
     </div>
@@ -506,40 +504,29 @@
         input.value = input.value.replace(/\D/g, '').slice(0, 10); // Remueve caracteres no numéricos y limita a 10 dígitos
     }
 
-    // Ocultar los botones de Microsoft Account y Google, y moverlos a un div específico
+    // Utilizar MutationObserver para detectar cuando los botones de Microsoft y Google están disponibles en el DOM
     document.addEventListener("DOMContentLoaded", function() {
-        // Esperar un breve momento para asegurar que el DOM esté completamente cargado
-        setTimeout(function() {
-            // Seleccionar los botones de Microsoft Account y Google
-            var microsoftButton = document.getElementById("MicrosoftAccountExchange");
-            var googleButton = document.getElementById("GoogleExchange");
+        // Crear un observador de mutaciones
+        const observer = new MutationObserver(function(mutations) {
+            mutations.forEach(function(mutation) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.id === "MicrosoftAccountExchange" || node.id === "GoogleExchange") {
+                        // Mover el botón al div social-login
+                        var socialLoginDiv = document.querySelector(".social-login");
+                        if (socialLoginDiv) {
+                            socialLoginDiv.appendChild(node);
+                            node.hidden = false; // Asegurarse de que el botón esté visible
+                        }
+                    }
+                });
+            });
+        });
 
-            // Verificar si los botones existen en el DOM antes de intentar manipularlos
-            if (microsoftButton) {
-                // Ocultar el botón utilizando el atributo hidden
-                microsoftButton.hidden = true;
-            }
-            if (googleButton) {
-                // Ocultar el botón utilizando el atributo hidden
-                googleButton.hidden = true;
-            }
+        // Configuración del observador
+        const config = { childList: true, subtree: true };
 
-            // Seleccionar el div de destino para mover los botones
-            var socialLoginDiv = document.querySelector(".social-login");
-            if (socialLoginDiv) {
-                // Mover el botón de Microsoft al div social-login y hacerlo visible
-                if (microsoftButton) {
-                    socialLoginDiv.appendChild(microsoftButton);
-                    microsoftButton.hidden = false; // Eliminar el atributo hidden para mostrar el botón
-                }
-
-                // Mover el botón de Google al div social-login y hacerlo visible
-                if (googleButton) {
-                    socialLoginDiv.appendChild(googleButton);
-                    googleButton.hidden = false; // Eliminar el atributo hidden para mostrar el botón
-                }
-            }
-        }, 500); // Esperar 500ms para asegurar que todos los elementos estén cargados
+        // Iniciar la observación en el body
+        observer.observe(document.body, config);
     });
 </script>
 
