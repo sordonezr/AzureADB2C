@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v71 Iniciar Sesión - Colmena Seguros</title>
+      <title>v72 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
          /* Tus estilos aquí */
@@ -354,47 +354,48 @@
          </div>
       </div>
       <script>
-         function removeElementsByText(selectorsAndTexts) {
-             selectorsAndTexts.forEach(function(item) {
-                 var elements = document.querySelectorAll(item.selector);
-                 
-                 elements.forEach(function(element) {
-                     if (element.textContent.trim() === item.text) {
-                         element.parentNode.removeChild(element);
-                     }
-                 });
-             });
-         }
-         
-         // Llamada a la función para remover los 3 elementos
-         removeElementsByText([
-             { selector: '.intro h2', text: 'Sign in with your username' },
-             { selector: '.intro', text: 'Sign in with your social account' },  // Ajusta según el texto real
-             { selector: '.divider h2', text: 'OR' },
-             { selector: '#forgotPassword', text: 'Forgot your password?' }
-         ]);
-         
 
-
-            function replaceText(selectorsAndReplacements) {
-                selectorsAndReplacements.forEach(function(item) {
-                    var elements = document.querySelectorAll(item.selector);
-                    
-                    elements.forEach(function(element) {
-                        // Reemplaza el texto encontrado en el HTML interior del elemento
-                        element.innerHTML = element.innerHTML.replace(item.oldText, item.newText);
-                    });
-                });
+         /**
+ * Realiza operaciones sobre elementos HTML seleccionados.
+ * @param {Array} actions - Lista de acciones a realizar sobre los elementos.
+ *    Cada objeto debe contener:
+ *      - type: Tipo de acción ('remove' para eliminar, 'replace' para reemplazar texto).
+ *      - selector: Selector CSS para identificar los elementos.
+ *      - text: (Opcional) Texto exacto que debe coincidir para eliminar un elemento (solo para 'remove').
+ *      - oldText: (Opcional) Texto a reemplazar en el contenido HTML (solo para 'replace').
+ *      - newText: (Opcional) Nuevo texto para reemplazar oldText (solo para 'replace').
+ */
+function processElements(actions) {
+    // Itera sobre cada acción especificada en el array
+    actions.forEach(function(action) {
+        // Selecciona los elementos del DOM usando el selector CSS proporcionado
+        var elements = document.querySelectorAll(action.selector);
+        
+        // Itera sobre cada elemento seleccionado
+        elements.forEach(function(element) {
+            // Verifica si la acción es de tipo 'remove' y si el texto coincide exactamente
+            if (action.type === 'remove' && element.textContent.trim() === action.text) {
+                // Elimina el elemento del DOM
+                element.remove();
+            } 
+            // Verifica si la acción es de tipo 'replace' para reemplazar el texto
+            else if (action.type === 'replace') {
+                // Reemplaza el texto dentro del contenido HTML del elemento
+                element.innerHTML = element.innerHTML.replace(action.oldText, action.newText);
             }
-            
-            // Llamada a la función para reemplazar los textos
-            replaceText([
-                { selector: '.create p', oldText: "Don't have an account?", newText: "Si no tienes cuenta" },
-                { selector: '#createAccount', oldText: "Sign up now", newText: "Regístrate acá" }
-            ]);
+        });
+    });
+}
 
-         
-         	
+// Llamada a la función para remover y reemplazar textos
+processElements([
+    { type: 'remove', selector: '.intro h2', text: 'Sign in with your username' },
+    { type: 'remove', selector: '.intro', text: 'Sign in with your social account' },
+    { type: 'remove', selector: '.divider h2', text: 'OR' },
+    { type: 'remove', selector: '#forgotPassword', text: 'Forgot your password?' },
+    { type: 'replace', selector: '.create p', oldText: "Don't have an account?", newText: "Si no tienes cuenta " },
+    { type: 'replace', selector: '#createAccount', oldText: "Sign up now", newText: " Regístrate acá" }
+]);	
              // Selecciona la política (p) adecuada basado en el radio button seleccionado
              function getSelectedPolicy() {
                  const emailRadio = document.getElementById('radio-email');
