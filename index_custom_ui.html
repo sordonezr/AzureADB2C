@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v54 Iniciar Sesión - Colmena Seguros</title>
+    <title>v55 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -359,20 +359,22 @@
 var socialButtons = document.querySelector('.claims-provider-list-buttons.social');
 var newContainer = document.querySelector('.social-login');
 
-// Mueve el contenido al nuevo contenedor
+// Verifica que ambos contenedores existan
 if (socialButtons && newContainer) {
     // Remueve el elemento <div class="intro">
     var intro = socialButtons.querySelector('.intro');
     if (intro) {
         intro.parentNode.removeChild(intro);
     }
-    
-    // Mueve cada hijo restante del elemento original al nuevo contenedor
-    while (socialButtons.firstChild) {
-        newContainer.appendChild(socialButtons.firstChild);
-    }
-    
-    // Elimina el contenedor original después de mover su contenido
+
+    // Clona los botones y mueve cada uno al nuevo contenedor
+    var buttons = socialButtons.querySelectorAll('.accountButton');
+    buttons.forEach(function(button) {
+        var clonedButton = button.cloneNode(true); // Clona el botón
+        newContainer.appendChild(clonedButton); // Lo añade al nuevo contenedor
+    });
+
+    // Elimina el contenedor original
     socialButtons.parentNode.removeChild(socialButtons);
 }
 
