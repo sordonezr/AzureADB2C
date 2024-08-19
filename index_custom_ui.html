@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v37 Iniciar Sesión - Colmena Seguros</title>
+    <title>v38 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -505,6 +505,37 @@
     function validateNumberInput(input) {
         input.value = input.value.replace(/\D/g, '').slice(0, 10); // Remueve caracteres no numéricos y limita a 10 dígitos
     }
+
+    // Ocultar los botones de Microsoft Account y Google, y moverlos a un div específico
+    document.addEventListener("DOMContentLoaded", function() {
+        // Seleccionar los botones de Microsoft Account y Google
+        var microsoftButton = document.getElementById("MicrosoftAccountExchange");
+        var googleButton = document.getElementById("GoogleExchange");
+
+        // Ocultar los botones utilizando el atributo hidden
+        if (microsoftButton) {
+            microsoftButton.hidden = true;
+        }
+        if (googleButton) {
+            googleButton.hidden = true;
+        }
+
+        // Seleccionar el div de destino para mover los botones
+        var socialLoginDiv = document.querySelector(".social-login");
+        if (socialLoginDiv) {
+            // Mover el botón de Microsoft al div social-login y hacerlo visible
+            if (microsoftButton) {
+                socialLoginDiv.appendChild(microsoftButton);
+                microsoftButton.hidden = false; // Eliminar el atributo hidden para mostrar el botón
+            }
+
+            // Mover el botón de Google al div social-login y hacerlo visible
+            if (googleButton) {
+                socialLoginDiv.appendChild(googleButton);
+                googleButton.hidden = false; // Eliminar el atributo hidden para mostrar el botón
+            }
+        }
+    });
 </script>
 
 </body>
