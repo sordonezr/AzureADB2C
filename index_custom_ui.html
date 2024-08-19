@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v82 Iniciar Sesión - Colmena Seguros</title>
+      <title>v83 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -488,6 +488,27 @@
         { type: 'remove', selector: '.options' } 
     ]);
 
+
+
+   document.addEventListener('DOMContentLoaded', function() {
+    // Selecciona el elemento .options
+    var optionsElement = document.querySelector('.options');
+
+    // Selecciona el elemento .create
+    var createElement = document.querySelector('.create');
+
+    if (optionsElement && createElement) {
+        // Mueve el elemento .options debajo de .create
+        createElement.insertAdjacentElement('afterend', optionsElement);
+        
+        // Asegúrate de que el elemento .options esté visible
+        optionsElement.style.display = 'block';
+    }
+});
+
+   
+   
+   
     // (Restante código sin cambios)
     // Selecciona la política (p) adecuada basado en el radio button seleccionado
     function getSelectedPolicy() {
