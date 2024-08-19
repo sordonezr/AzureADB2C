@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v59 Iniciar Sesión - Colmena Seguros</title>
+    <title>v60 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -355,13 +355,20 @@
  
 <script>
 
-	// Selecciona el elemento <div class="intro">
-	var introElement = document.querySelector('.intro');
-	
-	// Remueve el elemento si existe
-	if (introElement) {
-	    introElement.parentNode.removeChild(introElement);
-	}
+	function removeElement(selector) {
+    // Selecciona el elemento basado en el selector proporcionado
+    var element = document.querySelector(selector);
+    
+    // Remueve el elemento si existe
+    if (element) {
+        element.parentNode.removeChild(element);
+    }
+}
+
+// Ejemplo de uso
+removeElement('.intro');   // Remueve el elemento <div class="intro">
+removeElement('.divider'); // Remueve el elemento <div class="divider">
+
 
 	
     // Selecciona la política (p) adecuada basado en el radio button seleccionado
