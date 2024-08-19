@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v83 Iniciar Sesión - Colmena Seguros</title>
+      <title>v84 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -473,24 +473,26 @@
                     // Reemplaza el texto dentro del contenido HTML del elemento
                     element.innerHTML = element.innerHTML.replace(action.oldText, action.newText);
                 }
-            });
+            }); 
         });
     }
 
     // Llamada a la función para remover y reemplazar textos
-    processElements([
-        { type: 'remove', selector: '.intro h2', text: 'Sign in with your username' },
-        { type: 'remove', selector: '.intro', text: 'Sign in with your social account' },
-        { type: 'remove', selector: '.divider h2', text: 'OR' },
-        { type: 'remove', selector: '#forgotPassword', text: 'Forgot your password?' },
-        { type: 'replace', selector: '.create p', oldText: "Don't have an account?", newText: "Si no tienes cuenta " },
-        { type: 'replace', selector: '#createAccount', oldText: "Sign up now", newText: " Regístrate acá" },
-        { type: 'remove', selector: '.options' } 
-    ]);
+   processElements([
+    { type: 'remove', selector: '.intro h2', text: 'Sign in with your username' },
+    { type: 'remove', selector: '.intro', text: 'Sign in with your social account' },
+    { type: 'remove', selector: '.divider h2', text: 'OR' },
+    { type: 'remove', selector: '#forgotPassword', text: 'Forgot your password?' },
+    { type: 'replace', selector: '.create p', oldText: "Don't have an account?", newText: "Si no tienes cuenta " },
+    { type: 'replace', selector: '#createAccount', oldText: "Sign up now", newText: " Regístrate acá" },
+    { type: 'replace', selector: 'label[for="signInName"]', oldText: 'Username', newText: 'Nombre de usuario' },
+    { type: 'replace', selector: 'label[for="password"]', oldText: 'Password', newText: 'Contraseña' },
+    { type: 'remove', selector: '.options' } 
+]);
 
 
 
-   document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     // Selecciona el elemento .options
     var optionsElement = document.querySelector('.options');
 
@@ -503,6 +505,8 @@
         
         // Asegúrate de que el elemento .options esté visible
         optionsElement.style.display = 'block';
+        optionsElement.style.visibility = 'visible';
+        optionsElement.style.opacity = '1';
     }
 });
 
