@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v61 Iniciar Sesión - Colmena Seguros</title>
+    <title>v62 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Tus estilos aquí */
@@ -334,11 +334,11 @@
                             </label>
                         </div>
                     </div>
-			        <button type="button" id="document" class="btn-submit" onclick="redirectToMethod()">Ingresar</button>
+                    <button type="button" id="document" class="btn-submit" onclick="redirectToMethod()">Ingresar</button>
                 </form>
             </div>
             <div id="userTab" class="tabcontent">
-                <div id="api"></div>
+                <div id="api" data-name="Unified"></div>
             </div>
             <div class="social-login">
             </div>
@@ -352,180 +352,242 @@
             <div class="loading-message">Validando su información, por favor espere...</div>
         </div>
     </div>
- 
-<script>
 
-function removeElementsByText(selectorsAndTexts) {
-    selectorsAndTexts.forEach(function(item) {
-        var elements = document.querySelectorAll(item.selector);
-        
-        elements.forEach(function(element) {
-            if (element.textContent.trim() === item.text) {
-                element.parentNode.removeChild(element);
-            }
-        });
-    });
-}
+    <script>
+        function removeElementsByText(selectorsAndTexts) {
+            selectorsAndTexts.forEach(function(item) {
+                var elements = document.querySelectorAll(item.selector);
 
-// Llamada a la función para remover los 3 elementos
-removeElementsByText([
-    { selector: '.intro h2', text: 'Sign in with your username' },
-    { selector: '.intro', text: 'Sign in with your social account' },  // Ajusta según el texto real
-    { selector: '.divider h2', text: 'OR' }
-]);
-
-
-	
-    // Selecciona la política (p) adecuada basado en el radio button seleccionado
-    function getSelectedPolicy() {
-        const emailRadio = document.getElementById('radio-email');
-        const phoneRadio = document.getElementById('radio-phone');
-
-        if (emailRadio && emailRadio.checked) {
-            return 'B2C_1A_DEVS_UI_EMAIL_MFA';
-        } else if (phoneRadio && phoneRadio.checked) {
-            return 'B2C_1A_DEVS_UI_PHONE_MFA';
-        } else {
-            return 'B2C_1A_DEVS_UI_EMAIL_MFA';
-        }
-    }
-
-    // Redirige al usuario a una URL basada en el resultado de la verificación del documento.
-    async function redirectToMethod() {
-        showLoadingModal();
-
-        // Llama a la función de verificación del documento
-        const result = await verifyDocument();
-
-        // Si la verificación es exitosa, proceder con la redirección
-        if (result) {
-            var url;
-            // Define los parámetros seleccionados
-            const selectedParams = {
-                tenant: 'fundaciongruposocial1b2cpoc',
-                p: getSelectedPolicy(),  // Usa la política seleccionada
-                client_id: '5fb30314-be1e-4132-a98b-b14aeef74aba',
-                nonce: 'defaultNonce',
-                redirect_uri: 'https://jwt.ms',
-                scope: 'openid',
-                response_type: 'id_token',
-                prompt: 'login'
-            };
-
-            // Obtén el valor seleccionado en el radio button
-            const selectedMethod = document.querySelector('input[name="verificationMethod"]:checked').value;
-
-            // Construye la URL de redirección de manera dinámica con los parámetros obtenidos
-            url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenant}.onmicrosoft.com/oauth2/v2.0/authorize?p=${encodeURIComponent(selectedParams.p)}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
-
-            // Agrega el parámetro correspondiente según el radio button seleccionado
-            if (selectedMethod === 'email' && result.email) {
-                url += `&email=${encodeURIComponent(result.email)}`;
-            } else if (selectedMethod === 'phone' && result.phone) {
-                url += `&phone=${encodeURIComponent(result.phone)}`;
-            }
-
-            // Redirige al usuario o muestra un error si no se pudo construir la URL
-            if (url) {
-                window.location.href = url;
-            } else {
-                alert('No se pudo determinar un método de redirección.');
-                hideLoadingModal();
-            }
-        }
-    }
-
-    // Verifica los datos del documento ingresado llamando a una API.
-    async function verifyDocument() {
-        // Obtiene los valores de los campos del formulario
-        const documentType = document.getElementById('document-type').value;
-        const documentNumber = document.getElementById('document-number').value;
-
-        // Valida que los campos requeridos estén completos
-        if (!documentType || !documentNumber) {
-            alert('Por favor, completa todos los campos requeridos.');
-            hideLoadingModal(); // Oculta la ventana modal si falta algún campo
-            return false;
-        }
-
-        try {
-            // Envía una solicitud POST a la API de verificación
-            const response = await fetch('https://as-aeu-devs-prd-validate.azurewebsites.net/api/verify-document', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    documentType: documentType,
-                    documentNumber: documentNumber
-                })
+                elements.forEach(function(element) {
+                    if (element.textContent.trim() === item.text) {
+                        element.parentNode.removeChild(element);
+                    }
+                });
             });
+        }
 
-            // Verifica si la respuesta de la red fue exitosa
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
+        // Llamada a la función para remover los 3 elementos
+        removeElementsByText([
+            { selector: '.intro h2', text: 'Sign in with your username' },
+            { selector: '.intro', text: 'Sign in with your social account' },  // Ajusta según el texto real
+            { selector: '.divider h2', text: 'OR' }
+        ]);
 
-            // Procesa la respuesta JSON de la API
-            const result = await response.json();
+        // Selecciona la política (p) adecuada basado en el radio button seleccionado
+        function getSelectedPolicy() {
+            const emailRadio = document.getElementById('radio-email');
+            const phoneRadio = document.getElementById('radio-phone');
 
-            if (result.email || result.phone) {
-                return result; // La verificación fue exitosa y se devuelve el resultado
+            if (emailRadio && emailRadio.checked) {
+                return 'B2C_1A_DEVS_UI_EMAIL_MFA';
+            } else if (phoneRadio && phoneRadio.checked) {
+                return 'B2C_1A_DEVS_UI_PHONE_MFA';
             } else {
-                alert('No se encontraron datos de email o phone en la respuesta.');
+                return 'B2C_1A_DEVS_UI_EMAIL_MFA';
+            }
+        }
+
+        // Redirige al usuario a una URL basada en el resultado de la verificación del documento.
+        async function redirectToMethod() {
+            showLoadingModal();
+
+            // Llama a la función de verificación del documento
+            const result = await verifyDocument();
+
+            // Si la verificación es exitosa, proceder con la redirección
+            if (result) {
+                var url;
+                // Define los parámetros seleccionados
+                const selectedParams = {
+                    tenant: 'fundaciongruposocial1b2cpoc',
+                    p: getSelectedPolicy(),  // Usa la política seleccionada
+                    client_id: '5fb30314-be1e-4132-a98b-b14aeef74aba',
+                    nonce: 'defaultNonce',
+                    redirect_uri: 'https://jwt.ms',
+                    scope: 'openid',
+                    response_type: 'id_token',
+                    prompt: 'login'
+                };
+
+                // Obtén el valor seleccionado en el radio button
+                const selectedMethod = document.querySelector('input[name="verificationMethod"]:checked').value;
+
+                // Construye la URL de redirección de manera dinámica con los parámetros obtenidos
+                url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenant}.onmicrosoft.com/oauth2/v2.0/authorize?p=${encodeURIComponent(selectedParams.p)}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
+
+                // Agrega el parámetro correspondiente según el radio button seleccionado
+                if (selectedMethod === 'email' && result.email) {
+                    url += `&email=${encodeURIComponent(result.email)}`;
+                } else if (selectedMethod === 'phone' && result.phone) {
+                    url += `&phone=${encodeURIComponent(result.phone)}`;
+                }
+
+                // Redirige al usuario o muestra un error si no se pudo construir la URL
+                if (url) {
+                    window.location.href = url;
+                } else {
+                    alert('No se pudo determinar un método de redirección.');
+                    hideLoadingModal();
+                }
+            }
+        }
+
+        // Verifica los datos del documento ingresado llamando a una API.
+        async function verifyDocument() {
+            // Obtiene los valores de los campos del formulario
+            const documentType = document.getElementById('document-type').value;
+            const documentNumber = document.getElementById('document-number').value;
+
+            // Valida que los campos requeridos estén completos
+            if (!documentType || !documentNumber) {
+                alert('Por favor, completa todos los campos requeridos.');
+                hideLoadingModal(); // Oculta la ventana modal si falta algún campo
                 return false;
             }
 
-        } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            alert('Error verificando el documento');
-            return false; // Hubo un error en la verificación
-        } finally {
-            hideLoadingModal(); // Oculta la ventana modal independientemente del resultado
+            try {
+                // Envía una solicitud POST a la API de verificación
+                const response = await fetch('https://as-aeu-devs-prd-validate.azurewebsites.net/api/verify-document', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        documentType: documentType,
+                        documentNumber: documentNumber
+                    })
+                });
+
+                // Verifica si la respuesta de la red fue exitosa
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                // Procesa la respuesta JSON de la API
+                const result = await response.json();
+
+                if (result.email || result.phone) {
+                    return result; // La verificación fue exitosa y se devuelve el resultado
+                } else {
+                    alert('No se encontraron datos de email o phone en la respuesta.');
+                    return false;
+                }
+
+            } catch (error) {
+                console.error('There was a problem with the fetch operation:', error);
+                alert('Error verificando el documento');
+                return false; // Hubo un error en la verificación
+            } finally {
+                hideLoadingModal(); // Oculta la ventana modal independientemente del resultado
+            }
         }
-    }
 
-    // Función para mostrar una pestaña específica cuando se hace clic en su botón.
-    function openTab(evt, tabName) {
-        var i, tabcontent, tablinks;
+        // Función para mostrar una pestaña específica cuando se hace clic en su botón.
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
 
-        // Oculta todos los contenidos de las pestañas
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
+            // Oculta todos los contenidos de las pestañas
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Quita la clase 'active' de todos los botones de pestaña
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Muestra el contenido de la pestaña seleccionada y agrega la clase 'active' a su botón
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
         }
 
-        // Quita la clase 'active' de todos los botones de pestaña
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        // Abrir la pestaña predeterminada al cargar la página
+        document.getElementById("defaultOpen").click();
+
+        // Muestra una ventana modal de carga.
+        function showLoadingModal() {
+            const loadingModal = document.getElementById('loadingModal');
+            loadingModal.style.display = 'flex'; // Muestra la ventana modal
         }
 
-        // Muestra el contenido de la pestaña seleccionada y agrega la clase 'active' a su botón
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-    }
+        // Oculta la ventana modal de carga.
+        function hideLoadingModal() {
+            const loadingModal = document.getElementById('loadingModal');
+            loadingModal.style.display = 'none'; // Oculta la ventana modal
+        }
 
-    // Abrir la pestaña predeterminada al cargar la página
-    document.getElementById("defaultOpen").click();
+        // Valida la entrada del campo numérico, limitando el valor a solo dígitos.
+        function validateNumberInput(input) {
+            input.value = input.value.replace(/\D/g, '').slice(0, 10); // Remueve caracteres no numéricos y limita a 10 dígitos
+        }
 
-    // Muestra una ventana modal de carga.
-    function showLoadingModal() {
-        const loadingModal = document.getElementById('loadingModal');
-        loadingModal.style.display = 'flex'; // Muestra la ventana modal
-    }
+        // Aplica estilos dinámicos al formulario en el div #api cuando se renderiza
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === "childList" && mutation.addedNodes.length > 0) {
+                        // Selecciona todos los elementos relevantes dentro del div
+                        const labels = document.querySelectorAll('#api label');
+                        const inputs = document.querySelectorAll('#api input');
+                        const selects = document.querySelectorAll('#api select');
+                        const buttons = document.querySelectorAll('#api button');
 
-    // Oculta la ventana modal de carga.
-    function hideLoadingModal() {
-        const loadingModal = document.getElementById('loadingModal');
-        loadingModal.style.display = 'none'; // Oculta la ventana modal
-    }
+                        // Aplica los estilos necesarios
+                        labels.forEach(label => {
+                            label.style.fontFamily = 'Arial, sans-serif';
+                            label.style.fontSize = '14px';
+                            label.style.fontWeight = 'bold';
+                            label.style.color = '#555';
+                            label.style.marginBottom = '5px';
+                            label.style.display = 'block';
+                        });
 
-    // Valida la entrada del campo numérico, limitando el valor a solo dígitos.
-    function validateNumberInput(input) {
-        input.value = input.value.replace(/\D/g, '').slice(0, 10); // Remueve caracteres no numéricos y limita a 10 dígitos
-    }
-</script>
+                        inputs.forEach(input => {
+                            input.style.width = '100%';
+                            input.style.padding = '10px';
+                            input.style.fontSize = '14px';
+                            input.style.border = '1px solid #ccc';
+                            input.style.borderRadius = '5px';
+                            input.style.boxSizing = 'border-box';
+                            input.style.marginBottom = '15px';
+                            input.placeholder = "Digita tu número de documento";
+                        });
+
+                        selects.forEach(select => {
+                            select.style.width = '100%';
+                            select.style.padding = '10px';
+                            select.style.fontSize = '14px';
+                            select.style.border = '1px solid #ccc';
+                            select.style.borderRadius = '5px';
+                            select.style.boxSizing = 'border-box';
+                            select.style.marginBottom = '15px';
+                            select.style.background = "url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 4 5\"><path fill=\"none\" stroke=\"%23333\" stroke-width=\".8\" d=\"M0 0l2 2 2-2\"/></svg>') no-repeat right center";
+                            select.style.backgroundColor = '#fff';
+                            select.style.cursor = 'pointer';
+                        });
+
+                        buttons.forEach(button => {
+                            button.style.backgroundColor = '#0078d4';
+                            button.style.color = 'white';
+                            button.style.fontSize = '16px';
+                            button.style.padding = '10px 20px';
+                            button.style.border = 'none';
+                            button.style.borderRadius = '5px';
+                            button.style.cursor = 'pointer';
+                        });
+                    }
+                });
+            });
+
+            // Configura el observador
+            observer.observe(document.getElementById('api'), {
+                childList: true,
+                subtree: true
+            });
+        });
+    </script>
 
 </body>
 
