@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v95 Iniciar Sesión - Colmena Seguros</title>
+      <title>v96 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -387,6 +387,9 @@
             <!--<div class="register-link">
                Si no tienes cuenta <a href="#">Regístrate acá</a>
             </div>-->
+
+            <div class="register-link"></div>
+            
             <div class="tab">
                <button class="tablinks" onclick="openTab(event, 'documentTab')" id="defaultOpen">Ingresar con documento</button>
                <button class="tablinks" onclick="openTab(event, 'userTab')">Ingresar con usuario</button>
@@ -460,7 +463,8 @@
 // Verificar y mover cada 100ms hasta que se logre
 var intervalId = setInterval(function() {
     moveElements([
-        { selectorToMove: '.claims-provider-list-buttons.social', targetSelector: '.social-login' },
+        //{ selectorToMove: '.claims-provider-list-buttons.social', targetSelector: '.social-login' },
+        { selectorToMove: '.create', targetSelector: '.register-link' },
         // Añadir más objetos { selectorToMove: '', targetSelector: '' } si es necesario
     ]);
     clearInterval(intervalId); // Detener el intervalo una vez que se haya movido
