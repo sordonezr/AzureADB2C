@@ -5,7 +5,7 @@
       <meta http-equiv="X-UA-Compatible" content="IE=edge">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="description" content="Página de inicio de sesión de Colmena Seguros">
-      <title>100 Iniciar Sesión - Colmena Seguros</title>
+      <title>101 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
          .options {
@@ -256,6 +256,42 @@
          </div>
       </div>
       <script>
+
+         // Mapeo de acciones a funciones correspondientes
+            const actionHandlers = {
+                remove: (element) => element.remove(),
+                replace: (element, action) => {
+                    element.innerHTML = element.innerHTML.replace(action.oldText, action.newText);
+                },
+                add: (element, action) => {
+                    element.insertAdjacentHTML(action.position || 'beforeend', action.newContent);
+                },
+                move: (element, action) => {
+                    const target = document.querySelector(action.targetSelector);
+                    if (target) target.insertAdjacentElement('afterend', element);
+                }
+            };
+            
+            // Función principal para procesar los elementos
+            function processElements(actions) {
+                actions.forEach(({ type, selector, text, ...action }) => {
+                    document.querySelectorAll(selector).forEach(element => {
+                        if (type === 'remove' && text && element.textContent.trim() !== text) return;
+                        actionHandlers[type]?.(element, action);
+                    });
+                });
+            }
+            
+            // Ejemplo de uso para remover el elemento
+            var intervalId = setInterval(function() {
+                processElements([
+                    { type: 'remove', selector: 'label#verificationCode_label', text: 'Verification Code' },
+                ]);
+                clearInterval(intervalId); // Detener el intervalo una vez que se haya ejecutado la operación
+            }, 100);
+
+
+         
          // Función para obtener el valor de un parámetro específico de la URL
          function getParameterByName(name) {
              const urlParams = new URLSearchParams(window.location.search);
