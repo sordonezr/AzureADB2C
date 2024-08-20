@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v17 Iniciar Sesión - Colmena Seguros</title>
+      <title>v18 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -333,23 +333,52 @@
          </div>
       </div>
       <script>
-         function hideElement(selector, property = 'visibility', value = 'hidden') {
-             const interval = setInterval(() => {
-                 const element = document.querySelector(selector);
-                 if (element) {
-                     element.style[property] = value;
-                     clearInterval(interval);
-                 }
-             }, 50);
+      // Mapeo de acciones a funciones correspondientes
+         const actionHandlers = {
+             remove: (element) => element.remove(),
+             replace: (element, action) => {
+                 element.innerHTML = element.innerHTML.replace(action.oldText, action.newText);
+             },
+             add: (element, action) => {
+                 element.insertAdjacentHTML(action.position || 'beforeend', action.newContent);
+             },
+             move: (element, action) => {
+                 const target = document.querySelector(action.targetSelector);
+                 if (target) target.insertAdjacentElement('afterend', element);
+             },
+             hide: (element) => {
+                 element.style.display = 'none';
+             }
+         };
+         
+         // Función principal para procesar los elementos
+         function processElements(actions) {
+             actions.forEach(({ type, selector, text, ...action }) => {
+                 document.querySelectorAll(selector).forEach(element => {
+                     if (type === 'remove' && text && element.textContent.trim() !== text) return;
+                     actionHandlers[type]?.(element, action);
+                 });
+             });
          }
          
-         // Ocultar elementos específicos
-         hideElement('div.intro'); // Ocultar el div con clase "intro"
-         hideElement('a.helpLink.tiny[data-help="email"]'); // Ocultar el enlace "What is this?"
-         hideElement('#cancel', 'display', 'none'); // Ocultar el botón "cancel"
-         hideElement('#email_ver_but_resend'); // Ocultar el botón "send new code"
-         hideElement('#email.textInput'); // Ocultar el input con id "email" y clase "textInput"
-         hideElement('#email_ver_input_label'); // Ocultar el label con id "email_ver_input_label"
+         // Ejemplo de uso para ocultar los elementos especificados
+         var intervalIdnew = setInterval(function() {
+             processElements([
+                 { type: 'hide', selector: 'div.intro' }, // Ocultar el div con clase "intro"
+                 { type: 'hide', selector: 'a.helpLink.tiny[data-help="email"]' }, // Ocultar el enlace "What is this?"
+                 { type: 'hide', selector: '#cancel' }, // Ocultar el botón "cancel"
+                 { type: 'hide', selector: '#email_ver_but_resend' }, // Ocultar el botón "send new code"
+                 { type: 'hide', selector: '#email.textInput' }, // Ocultar el input con id "email" y clase "textInput"
+                 { type: 'hide', selector: '#email_ver_input_label' }, // Ocultar el label con id "email_ver_input_label"
+                 { type: 'hide', selector: 'button#continue' }, // Ocultar el botón "Continue"
+                 { type: 'replace', selector: 'button.verifyButton#email_ver_but_verify', oldText: 'Verify code', newText: 'Validar código' } // Cambiar el texto del botón "Verify code" por "Validar código"
+ 
+
+             ]);
+         
+             clearInterval(intervalIdnew); // Detener el intervalo una vez que se haya ejecutado la operación
+         }, 100);
+
          
          // Función para obtener el valor de un parámetro específico de la URL
          function getParameterByName(name) {
