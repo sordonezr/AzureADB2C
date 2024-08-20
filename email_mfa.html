@@ -1,138 +1,363 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v15 Iniciar Sesión - Colmena Seguros</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-
-        /* CSS to hide the ::marker pseudo-element */
-        li.TextBox::marker {
-            content: none;
-        }
-
-        
-        #email_label {
-        	display: none !important;
-        }
-        
-        #email_info {
-        	display: none !important;
-        }
-        
-        .container {
-        	display: flex;
-        	background-color: #ffffff;
-        	border-radius: 10px;
-        	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        	overflow: hidden;
-        	max-width: 900px;
-        	width: 100%;
-        }
-        
-        .left-section {
-        	padding: 40px;
-        	background-color: #f4f7fb;
-        	flex: 1;
-        }
-        
-        .left-section h2 {
-        	color: #0097AE;
-        	font-weight: 500;
-        	margin-bottom: 10px;
-        }
-        
-        .left-section p {
-        	color: #333333;
-        	font-weight: 400;
-        	line-height: 1.6;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="left-section">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>v16 Iniciar Sesión - Colmena Seguros</title>
+      <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+      <style>
+         /* CSS to hide the ::marker pseudo-element */
+         li.TextBox::marker {
+         content: none;
+         }
+         #email_label {
+         display: none !important;
+         }
+         #email_info {
+         display: none !important;
+         }
+         .container {
+         display: flex;
+         background-color: #ffffff;
+         border-radius: 10px;
+         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+         overflow: hidden;
+         max-width: 900px;
+         width: 100%;
+         }
+         .left-section {
+         padding: 40px;
+         background-color: #f4f7fb;
+         flex: 1;
+         }
+         .left-section h2 {
+         color: #0097AE;
+         font-weight: 500;
+         margin-bottom: 10px;
+         }
+         .left-section p {
+         color: #333333;
+         font-weight: 400;
+         line-height: 1.6;
+         }
+         .options {
+         display: flex;
+         gap: 10px;
+         }
+         .option {
+         display: flex;
+         align-items: center;
+         border-radius: 5px;
+         padding: 8px;
+         cursor: pointer;
+         transition: background-color 0.3s ease;
+         }
+         .option:hover {
+         background-color: rgba(0, 188, 212, 0.1);
+         }
+         .option input {
+         margin-right: 10px;
+         }
+         .option.selected {
+         background-color: rgb(223, 240, 240);
+         border: 1px solid #00bcd4;
+         border-radius: 6px;
+         }
+         body {
+         font-family: 'Roboto', sans-serif;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         height: 100vh;
+         margin: 0;
+         background-color: #f4f7fb;
+         }
+         .container {
+         display: flex;
+         background-color: #ffffff;
+         border-radius: 10px;
+         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+         overflow: hidden;
+         max-width: 900px;
+         width: 100%;
+         }
+         .left-section {
+         padding: 40px;
+         background-color: #f4f7fb;
+         flex: 1;
+         }
+         .left-section h2 {
+         color: #0097AE;
+         font-weight: 500;
+         margin-bottom: 10px;
+         }
+         .left-section p {
+         color: #333333;
+         font-weight: 400;
+         line-height: 1.6;
+         }
+         .left-section img {
+         width: 120px;
+         margin-bottom: 20px;
+         }
+         .right-section {
+         padding: 40px;
+         flex: 1.2;
+         position: relative;
+         }
+         .right-section h2 {
+         color: #333333;
+         font-weight: 700;
+         margin-bottom: 20px;
+         }
+         .form-group {
+         margin-bottom: 15px;
+         }
+         .form-group label {
+         display: block;
+         color: #555555;
+         margin-bottom: 5px;
+         font-weight: 500;
+         }
+         .form-group select,
+         .form-group input {
+         width: 100%;
+         padding: 10px;
+         border: 1px solid #cccccc;
+         border-radius: 5px;
+         font-size: 14px;
+         transition: border 0.3s ease;
+         }
+         .form-group input[type="radio"] {
+         width: auto;
+         margin-right: 10px;
+         }
+         .form-group .radio-group {
+         display: flex;
+         align-items: center;
+         }
+         .form-group .radio-group label {
+         margin: 0 20px 0 5px;
+         font-weight: 400;
+         color: #555555;
+         }
+         .btn-submit {
+         width: 100%;
+         padding: 12px;
+         background-color: #0097AE;
+         border: none;
+         color: #ffffff;
+         font-weight: 500;
+         border-radius: 5px;
+         cursor: pointer;
+         font-size: 16px;
+         transition: background-color 0.3s ease, transform 0.2s ease;
+         }
+         .btn-submit:hover {
+         background-color: #008ba3;
+         transform: translateY(-2px);
+         }
+         .social-login {
+         display: flex;
+         justify-content: center;
+         margin-top: 20px;
+         }
+         .social-login img {
+         width: 40px;
+         margin: 0 10px;
+         cursor: pointer;
+         transition: transform 0.3s ease;
+         }
+         .social-login img:hover {
+         transform: scale(1.1);
+         }
+         .logo {
+         text-align: center;
+         margin: auto;
+         display: block;
+         margin: 50px;
+         }
+         /* Tab Styles */
+         .tab {
+         display: flex;
+         justify-content: center;
+         margin-bottom: 20px;
+         }
+         .tab button {
+         background-color: #f4f7fb;
+         border: none;
+         outline: none;
+         padding: 10px 20px;
+         cursor: pointer;
+         font-size: 16px;
+         color: #0097AE;
+         transition: color 0.3s ease;
+         }
+         .tab button.active {
+         background-color: #ffffff;
+         border-bottom: 2px solid #0097AE;
+         color: #333333;
+         }
+         .tabcontent {
+         display: none;
+         }
+         .tabcontent.active {
+         display: block;
+         animation: fadeIn 0.5s ease;
+         }
+         @keyframes fadeIn {
+         from {
+         opacity: 0;
+         }
+         to {
+         opacity: 1;
+         }
+         }
+         .register-link {
+         margin-top: 10px;
+         text-align: left;
+         color: #555555;
+         font-size: 14px;
+         }
+         .register-link a {
+         color: #0097AE;
+         text-decoration: none;
+         transition: color 0.3s ease;
+         }
+         .register-link a:hover {
+         color: #008ba3;
+         }
+         /* Modal styles */
+         .modal {
+         display: none;
+         position: fixed;
+         z-index: 10000;
+         left: 0;
+         top: 0;
+         width: 100%;
+         height: 100%;
+         overflow: auto;
+         background-color: rgba(0, 0, 0, 0.5);
+         justify-content: center;
+         align-items: center;
+         }
+         .modal-content {
+         background-color: #ffffff;
+         padding: 20px;
+         border-radius: 10px;
+         text-align: center;
+         position: relative;
+         width: 300px;
+         }
+         .loading {
+         border: 4px solid #f3f3f3;
+         border-radius: 50%;
+         border-top: 4px solid #0097AE;
+         width: 50px;
+         height: 50px;
+         -webkit-animation: spin 2s linear infinite;
+         /* Safari */
+         animation: spin 2s linear infinite;
+         margin: 0 auto 20px;
+         }
+         @keyframes spin {
+         0% {
+         transform: rotate(0deg);
+         }
+         100% {
+         transform: rotate(360deg);
+         }
+         }
+         .loading-message {
+         font-size: 18px;
+         color: #333333;
+         }
+      </style>
+   </head>
+   <body>
+      <div class="container">
+         <div class="left-section">
             <img src="https://raw.githubusercontent.com/sordonezr/AzureADB2C/main/img/logo-colmena.png" alt="Colmena Seguros Logo">
             <h2>Validacion de Identidad</h2>
             <label id="emailLabel"></label>
-        </div>
-        <div id="api"></div>
-    </div>
-
-    <script>
-    function hideElement(selector, property = 'visibility', value = 'hidden') {
-        const interval = setInterval(() => {
-            const element = document.querySelector(selector);
-            if (element) {
-                element.style[property] = value;
-                clearInterval(interval);
-            }
-        }, 50);
-    }
-    
-    // Ocultar elementos específicos
-    hideElement('div.intro'); // Ocultar el div con clase "intro"
-    hideElement('a.helpLink.tiny[data-help="email"]'); // Ocultar el enlace "What is this?"
-    hideElement('#cancel', 'display', 'none'); // Ocultar el botón "cancel"
-    hideElement('#email_ver_but_resend'); // Ocultar el botón "send new code"
-    hideElement('#email.textInput'); // Ocultar el input con id "email" y clase "textInput"
-    hideElement('#email_ver_input_label'); // Ocultar el label con id "email_ver_input_label"
-
-    // Función para obtener el valor de un parámetro específico de la URL
-    function getParameterByName(name) {
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(name);
-    }
-
-    // Función para enmascarar el email
-    function maskEmail(email) {
-        const [user, domain] = email.split('@');
-        const maskedUser = user.slice(0, 2) + '****' + user.slice(-1);
-        return maskedUser + '@' + domain;
-    }
-
-    // Obtener el valor del parámetro "email"
-    const emailValue = getParameterByName('email');
-
-    // Verificar periódicamente si el campo de entrada está disponible
-    const intervalId = setInterval(function() {
-        const emailInput = document.getElementById('email');
-        const emailLabel = document.getElementById('emailLabel');
-        
-        if (emailInput && emailValue) {
-            emailInput.value = emailValue;
-
-            // Actualizar el texto del label con el valor del email enmascarado
-            if (emailLabel) {
-                const maskedEmail = maskEmail(emailValue);
-                emailLabel.textContent = `Para confirmar tu identidad, hemos enviado un codigo OTP a tu correo ${maskedEmail}`;
-            }
-
-            // Detener la verificación una vez que se ha encontrado el campo y asignado el valor
-            clearInterval(intervalId);
-
-            // Ejecutar automáticamente el botón de continuar
-            const sendVerificationCodeButton = document.getElementById('email_ver_but_send');
-            if (sendVerificationCodeButton) {
-                sendVerificationCodeButton.click(); // Disparar el clic en el botón
-            }
-
-            // Escuchar el evento 'input' para detectar cambios en tiempo real
-            emailInput.addEventListener('input', function() {
-                const emailInputValue = this.value;
-                const maskedEmailInputValue = maskEmail(emailInputValue);
-                console.log('Valor actual del input email:', emailInputValue); // Mostrar el valor en la consola en tiempo real
-
-                // Actualizar el texto del label en tiempo real con el valor enmascarado
-                if (emailLabel) {
-                    emailLabel.textContent = `${maskedEmailInputValue}`;
-                }
-            });
-        }
-    }, 100); // Verificar cada 100ms
-</script>
-
-    
-</body>
+         </div>
+         <div class="right-section">
+            <div class="form-group">
+               <div id="api"></div>
+            </div>
+         </div>
+      </div>
+      <script>
+         function hideElement(selector, property = 'visibility', value = 'hidden') {
+             const interval = setInterval(() => {
+                 const element = document.querySelector(selector);
+                 if (element) {
+                     element.style[property] = value;
+                     clearInterval(interval);
+                 }
+             }, 50);
+         }
+         
+         // Ocultar elementos específicos
+         hideElement('div.intro'); // Ocultar el div con clase "intro"
+         hideElement('a.helpLink.tiny[data-help="email"]'); // Ocultar el enlace "What is this?"
+         hideElement('#cancel', 'display', 'none'); // Ocultar el botón "cancel"
+         hideElement('#email_ver_but_resend'); // Ocultar el botón "send new code"
+         hideElement('#email.textInput'); // Ocultar el input con id "email" y clase "textInput"
+         hideElement('#email_ver_input_label'); // Ocultar el label con id "email_ver_input_label"
+         
+         // Función para obtener el valor de un parámetro específico de la URL
+         function getParameterByName(name) {
+             const urlParams = new URLSearchParams(window.location.search);
+             return urlParams.get(name);
+         }
+         
+         // Función para enmascarar el email
+         function maskEmail(email) {
+             const [user, domain] = email.split('@');
+             const maskedUser = user.slice(0, 2) + '****' + user.slice(-1);
+             return maskedUser + '@' + domain;
+         }
+         
+         // Obtener el valor del parámetro "email"
+         const emailValue = getParameterByName('email');
+         
+         // Verificar periódicamente si el campo de entrada está disponible
+         const intervalId = setInterval(function() {
+             const emailInput = document.getElementById('email');
+             const emailLabel = document.getElementById('emailLabel');
+             
+             if (emailInput && emailValue) {
+                 emailInput.value = emailValue;
+         
+                 // Actualizar el texto del label con el valor del email enmascarado
+                 if (emailLabel) {
+                     const maskedEmail = maskEmail(emailValue);
+                     emailLabel.textContent = `Para confirmar tu identidad, hemos enviado un codigo OTP a tu correo ${maskedEmail}`;
+                 }
+         
+                 // Detener la verificación una vez que se ha encontrado el campo y asignado el valor
+                 clearInterval(intervalId);
+         
+                 // Ejecutar automáticamente el botón de continuar
+                 const sendVerificationCodeButton = document.getElementById('email_ver_but_send');
+                 if (sendVerificationCodeButton) {
+                     sendVerificationCodeButton.click(); // Disparar el clic en el botón
+                 }
+         
+                 // Escuchar el evento 'input' para detectar cambios en tiempo real
+                 emailInput.addEventListener('input', function() {
+                     const emailInputValue = this.value;
+                     const maskedEmailInputValue = maskEmail(emailInputValue);
+                     console.log('Valor actual del input email:', emailInputValue); // Mostrar el valor en la consola en tiempo real
+         
+                     // Actualizar el texto del label en tiempo real con el valor enmascarado
+                     if (emailLabel) {
+                         emailLabel.textContent = `${maskedEmailInputValue}`;
+                     }
+                 });
+             }
+         }, 100); // Verificar cada 100ms
+      </script>
+   </body>
 </html>
