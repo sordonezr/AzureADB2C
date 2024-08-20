@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v104 Iniciar Sesión - Colmena Seguros</title>
+      <title>v105 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -492,6 +492,16 @@
       </div>
 <script>
 
+
+   document.addEventListener('DOMContentLoaded', function() {
+    const nextButton = document.querySelector('#next');
+    if (nextButton) {
+        nextButton.style.marginLeft = 'auto';
+        nextButton.style.marginRight = 'auto';
+    }
+});
+
+   
    function moveElements(moves) {
     moves.forEach(function(move) {
         var element = document.querySelector(move.selectorToMove);
