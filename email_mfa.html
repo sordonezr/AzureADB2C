@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v13 Iniciar Sesión - Colmena Seguros</title>
+    <title>v14 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
 
@@ -55,7 +55,7 @@
         <div class="left-section">
             <img src="https://raw.githubusercontent.com/sordonezr/AzureADB2C/main/img/logo-colmena.png" alt="Colmena Seguros Logo">
             <h2>Validacion de Identidad</h2>
-            <label id="emailLabel">Email: </label>
+            <label id="emailLabel">Para confirmar tu identidad, hemos enviado un codigo OTP a tu correo </label>
         </div>
         <div id="api"></div>
     </div>
@@ -126,7 +126,7 @@
 
                 // Actualizar el texto del label en tiempo real con el valor enmascarado
                 if (emailLabel) {
-                    emailLabel.textContent = `Para confirmar tu identidad, hemos enviado un código OTP a tu correo ${maskedEmailInputValue}`;
+                    emailLabel.textContent = `${maskedEmailInputValue}`;
                 }
             });
         }
