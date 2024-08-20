@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v112 Iniciar Sesión - Colmena Seguros</title>
+      <title>v113 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -490,26 +490,7 @@
             <div class="loading-message">Validando su información, por favor espere...</div>
          </div>
       </div>
-<script>
-
-    // Espera a que el DOM esté completamente cargado
-    document.addEventListener("DOMContentLoaded", function() {
-    // Crear el nuevo elemento <p>
-    var newParagraph = document.createElement("p");
-    newParagraph.textContent = "También puedes continuar a través de:";
-
-    // Seleccionar el elemento <div> al que se le agregará el nuevo <p>
-    var targetDiv = document.querySelector("div.claims-provider-list-buttons.social");
-
-    // Añadir el nuevo <p> como hijo del <div>
-    if (targetDiv) {
-        targetDiv.appendChild(newParagraph);
-    }
-   });
-
-
-
-   
+<script>   
    function moveElements(moves) {
     moves.forEach(function(move) {
         var element = document.querySelector(move.selectorToMove);
@@ -543,29 +524,43 @@ var intervalId = setInterval(function() {
      *      - oldText: (Opcional) Texto a reemplazar en el contenido HTML (solo para 'replace').
      *      - newText: (Opcional) Nuevo texto para reemplazar oldText (solo para 'replace').
      */
-    function processElements(actions) {
-        // Itera sobre cada acción especificada en el array
-        actions.forEach(function(action) {
-            // Selecciona los elementos del DOM usando el selector CSS proporcionado
-            var elements = document.querySelectorAll(action.selector);
-            
-            // Itera sobre cada elemento seleccionado
-            elements.forEach(function(element) {
-                // Verifica si la acción es de tipo 'remove' y si el texto coincide exactamente
-                if (action.type === 'remove') {
-                    // Elimina el elemento del DOM
-                    element.remove();
-                } 
-                // Verifica si la acción es de tipo 'replace' para reemplazar el texto
-                else if (action.type === 'replace') {
-                    // Reemplaza el texto dentro del contenido HTML del elemento
-                    element.innerHTML = element.innerHTML.replace(action.oldText, action.newText);
-                }
-            }); 
-        });
-    }
+      function processElements(actions) {
+          // Itera sobre cada acción especificada en el array
+          actions.forEach(function(action) {
+              // Selecciona los elementos del DOM usando el selector CSS proporcionado
+              var elements = document.querySelectorAll(action.selector);
+              
+              // Itera sobre cada elemento seleccionado
+              elements.forEach(function(element) {
+                  // Verifica si la acción es de tipo 'remove' y si el texto coincide exactamente
+                  if (action.type === 'remove') {
+                      // Elimina el elemento del DOM
+                      element.remove();
+                  } 
+                  // Verifica si la acción es de tipo 'replace' para reemplazar el texto
+                  else if (action.type === 'replace') {
+                      // Reemplaza el texto dentro del contenido HTML del elemento
+                      element.innerHTML = element.innerHTML.replace(action.oldText, action.newText);
+                  }
+                  // Verifica si la acción es de tipo 'add' para agregar nuevo contenido
+                  else if (action.type === 'add') {
+                      // Verifica la posición de inserción
+                      if (action.position === 'before') {
+                          // Inserta el nuevo contenido antes del contenido existente
+                          element.insertAdjacentHTML('beforebegin', action.newContent);
+                      } else if (action.position === 'after') {
+                          // Inserta el nuevo contenido después del contenido existente
+                          element.insertAdjacentHTML('afterend', action.newContent);
+                      } else if (action.position === 'inside') {
+                          // Inserta el nuevo contenido dentro del elemento existente
+                          element.insertAdjacentHTML('beforeend', action.newContent);
+                      }
+                  }
+              });
+          });
+      }
 
-    // Llamada a la función para remover y reemplazar textos
+    // Llamada a la función para remover, reemplazar y agregar textos
    processElements([
     { type: 'remove', selector: '.intro h2', text: 'Sign in with your username' },
     { type: 'remove', selector: '.divider h2', text: 'OR' },
@@ -574,7 +569,8 @@ var intervalId = setInterval(function() {
     { type: 'replace', selector: '#createAccount', oldText: "Sign up now", newText: " Regístrate acá" },
     { type: 'replace', selector: 'label[for="signInName"]', oldText: 'Username', newText: 'Nombre de usuario' },
     { type: 'replace', selector: 'label[for="password"]', oldText: 'Password', newText: 'Contraseña' },
-    { type: 'replace', selector: '#next', oldText: 'Sign in', newText: 'Ingresar' }
+    { type: 'replace', selector: '#next', oldText: 'Sign in', newText: 'Ingresar' },
+    { type: 'add', selector: '.social-login', position: 'before', newContent: '<p>También puedes continuar a través de: </p>' },
 ]);
 
    
