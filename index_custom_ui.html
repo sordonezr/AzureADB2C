@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v111 Iniciar Sesión - Colmena Seguros</title>
+      <title>v112 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -492,14 +492,22 @@
       </div>
 <script>
 
+    // Espera a que el DOM esté completamente cargado
+    document.addEventListener("DOMContentLoaded", function() {
+    // Crear el nuevo elemento <p>
+    var newParagraph = document.createElement("p");
+    newParagraph.textContent = "También puedes continuar a través de:";
 
-   document.addEventListener('DOMContentLoaded', function() {
-    const nextButton = document.querySelector('#next');
-    if (nextButton) {
-        nextButton.style.marginLeft = 'auto';
-        nextButton.style.marginRight = 'auto';
+    // Seleccionar el elemento <div> al que se le agregará el nuevo <p>
+    var targetDiv = document.querySelector("div.claims-provider-list-buttons.social");
+
+    // Añadir el nuevo <p> como hijo del <div>
+    if (targetDiv) {
+        targetDiv.appendChild(newParagraph);
     }
-});
+   });
+
+
 
    
    function moveElements(moves) {
