@@ -3,9 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>v9 Iniciar Sesión - Colmena Seguros</title>
+    <title>v10 Iniciar Sesión - Colmena Seguros</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+
+        /* CSS to hide the ::marker pseudo-element */
+        li.TextBox::marker {
+            content: none;
+        }
+
         
         #email_label {
         	display: none !important;
@@ -55,62 +61,23 @@
     </div>
 <script>
 
+    function hideElement(selector, property = 'visibility', value = 'hidden') {
+        const interval = setInterval(() => {
+            const element = document.querySelector(selector);
+            if (element) {
+                element.style[property] = value;
+                clearInterval(interval);
+            }
+        }, 50);
+    }
+    
+    // Ocultar elementos específicos
+    hideElement('div.intro'); // Ocultar el div con clase "intro"
+    hideElement('a.helpLink.tiny[data-help="email"]'); // Ocultar el enlace "What is this?"
+    hideElement('#cancel', 'display', 'none'); // Ocultar el botón "cancel"
+    hideElement('#email_ver_but_resend'); // Ocultar el botón "send new code"
+    hideElement('#email.textInput'); // Ocultar el input con id "email" y clase "textInput"
 
-        /**
-     * Realiza operaciones sobre elementos HTML seleccionados.
-     * @param {Array} actions - Lista de acciones a realizar sobre los elementos.
-     *    Cada objeto debe contener:
-     *      - type: Tipo de acción ('remove' para eliminar, 'replace' para reemplazar texto).
-     *      - selector: Selector CSS para identificar los elementos.
-     *      - text: (Opcional) Texto exacto que debe coincidir para eliminar un elemento (solo para 'remove').
-     *      - oldText: (Opcional) Texto a reemplazar en el contenido HTML (solo para 'replace').
-     *      - newText: (Opcional) Nuevo texto para reemplazar oldText (solo para 'replace').
-     */
-      function processElements(actions) {
-          // Itera sobre cada acción especificada en el array
-          actions.forEach(function(action) {
-              // Selecciona los elementos del DOM usando el selector CSS proporcionado
-              var elements = document.querySelectorAll(action.selector);
-              
-              // Itera sobre cada elemento seleccionado
-              elements.forEach(function(element) {
-                  // Verifica si la acción es de tipo 'remove' y si el texto coincide exactamente
-                  if (action.type === 'remove') {
-                      // Elimina el elemento del DOM
-                      element.remove();
-                  } 
-                  // Verifica si la acción es de tipo 'replace' para reemplazar el texto
-                  else if (action.type === 'replace') {
-                      // Reemplaza el texto dentro del contenido HTML del elemento
-                      element.innerHTML = element.innerHTML.replace(action.oldText, action.newText);
-                  }
-                  // Verifica si la acción es de tipo 'add' para agregar nuevo contenido
-                  else if (action.type === 'add') {
-                      // Verifica la posición de inserción
-                      if (action.position === 'before') {
-                          // Inserta el nuevo contenido antes del contenido existente
-                          element.insertAdjacentHTML('beforebegin', action.newContent);
-                      } else if (action.position === 'after') {
-                          // Inserta el nuevo contenido después del contenido existente
-                          element.insertAdjacentHTML('afterend', action.newContent);
-                      } else if (action.position === 'inside') {
-                          // Inserta el nuevo contenido dentro del elemento existente
-                          element.insertAdjacentHTML('beforeend', action.newContent);
-                      }
-                  }
-              });
-          });
-      }
-
-    // Llamada a la función para remover, reemplazar y agregar textos
-   processElements([
-    { type: 'remove', selector: 'div.intro', text: '' },
-    { type: 'remove', selector: 'a.helpLink.tiny[data-help="email"]', text: '' },
-    { type: 'remove', selector: '#cancel', text: '' },
-    { type: 'remove', selector: '#email_ver_but_resend', text: '' },
-    { type: 'remove', selector: '#email.textInput', text: '' },
-
-]);
 
 
     // Función para obtener el valor de un parámetro específico de la URL
