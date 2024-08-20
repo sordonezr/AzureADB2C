@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v19 Iniciar Sesión - Colmena Seguros</title>
+      <title>v20 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -370,10 +370,9 @@
                  { type: 'hide', selector: 'button.sendButton#email_ver_but_resend' }, // Ocultar el botón "Send new code"
                  { type: 'hide', selector: '#email.textInput' }, // Ocultar el input con id "email" y clase "textInput"
                  { type: 'hide', selector: '#email_ver_input_label' }, // Ocultar el label con id "email_ver_input_label"
+                 { type: 'replace', selector: '#email_ver_input_label', oldText: 'Verification code', newText: 'Ingresa el código de verificación' }, // Cambiar el texto del label "Verification code" por "Ingresa el código de verificación"
                  { type: 'hide', selector: 'button#continue' }, // Ocultar el botón "Continue"
                  { type: 'replace', selector: 'button.verifyButton#email_ver_but_verify', oldText: 'Verify code', newText: 'Validar código' } // Cambiar el texto del botón "Verify code" por "Validar código"
- 
-
              ]);
          
              clearInterval(intervalIdnew); // Detener el intervalo una vez que se haya ejecutado la operación
