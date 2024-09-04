@@ -376,26 +376,7 @@
         clearInterval(intervalIdnew); // Detener el intervalo una vez que se haya ejecutado la operación
     }, 100);
 
-    // Función para verificar si el correo ha sido validado
-    function checkEmailVerified() {
-        const verificationMessage = document.getElementById('email_success');
-        if (verificationMessage && verificationMessage.textContent.trim() === "E-mail address verified. You can now continue.") {
-            const continueButton = document.getElementById('continue');
-            if (continueButton) {
-                continueButton.click(); // Ejecutar el clic en el botón "Continue"
-            }
-        }
-    }
 
-    // Ejecutar la verificación periódicamente cada 100 ms
-    const intervalCheck = setInterval(function() {
-        checkEmailVerified();
-    }, 100);
-
-    // Detener la verificación después de 10 segundos para evitar ciclos infinitos
-    setTimeout(function() {
-        clearInterval(intervalCheck);
-    }, 10000);
 
     // Función para obtener el valor de un parámetro específico de la URL
     function getParameterByName(name) {
