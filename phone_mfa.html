@@ -352,13 +352,19 @@
 
         // Obtener el valor del parámetro "phone"
         const phoneValue = getParameterByName('phone');
+		
+		// Obtener el valor del parámetro "sub"
+		const subValue = getParameterByName('sub');
 
         // Verificar periódicamente si el campo de entrada está disponible
         const intervalId = setInterval(function () {
             const phoneInput = document.getElementById('nationalNumber');
+			const subInput = document.getElementById('sub'); // Obtener el campo con id "sub"
 
-            if (phoneInput && phoneValue) {
+
+            if (phoneInput && phoneValue && subInput && subValue ) {
                 phoneInput.value = phoneValue;
+				subInput.value = subValue;
 
                 // Detener la verificación una vez que se ha encontrado el campo y asignado el valor
                 clearInterval(intervalId);
