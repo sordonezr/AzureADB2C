@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v115 Iniciar Sesión - Colmena Seguros</title>
+      <title>v116 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -618,16 +618,11 @@ var intervalId = setInterval(function() {
             // Construye la URL de redirección de manera dinámica con los parámetros obtenidos
             url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenant}.onmicrosoft.com/oauth2/v2.0/authorize?p=${encodeURIComponent(selectedParams.p)}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
 
-			// Agrega el campo "sub" a la URL
-			if (result.sub) {
-				url += `&sub=${encodeURIComponent(result.sub)}`;
-			}
-
             // Agrega el parámetro correspondiente según el radio button seleccionado
             if (selectedMethod === 'email' && result.email) {
-                url += `&email=${encodeURIComponent(result.email)}`;
+		url += `&email=${encodeURIComponent(result.email)}&sub=${encodeURIComponent(result.sub)}`;
             } else if (selectedMethod === 'phone' && result.phone) {
-                url += `&phone=${encodeURIComponent(result.phone)}`;
+		url += `&phone=${encodeURIComponent(result.phone)}&sub=${encodeURIComponent(result.sub)}`;
             }
 
             // Redirige al usuario o muestra un error si no se pudo construir la URL
