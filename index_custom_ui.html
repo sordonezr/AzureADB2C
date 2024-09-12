@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>v116 Iniciar Sesión - Colmena Seguros</title>
+      <title>v114 Iniciar Sesión - Colmena Seguros</title>
       <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
       <style>
 
@@ -620,9 +620,9 @@ var intervalId = setInterval(function() {
 
             // Agrega el parámetro correspondiente según el radio button seleccionado
             if (selectedMethod === 'email' && result.email) {
-		url += `&email=${encodeURIComponent(result.email)}&sub=${encodeURIComponent(result.sub)}`;
+                url += `&email=${encodeURIComponent(result.email)}`;
             } else if (selectedMethod === 'phone' && result.phone) {
-		url += `&phone=${encodeURIComponent(result.phone)}&sub=${encodeURIComponent(result.sub)}`;
+                url += `&phone=${encodeURIComponent(result.phone)}`;
             }
 
             // Redirige al usuario o muestra un error si no se pudo construir la URL
