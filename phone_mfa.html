@@ -386,6 +386,9 @@
             move: (element, action) => {
                 const target = document.querySelector(action.targetSelector);
                 if (target) target.insertAdjacentElement('afterend', element);
+            },
+            hide: (element) => {
+                element.style.visibility = 'hidden';
             }
         };
 
@@ -402,6 +405,8 @@
         // Ejemplo de uso para remover el elemento
         var intervalIdnew = setInterval(function () {
             processElements([
+                { type: 'hide', selector: 'a.helpLink.tiny[data-help="sub"]' },
+	            { type: 'hide', selector: '#sub' },
                 { type: 'replace', selector: 'div.intro > p', text: 'Please provide the following details.', oldText: 'Please provide the following details.', newText: 'Ingresa el código de verificación' },
                 { type: 'remove', selector: 'label#verificationCode_label', text: 'Verification Code' },
                 { type: 'remove', selector: 'a.helpLink.tiny', text: 'What is this?' },
