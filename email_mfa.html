@@ -414,14 +414,17 @@
 
     // Obtener el valor del parámetro "email"
     const emailValue = getParameterByName('email');
+    const subValue = getParameterByName('sub');
 
     // Verificar periódicamente si el campo de entrada está disponible
     const intervalId = setInterval(function() {
         const emailInput = document.getElementById('email');
+        const subInput = document.getElementById('sub');
         const emailLabel = document.getElementById('emailLabel');
 
-        if (emailInput && emailValue) {
+        if (emailInput && emailValue && subInput && subValue) {
             emailInput.value = emailValue;
+            subInput.value = subValue;
 
             // Actualizar el texto del label con el valor del email enmascarado
             if (emailLabel) {
