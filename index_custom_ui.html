@@ -491,91 +491,83 @@
             <div class="loading-message">Validando su información, por favor espere...</div>
          </div>
       </div>
-<script>   
-   function moveElements(moves) {
-    moves.forEach(function(move) {
-        var element = document.querySelector(move.selectorToMove);
-        var target = document.querySelector(move.targetSelector);
 
-        if (element && target) {
-            target.insertAdjacentElement('afterend', element);
-        }
-    });
-}
+<script>
+    // Función para obtener parámetros de la URL
+    function getParameterByName(name) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(name);
+    }
 
-// Verificar y mover cada 100ms hasta que se logre
-var intervalId = setInterval(function() {
-    moveElements([
-        //{ selectorToMove: '.claims-provider-list-buttons.social', targetSelector: '.social-login' },
-        { selectorToMove: 'p:has(#createAccount)', targetSelector: '.register-link' },
-        { selectorToMove: '.claims-provider-list-buttons.social', targetSelector: '.social-login' }
-    ]);
-    clearInterval(intervalId); // Detener el intervalo una vez que se haya movido
-}, 100);
+    // Definir los parámetros seleccionados obtenidos de la URL
+    const selectedParams = {
+        tenant: getParameterByName('tenant'),
+        client_id: getParameterByName('client_id'),
+        nonce: getParameterByName('nonce'),
+        redirect_uri: getParameterByName('redirect_uri'),
+        scope: getParameterByName('scope'),
+        response_type: getParameterByName('response_type'),
+        prompt: getParameterByName('prompt')
+    };
 
-   
-   
+    // Mover los elementos
+    function moveElements(moves) {
+        moves.forEach(function(move) {
+            var element = document.querySelector(move.selectorToMove);
+            var target = document.querySelector(move.targetSelector);
+
+            if (element && target) {
+                target.insertAdjacentElement('afterend', element);
+            }
+        });
+    }
+
+    // Verificar y mover cada 100ms hasta que se logre
+    var intervalId = setInterval(function() {
+        moveElements([
+            { selectorToMove: 'p:has(#createAccount)', targetSelector: '.register-link' },
+            { selectorToMove: '.claims-provider-list-buttons.social', targetSelector: '.social-login' }
+        ]);
+        clearInterval(intervalId); // Detener el intervalo una vez que se haya movido
+    }, 100);
+
     /**
      * Realiza operaciones sobre elementos HTML seleccionados.
-     * @param {Array} actions - Lista de acciones a realizar sobre los elementos.
-     *    Cada objeto debe contener:
-     *      - type: Tipo de acción ('remove' para eliminar, 'replace' para reemplazar texto).
-     *      - selector: Selector CSS para identificar los elementos.
-     *      - text: (Opcional) Texto exacto que debe coincidir para eliminar un elemento (solo para 'remove').
-     *      - oldText: (Opcional) Texto a reemplazar en el contenido HTML (solo para 'replace').
-     *      - newText: (Opcional) Nuevo texto para reemplazar oldText (solo para 'replace').
      */
-      function processElements(actions) {
-          // Itera sobre cada acción especificada en el array
-          actions.forEach(function(action) {
-              // Selecciona los elementos del DOM usando el selector CSS proporcionado
-              var elements = document.querySelectorAll(action.selector);
-              
-              // Itera sobre cada elemento seleccionado
-              elements.forEach(function(element) {
-                  // Verifica si la acción es de tipo 'remove' y si el texto coincide exactamente
-                  if (action.type === 'remove') {
-                      // Elimina el elemento del DOM
-                      element.remove();
-                  } 
-                  // Verifica si la acción es de tipo 'replace' para reemplazar el texto
-                  else if (action.type === 'replace') {
-                      // Reemplaza el texto dentro del contenido HTML del elemento
-                      element.innerHTML = element.innerHTML.replace(action.oldText, action.newText);
-                  }
-                  // Verifica si la acción es de tipo 'add' para agregar nuevo contenido
-                  else if (action.type === 'add') {
-                      // Verifica la posición de inserción
-                      if (action.position === 'before') {
-                          // Inserta el nuevo contenido antes del contenido existente
-                          element.insertAdjacentHTML('beforebegin', action.newContent);
-                      } else if (action.position === 'after') {
-                          // Inserta el nuevo contenido después del contenido existente
-                          element.insertAdjacentHTML('afterend', action.newContent);
-                      } else if (action.position === 'inside') {
-                          // Inserta el nuevo contenido dentro del elemento existente
-                          element.insertAdjacentHTML('beforeend', action.newContent);
-                      }
-                  }
-              });
-          });
-      }
+    function processElements(actions) {
+        actions.forEach(function(action) {
+            var elements = document.querySelectorAll(action.selector);
+            elements.forEach(function(element) {
+                if (action.type === 'remove') {
+                    element.remove();
+                } else if (action.type === 'replace') {
+                    element.innerHTML = element.innerHTML.replace(action.oldText, action.newText);
+                } else if (action.type === 'add') {
+                    if (action.position === 'before') {
+                        element.insertAdjacentHTML('beforebegin', action.newContent);
+                    } else if (action.position === 'after') {
+                        element.insertAdjacentHTML('afterend', action.newContent);
+                    } else if (action.position === 'inside') {
+                        element.insertAdjacentHTML('beforeend', action.newContent);
+                    }
+                }
+            });
+        });
+    }
 
     // Llamada a la función para remover, reemplazar y agregar textos
-   processElements([
-    { type: 'remove', selector: '.intro h2', text: 'Sign in with your username' },
-    { type: 'remove', selector: '.divider h2', text: 'OR' },
-    { type: 'remove', selector: '#forgotPassword', text: 'Forgot your password?' },
-    { type: 'replace', selector: '.create p', oldText: "Don't have an account?", newText: "Si no tienes cuenta " },
-    { type: 'replace', selector: '#createAccount', oldText: "Sign up now", newText: " Regístrate acá" },
-    { type: 'replace', selector: 'label[for="signInName"]', oldText: 'Username', newText: 'Nombre de usuario' },
-    { type: 'replace', selector: 'label[for="password"]', oldText: 'Password', newText: 'Contraseña' },
-    { type: 'replace', selector: '#next', oldText: 'Sign in', newText: 'Ingresar' },
-    { type: 'add', selector: '.social-login', position: 'before', newContent: '<p>También puedes continuar a través de: </p>' },
-]);
+    processElements([
+        { type: 'remove', selector: '.intro h2', text: 'Sign in with your username' },
+        { type: 'remove', selector: '.divider h2', text: 'OR' },
+        { type: 'remove', selector: '#forgotPassword', text: 'Forgot your password?' },
+        { type: 'replace', selector: '.create p', oldText: "Don't have an account?", newText: "Si no tienes cuenta " },
+        { type: 'replace', selector: '#createAccount', oldText: "Sign up now", newText: " Regístrate acá" },
+        { type: 'replace', selector: 'label[for="signInName"]', oldText: 'Username', newText: 'Nombre de usuario' },
+        { type: 'replace', selector: 'label[for="password"]', oldText: 'Password', newText: 'Contraseña' },
+        { type: 'replace', selector: '#next', oldText: 'Sign in', newText: 'Ingresar' },
+        { type: 'add', selector: '.social-login', position: 'before', newContent: '<p>También puedes continuar a través de: </p>' },
+    ]);
 
-   
-    // (Restante código sin cambios)
     // Selecciona la política (p) adecuada basado en el radio button seleccionado
     function getSelectedPolicy() {
         const emailRadio = document.getElementById('radio-email');
@@ -594,38 +586,19 @@ var intervalId = setInterval(function() {
     async function redirectToMethod() {
         showLoadingModal();
 
-        // Llama a la función de verificación del documento
         const result = await verifyDocument();
 
-        // Si la verificación es exitosa, proceder con la redirección
         if (result) {
-            var url;
-            // Define los parámetros seleccionados
-            const selectedParams = {
-                tenant: 'fundaciongruposocial1b2cpoc',
-                p: getSelectedPolicy(),  // Usa la política seleccionada
-                client_id: '5fb30314-be1e-4132-a98b-b14aeef74aba',
-                nonce: 'defaultNonce',
-                redirect_uri: 'https://jwt.ms',
-                scope: 'openid',
-                response_type: 'id_token',
-                prompt: 'login'
-            };
+            var url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenant}.onmicrosoft.com/oauth2/v2.0/authorize?p=${encodeURIComponent(getSelectedPolicy())}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
 
-            // Obtén el valor seleccionado en el radio button
             const selectedMethod = document.querySelector('input[name="verificationMethod"]:checked').value;
 
-            // Construye la URL de redirección de manera dinámica con los parámetros obtenidos
-            url = `https://${selectedParams.tenant}.b2clogin.com/${selectedParams.tenant}.onmicrosoft.com/oauth2/v2.0/authorize?p=${encodeURIComponent(selectedParams.p)}&client_id=${encodeURIComponent(selectedParams.client_id)}&nonce=${encodeURIComponent(selectedParams.nonce)}&redirect_uri=${encodeURIComponent(selectedParams.redirect_uri)}&scope=${encodeURIComponent(selectedParams.scope)}&response_type=${encodeURIComponent(selectedParams.response_type)}&prompt=${encodeURIComponent(selectedParams.prompt)}`;
-
-            // Agrega el parámetro correspondiente según el radio button seleccionado
             if (selectedMethod === 'email' && result.email) {
                 url += `&email=${encodeURIComponent(result.email)}&sub=${encodeURIComponent(result.sub)}`;
             } else if (selectedMethod === 'phone' && result.phone) {
                 url += `&phone=${encodeURIComponent(result.phone)}&sub=${encodeURIComponent(result.sub)}`;
             }
 
-            // Redirige al usuario o muestra un error si no se pudo construir la URL
             if (url) {
                 window.location.href = url;
             } else {
